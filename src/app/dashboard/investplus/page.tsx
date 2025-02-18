@@ -1,13 +1,13 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
-import { Bell, Headphones, ChevronLeft } from "lucide-react";
-import Image from "next/image";
 import { Box, Grid2 } from "@mui/material";
 import CommonBackButton from "@/components/ui/CommonBackButton";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router =useRouter()
   const investmentPlans = [
     {
       title: "Walmart Fund 120 days",
@@ -58,8 +58,11 @@ export default function Home() {
             <div style={{
               boxShadow: "-11px 20px 24px 0px #00000026"
 
-            }} className="border cursor-pointer border-[#DCDCEB] absolute bottom-[-30px] right-4 bg-white px-4 py-3 rounded-lg">
-              <span className="text-[#0071CE] font-[500] text-[20px] md:text-[30px] ">
+            }}
+            onClick={()=>router.push("/dashboard/invest-record")}
+            
+            className="border cursor-pointer border-[#DCDCEB] absolute bottom-[-30px] right-4 bg-white px-4 py-3 rounded-lg">
+              <span  className="text-[#0071CE] font-[500] text-[20px] md:text-[30px] ">
                 Investment Record
               </span>
             </div>
@@ -162,7 +165,7 @@ export default function Home() {
                         <span className="font-[700]">{plan.interest}</span>{" "}
                       </p>
                     </div>
-                    <Button className="w-full bg-transparent border border-[#0071CE] text-[#0071CE] hover:text-white rounded-[11px] text-[20px] font-[700] hover:bg-[#0071CE] h-[60px] ">
+                    <Button  onClick={()=>router.push("/dashboard/invest-confirm")} className="w-full bg-transparent border border-[#0071CE] text-[#0071CE] hover:text-white rounded-[11px] text-[20px] font-[700] hover:bg-[#0071CE] h-[60px] ">
                       Invest Now
                     </Button>
                   </div>
