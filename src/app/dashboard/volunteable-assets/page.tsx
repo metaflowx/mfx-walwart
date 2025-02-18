@@ -37,7 +37,7 @@ export default function page() {
   return (
     <Box>
 
-        <CommonBackButton title='Rechange Select' />
+        <CommonBackButton title='Recharge Select' />
 
         <Grid2 container spacing={3} mt={4} >
             {assestList.map((item,index)=>{
