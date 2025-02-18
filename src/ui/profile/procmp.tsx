@@ -149,7 +149,7 @@ const Listright = [
 const Procmp = () => {
     return (
         <Box  >
-            <Container>
+            <Container maxWidth={'xl'}>
                 <Box sx={{
                     backgroundColor: '#0071CE',
                     padding: '10px',
