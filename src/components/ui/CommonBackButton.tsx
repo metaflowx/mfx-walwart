@@ -3,9 +3,11 @@ import { Box, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-export default function CommonBackButton({title}:{title:string}) {
+export default function CommonBackButton({title,isIcon}:{title:string,isIcon?:any}) {
       const router =useRouter()
   return (
+    <div className='flex justify-between'>
+
     <div className='flex items-center'>
 
         <Box onClick={()=>router.back()} style={{cursor:"pointer"}} >
@@ -20,6 +22,11 @@ export default function CommonBackButton({title}:{title:string}) {
             fontSize:"40px"
         }} >{title}</Typography>
       
+    </div>
+    {isIcon && (
+
+    <img src="/images/withdraw/calender.png" style={{width:"40px",objectFit:"contain"}} />
+    )}
     </div>
   )
 }
