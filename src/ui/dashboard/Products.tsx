@@ -17,10 +17,23 @@ const products = [
 
 const Products = () => {
   return (
-    <Box>
-      <Typography variant="h4" sx={{ fontWeight: 700, color: "#0071CE", fontSize: "24px", mt: 2 }}>
+    <Box mt={2} >
+     <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",pb:4}}  >
+     <Typography variant="h4" sx={{ fontWeight: 700, color: "#0071CE", fontSize: "24px", mt: 2 }}>
         Products
       </Typography>
+      <Button sx={{
+        border: "1px solid #DCDCEB",
+        borderRadius:"12px",
+        height:"50px",
+        color:"#0071CE",
+        fontSize:"16px",
+        fontWeight:600
+      }} >
+        View All
+      </Button>
+    
+     </Box>
 
       {/* Swiper component for auto sliding */}
       <Swiper
