@@ -16,9 +16,9 @@ const QuickActions = () => {
 
   return (
    <Container maxWidth="md" >
-     <Grid2 spacing={2} container mt={3} >
+     <Grid2 spacing={2} container mt={3} sx={{background: "#FFFFFF",borderRadius:"20px"}} >
       {actions.map(({ label, icon }) => (
-        <Grid2 size={{ xs: 6 }}>
+        <Grid2 key={`abc ${label}`} size={{ xs: 6 }}>
           <Box key={label} className="w-full py-3   gap-2 flex  items-center">
             <img src={icon} />
             {label}

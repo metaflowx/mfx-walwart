@@ -3,17 +3,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation,Pagination,Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import 'swiper/css';
-import 'swiper/css/pagination';
+
 
 const Hero = () => {
   return (
     <Box sx={{ width: '100%', borderRadius: '16px', overflow: 'hidden', mt: 2 }}>
       <Swiper
-        modules={[Pagination, Autoplay]}
+        modules={[Pagination, Autoplay,Navigation]}
         slidesPerView={1}
-        loop={true} // Enables infinite looping
-        pagination={{ clickable: true }} // Enables indicators
+        loop={true} 
+        pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }} // Auto slide with infinite loop
       >
         {[1, 2, 3].map((index) => (

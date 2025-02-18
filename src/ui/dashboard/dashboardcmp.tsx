@@ -4,6 +4,7 @@ import Hero from "./Hero";
 import Trending from "./Trending";
 import Products from "./Products";
 import QuickActions from "./QuickActions";
+import MemberList from "./MemberList";
 
 
 
@@ -16,6 +17,7 @@ const Dashboardcmp = () => {
      <QuickActions />
      <Trending />
      <Products />
+     <MemberList />
     
       </Box>
     </>
