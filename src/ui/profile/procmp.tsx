@@ -148,9 +148,7 @@ const Listright = [
 
 const Procmp = () => {
     return (
-        <Box sx={{
-            marginTop: '4rem'
-        }}>
+        <Box  >
             <Container>
                 <Box sx={{
                     backgroundColor: '#0071CE',
@@ -176,14 +174,14 @@ const Procmp = () => {
                                     <Image src={logo} alt={""} width={60} height={60} />
                                 </Box>
                                 <Box>
-                                    <Typography variant="h5" fontWeight={500}>logiknwd@gmail.com</Typography>
+                                    <Typography variant="h5" fontWeight={500} color="#fff">logiknwd@gmail.com</Typography>
                                     <Box sx={{
                                         display: 'flex',
                                         gap: '10px',
                                         alignItems: 'center',
                                         marginTop: '8px'
                                     }}>
-                                        <Typography>Invitation Code</Typography>
+                                        <Typography color="#fff">Invitation Code</Typography>
                                         <AddressCopy text={"667520"} addresstext={"667520"} hrefLink={""} />
                                     </Box>
                                 </Box>

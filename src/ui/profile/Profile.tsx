@@ -11,7 +11,7 @@ export default function Profile() {
   return (
     <>
       <Box>
-        <Navbar />
+        
         <Procmp/>
       </Box>
     </>
