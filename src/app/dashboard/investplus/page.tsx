@@ -58,7 +58,7 @@ export default function Home() {
             <div style={{
               boxShadow: "-11px 20px 24px 0px #00000026"
 
-            }} className="border border-[#DCDCEB] absolute bottom-[-30px] right-4 bg-white px-4 py-3 rounded-lg">
+            }} className="border cursor-pointer border-[#DCDCEB] absolute bottom-[-30px] right-4 bg-white px-4 py-3 rounded-lg">
               <span className="text-[#0071CE] font-[500] text-[20px] md:text-[30px] ">
                 Investment Record
               </span>
