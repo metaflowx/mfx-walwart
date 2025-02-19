@@ -22,13 +22,14 @@ export default function MovieCard({products}:{products?:any}) {
     breakpoints={{
       1200: { slidesPerView: 3 },
       900: { slidesPerView: 2 },
-      600: { slidesPerView: 1 },
+      200: { slidesPerView: 1 },
+
     }}
     
   >
-    {products.map((product:any) => (
-         <SwiperSlide key={product.title}>
-         <Grid2
+    {products.map((product:any,index:number) => (
+         <SwiperSlide key={index}>
+         <Box
 
            sx={{
              borderRadius: "30px",
@@ -90,7 +91,7 @@ export default function MovieCard({products}:{products?:any}) {
                </Button>
              </CardContent>
            </Card>
-         </Grid2>
+         </Box>
        </SwiperSlide>
         ))}
 

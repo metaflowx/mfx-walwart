@@ -1,10 +1,6 @@
+"use client"
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, Grid2, Rating, Box } from '@mui/material';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Autoplay, Navigation } from 'swiper/modules';
+import {  Typography, Button, Box } from '@mui/material';
 import MovieCard from './MovieCard';
 
 

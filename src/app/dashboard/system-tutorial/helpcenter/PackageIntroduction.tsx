@@ -86,7 +86,7 @@ value2:"Total Income: 225.6 USDT"
         {dataList.map((item,index)=>{
             return(
                 <Grid2 size={{
-                    xs:6,sm:4,md:3
+                    xs:12,sm:6,md:3
                 }} >
 
                     <Box sx={{

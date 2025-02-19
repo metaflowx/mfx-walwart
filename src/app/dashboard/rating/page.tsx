@@ -58,7 +58,7 @@ export default function page() {
         </button>
       </div>
 
-      <h3 className="text-[#0071CE]  text-[40px] font-[700] py-3 ">
+      <h3 className="text-[#0071CE] text-[20px]  md:text-[40px] font-[700] py-3 ">
         Related Recommendations
       </h3>
 

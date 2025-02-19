@@ -39,7 +39,7 @@ export default function page() {
               <Grid2 size={{ xs: 4 }}>
                 <button
                   onClick={() => setActiveTab(item.val)}
-                  className={`w-full h-[70px] rounded-[11px] text-[20px] font-[700] ${
+                  className={`w-full h-[70px] rounded-[11px] text-[14px] md:text-[20px] font-[700] ${
                     item.val === activeTab
                       ? "bg-[#0071CE] border border-[#0071CE] text-white "
                       : "text-[#0071CE]"
