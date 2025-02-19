@@ -10,3 +10,11 @@ export interface TeamReward {
     st: number;
     lastClaim: string;
   }
+
+  export interface LevelData {
+    totalHeadcount: number;
+    numberOfActive: number;
+    teamTopUp: number;
+    totalReturn: number;
+    todaysEarnings: number;
+  }
