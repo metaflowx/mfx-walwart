@@ -80,7 +80,7 @@ const DropdownList = () => {
         <StyledFormControl>
             <StyledSelect
                 value={selectedCurrency}
-                onChange={handleChange}
+                // onChange={handleChange}
                 displayEmpty
                 IconComponent={(props) => <ExpandMoreIcon {...props} />}  
                 MenuProps={{ sx: menuStyles }}  
