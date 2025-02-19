@@ -52,8 +52,8 @@ export default function Home() {
         <div className="relative mb-8 pt-2 ">
           <img src="/images/invest/investbg.png" className="w-full" />
          
-            <div className="absolute bottom-[-80px] left-6">
-              <img src="/images/invest/invest-icon.png" />
+            <div className="absolute bottom-[-40px] md:bottom-[-80px] left-6">
+              <img src="/images/invest/invest-icon.png" className="w-[100px] md:w-full" />
             </div>
             <div style={{
               boxShadow: "-11px 20px 24px 0px #00000026"
@@ -71,7 +71,7 @@ export default function Home() {
 
         {/* Description */}
         <div className="mb-8 pt-[80px] ">
-          <h2 className="text-[20px] md:text-[50px] font-[700] text-[#0071CE]  mb-4">
+          <h2 className="text-[20px] md:text-[30px] lg:text-[50px] font-[700] text-[#0071CE]  mb-4">
             Walmart: Your Trusted Shopping Destination!
           </h2>
           <p className="text-[#110229] text-[18px] font-[400] mb-4">
@@ -123,7 +123,7 @@ export default function Home() {
           </h2>
           <Grid2 container spacing={3}>
             {investmentPlans.map((plan, index) => (
-              <Grid2 key={index} size={{ xs: 12, sm: 6 }}>
+              <Grid2 key={index} size={{ xs: 12, md: 6 }}>
                 <Box
                   sx={{
                     border: "1.5px solid #DCDCEB",

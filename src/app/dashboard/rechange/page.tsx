@@ -26,7 +26,7 @@ export default function page() {
         {assestList.map((item, index) => {
           return (
             <Grid2
-              size={{ xs: 12, sm: 6 }}
+              size={{ xs: 12, md: 6 }}
               sx={{
                 border: "1.5px solid #DCDCEB",
                 borderRadius: "20px",

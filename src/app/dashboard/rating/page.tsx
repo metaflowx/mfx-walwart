@@ -6,7 +6,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 import MovieCard from "@/ui/dashboard/MovieCard";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 export default function page() {
+  const router = useRouter()
   const products = [
     {
       title: "Róise & Frank",
@@ -35,12 +38,19 @@ export default function page() {
     }, // Added extra product for testing
   ];
   return (
-    <div>
+    <div className="relative" >
+      <div onClick={()=>router.back()} className="cursor-pointer left-[20px] top-[20px] absolute flex justify-center items-center bg-[#E8F7FF] h-[40px] w-[40px] border border-[#E8F7FF] rounded-full ">
+
+        <ChevronLeft color="#000" />
+
+      </div>
       <img src="/images/rating/rating.png" className="w-full" />
 
       <div className="text-[#110229] pl-5 text-[18px] font-[400] space-y-3 pt-3 ">
+        <div>
         <p>Type：Trailer</p>
         <p>Director：Noah Luke</p>
+        </div>
 
         <h3 className=" font-[700] ">Róise & Frank</h3>
         <p>
@@ -53,12 +63,12 @@ export default function page() {
           balance.
         </p>
 
-        <button className="border border-[#0071CE] rounded-[12px] h-[50px] w-[322px] ">
+        <button className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
           Rating immediately
         </button>
       </div>
 
-      <h3 className="text-[#0071CE]  text-[40px] font-[700] py-3 ">
+      <h3 className="text-[#0071CE] text-[20px]  md:text-[40px] font-[700] py-3 ">
         Related Recommendations
       </h3>
 

@@ -10,7 +10,7 @@ const Trending = () => {
       </Typography>
       <Grid2 container spacing={2} sx={{ mt: 2 }}>
         {trendingItems.map((item) => (
-          <Grid2 size={{ xs: 4 }} key={item}>
+          <Grid2 size={{ xs: 12,sm:4 }} key={item}>
             <Card
               sx={{
                 display: "flex",
