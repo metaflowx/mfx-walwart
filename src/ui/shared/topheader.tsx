@@ -78,15 +78,21 @@ const Topheader = () => {
               </ul>
 
               <div className="flex items-center gap-4">
-              <img src="/images/home/notification.png" className="w-[49px] h-[49px] " />
+                <img
+                  src="/images/home/notification.png"
+                  className="w-[49px] h-[49px] "
+                />
 
-<img src="/images/auth/help.png" className="w-[49px] h-[49px] " />
+                <img
+                  src="/images/auth/help.png"
+                  className="w-[49px] h-[49px] "
+                />
 
                 <div className="relative pl-2">
                   <select
                     value={selectedLanguage}
                     onChange={(e) => changeLanguage(e.target.value)}
-                   className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-8 pr-8"
+                    className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-8 pr-8"
                   >
                     <option value="en">English</option>
                     <option value="ar">Arabic</option>

@@ -4,7 +4,7 @@ import { generateMetadata } from "@/utils";
 import { base, heading } from "@/constants";
 import { Toaster } from "@/components/ui/sonner";
 import { subheading } from "@/constants/fonts";
-import {Poppins } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import 'animate.css';
 
 // Importing Prompt font
@@ -25,10 +25,10 @@ export default function RootLayout({
             <body
                 className={cn(
                     "min-h-screen text-foreground antialiased font-heading overflow-x-hidden !scrollbar-hide",
-                    
+
                 )}
             >
-                  <div id="google_translate_element" style={{ display: "none" }}></div>
+                <div id="google_translate_element" style={{ display: "none" }}></div>
                 <Toaster richColors theme="dark" position="top-right" />
                 {children}
             </body>
