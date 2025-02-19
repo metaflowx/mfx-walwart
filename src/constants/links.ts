@@ -2,11 +2,11 @@ export const NAV_LINKS = [
    
     {
         name: "Home",
-        href: "#"
+        href: "/dashboard"
     },
     {
         name: "Task",
-        href: "#"
+        href: "/dashboard/task"
     },
     {
         name: "Invest",

@@ -1,7 +1,9 @@
 import { Box, Grid2, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function MemberList() {
+    const router=useRouter()
   const listData = [
     {
       title: "VIP 6",
@@ -39,11 +41,14 @@ export default function MemberList() {
             return (
               <Grid2 key={index} size={{ xs: 12, sm: 6 }}>
                 <Box
+                onClick={()=>router.push("/dashboard/member-list")}
+
                   sx={{
                     border: "1px solid #1DAEFF",
                     boxShadow: "0px 17px 50px 0px #8F90A652",
                     borderRadius: "16px",
                     padding: "10px",
+                    cursor:"pointer"
                   }}
                 >
                   <Box
