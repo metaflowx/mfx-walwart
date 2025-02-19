@@ -47,8 +47,10 @@ export default function page() {
       <img src="/images/rating/rating.png" className="w-full" />
 
       <div className="text-[#110229] pl-5 text-[18px] font-[400] space-y-3 pt-3 ">
+        <div>
         <p>Type：Trailer</p>
         <p>Director：Noah Luke</p>
+        </div>
 
         <h3 className=" font-[700] ">Róise & Frank</h3>
         <p>
@@ -61,7 +63,7 @@ export default function page() {
           balance.
         </p>
 
-        <button className="border border-[#0071CE] rounded-[12px] h-[50px] w-[322px] ">
+        <button className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
           Rating immediately
         </button>
       </div>
