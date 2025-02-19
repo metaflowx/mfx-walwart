@@ -1,21 +1,13 @@
-import ReferralDashbaord from '@/ui/referral/ReferralDashbaord'
+import ReferralDashbaord from '@/ui/referral/referralcmp'
 import React from 'react'
 import ReferralTable from './ReferralTable'
 import { Box } from '@mui/material'
+import Referralcmp from '@/ui/referral/referralcmp'
 
 export default function page() {
   return (
-    <div>
-
-      <ReferralDashbaord />
-
-
-      <Box pt={4}>
-
-      <ReferralTable />
-      </Box>
-
-      
-    </div>
+    <>
+      <Referralcmp />
+    </>
   )
 }
