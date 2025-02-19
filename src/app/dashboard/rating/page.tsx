@@ -6,7 +6,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 import MovieCard from "@/ui/dashboard/MovieCard";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 export default function page() {
+  const router = useRouter()
   const products = [
     {
       title: "Róise & Frank",
@@ -35,7 +38,12 @@ export default function page() {
     }, // Added extra product for testing
   ];
   return (
-    <div>
+    <div className="relative" >
+      <div onClick={()=>router.back()} className="cursor-pointer left-[20px] top-[20px] absolute flex justify-center items-center bg-[#E8F7FF] h-[40px] w-[40px] border border-[#E8F7FF] rounded-full ">
+
+        <ChevronLeft color="#000" />
+
+      </div>
       <img src="/images/rating/rating.png" className="w-full" />
 
       <div className="text-[#110229] pl-5 text-[18px] font-[400] space-y-3 pt-3 ">
