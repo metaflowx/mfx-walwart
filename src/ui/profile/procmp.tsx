@@ -22,19 +22,19 @@ const Top___list = [
         id: 1,
         Name: "Electronic wallet",
         data: "0.00",
-        href: ''
+        href: '/dashboard/electronicwallet'
     },
     {
         id: 2,
         Name: "Flexible wallet",
         data: "0.00",
-        href: ''
+        href: '/dashboard/flexiblewallet'
     },
     {
         id: 3,
         Name: "Unlock Freeze",
         data: "0",
-        href: ''
+        href: '/dashboard/unlock-recored'
     },
     {
         id: 4,
@@ -122,7 +122,7 @@ const Listright = [
         id: 2,
         Image: l7,
         Name: "Contact Customer Service",
-        href: "",
+        href: "/dashboard/contact-customer-service",
     },
     {
         id: 3,
@@ -149,7 +149,7 @@ const Listright = [
 const Procmp = () => {
     return (
         <Box  >
-            <Container maxWidth={'xl'}>
+           
                 <Box sx={{
                     backgroundColor: '#0071CE',
                     padding: '10px',
@@ -326,7 +326,7 @@ const Procmp = () => {
 
                     </Grid2>
                 </Box>
-            </Container>
+           
         </Box>
     );
 };
