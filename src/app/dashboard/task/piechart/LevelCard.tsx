@@ -70,32 +70,32 @@ export default function LevelCard({ level, data }: LevelCardProps) {
         <Grid2 container spacing={2}>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography color="text.secondary">Total headcount</Typography>
-              <Typography>{data.totalHeadcount.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Total headcount</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229" >{data.totalHeadcount.toFixed(2)}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography color="text.secondary">Number of Active</Typography>
-              <Typography>{data.numberOfActive.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Number of Active</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.numberOfActive.toFixed(2)}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography color="text.secondary">Team Top Up</Typography>
-              <Typography>{data.teamTopUp.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Team Top Up</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.teamTopUp.toFixed(2)}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography color="text.secondary">Total Return</Typography>
-              <Typography>{data.totalReturn.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Total Return</Typography>
+              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data.totalReturn.toFixed(2)}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography color="text.secondary">Today's Earnings</Typography>
-              <Typography>{data.todaysEarnings.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Today's Earnings</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.todaysEarnings.toFixed(2)}</Typography>
             </Box>
           </Grid2>
         </Grid2>

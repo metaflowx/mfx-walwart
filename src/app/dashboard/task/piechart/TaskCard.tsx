@@ -1,7 +1,10 @@
+"use client"
 import { Box, Button, Grid2, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function TaskCard() {
+    const router = useRouter()
   const dataList = [
     {
       title: "Promotion",
@@ -90,7 +93,9 @@ export default function TaskCard() {
 
                     {index === 2 && (
                       <Box>
-                       <Button sx={{
+                       <Button 
+                       onClick={()=>router.push("/dashboard/task-details")}
+                       sx={{
                         background:"#0071CE",
                         borderRadius:"52px",
                         height:"40px",
