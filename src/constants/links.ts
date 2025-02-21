@@ -10,15 +10,15 @@ export const NAV_LINKS = [
     },
     {
         name: "Invest",
-        href: "#"
+        href: "/dashboard/invest"
     },
     {
         name: "Referral",
-        href: "#"
+        href: "/dashboard/referral"
     },
     {
         name: "Profile",
-        href: "#"
+        href: "/dashboard/profile"
     },
    
 ];

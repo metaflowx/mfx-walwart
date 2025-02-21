@@ -29,7 +29,7 @@ export default function TaskCard() {
           return (
             <Grid2
               key={index}
-              size={{ xs: 12, sm: 6, md: 4 }}
+              size={{ xs: 12, sm: 12, md: 4 }}
               sx={{
                 border: "1px solid #1DAEFF",
                 boxShadow: "0px 17px 50px 0px #8F90A652",
@@ -52,7 +52,7 @@ export default function TaskCard() {
                   <Typography
                     style={{
                       color: "#000000",
-                      fontSize: "30px",
+                      fontSize: "20px",
                       fontWeight: 400,
                     }}
                   >
@@ -74,11 +74,12 @@ export default function TaskCard() {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      flexWrap:'wrap'
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: "30px",
+                        fontSize: "20px",
                         fontWeight: 700,
                         color: "#0071CE",
                       }}
@@ -98,10 +99,11 @@ export default function TaskCard() {
                        sx={{
                         background:"#0071CE",
                         borderRadius:"52px",
-                        height:"40px",
+                        padding:'8px 16px',
                         color:"#fff",
-                        fontSize:"18px",
-                        fontWeight:400
+                        fontSize:"16px",
+                        fontWeight:400,
+                        textTransform:'capitalize'
                        }} >
                         View details
                        </Button>

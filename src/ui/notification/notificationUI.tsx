@@ -3,7 +3,7 @@ import RoundTab from "./roundTab"
 
 
 
-const notificationUI = () => {
+const NotificationUI = () => {
     return (
         <>
             <Typography color="#0071CE" variant="h4" fontWeight={700}>Notification</Typography>
@@ -12,4 +12,4 @@ const notificationUI = () => {
     )
 }
 
-export default notificationUI
+export default NotificationUI

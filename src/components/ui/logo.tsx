@@ -7,7 +7,7 @@ export default function Logo() {
       <Link href="/" className="flex items-center gap-2">
               <img
                 src="/images/auth/logo.png"
-                className="w-[178px] h-[42px] sm:w-[178px] sm:h-[42px]"
+                className="w-[130px]  sm:w-[130px] "
               />
             </Link>
     </div>

@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React, { FC } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 
@@ -17,14 +18,17 @@ const data: Data[] = [
 const PieChartComp: FC = () => {
   return (
 
-    <div
+    <Box
       className='flex justify-center items-center'
-      style={{
+      sx={{
         width: '100%',
         height: '400px',
         borderRadius: '12px',
         overflow: 'hidden',
         position: 'relative',
+        '@media(max-width : 600px)':{
+          height: '200px',
+        }
       }}
     >
        
@@ -78,7 +82,7 @@ const PieChartComp: FC = () => {
         <img src="/images/task/tasklogo.png" alt="Task Logo" />
       </div>
 
-    </div>
+    </Box>
   );
 };
 
