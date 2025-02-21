@@ -10,7 +10,7 @@ const Trending = () => {
       </Typography>
       <Grid2 container spacing={2} sx={{ mt: 2 }}>
         {trendingItems.map((item) => (
-          <Grid2 size={{ xs: 12,sm:4 }} key={item}>
+          <Grid2 size={{ md : 4, xs: 12,sm:12 }} key={item}>
             <Card
               sx={{
                 display: "flex",
@@ -26,7 +26,7 @@ const Trending = () => {
               }}
             >
               <img
-                src="/images/home/icon.png"
+                src="/images/home/icon.svg"
                 alt="icon"
                 style={{width:"55px",height:"55px"}}
            

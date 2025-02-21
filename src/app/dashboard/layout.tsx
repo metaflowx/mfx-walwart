@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import Topheader from "@/ui/shared/topheader";
 import { Container } from "@mui/material";
+import MobileFooter from "@/components/marketing/mobileFooter";
 
 const prompt = Inter({
   subsets: ["latin"], // Optional
@@ -28,13 +29,14 @@ export default async function RootLayout({
         <div className="dsboard w-full">
           <Container
             maxWidth="xl"
-            className="flex-1  py-8 pt-[50px]  overflow-y-auto min-h-screen "
+            className="flex-1  py-8 pt-[50px]  overflow-y-auto min-h-screen  "
           >
             {children}
           </Container>
         </div>
 
         <Container maxWidth="xl"></Container>
+        <MobileFooter />
       </body>
     </html>
   );

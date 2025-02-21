@@ -6,7 +6,7 @@ import Wrapper from "@/components/global/wrapper";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/constants";
 import Link from "next/link";
-import MobileMenu from "@/components/marketing/mobile-menu";
+import MobileMenu from "@/components/marketing/mobileFooter";
 
 declare global {
   interface Window {
@@ -58,14 +58,14 @@ const Topheader = () => {
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">
         <MarqueHeader />
-        <Wrapper className="h-full pt-2">
+        <Wrapper className="h-full p-2">
           <div className="flex items-center justify-between h-full">
             <div className="flex items-center gap-2 sm:mt-1 mt-0">
               <Logo />
             </div>
 
-            <div className="hidden xl:flex items-center gap-8">
-              <ul className="flex items-center gap-8">
+            <div className=" xl:flex items-center gap-4 " >
+              <ul className="hidden xl:flex items-center gap-8">
                 {NAV_LINKS.map((link, index) => (
                   <li
                     style={{ fontFamily: "Prompt" }}
@@ -77,22 +77,24 @@ const Topheader = () => {
                 ))}
               </ul>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
                 <img
                   src="/images/home/notification.png"
-                  className="w-[49px] h-[49px] "
+                  className="w-[40px] h-[40px] "
                 />
 
                 <img
                   src="/images/auth/help.png"
-                  className="w-[49px] h-[49px] "
+                  className="w-[40px] h-[40px]"
+                  
                 />
 
-                <div className="relative pl-2">
+                <div className="relative ">
+                
                   <select
                     value={selectedLanguage}
                     onChange={(e) => changeLanguage(e.target.value)}
-                    className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-8 pr-8"
+                    className="bg-[#0071CE] flex justify-center items-center text-white text-[15px] font-[600] border-none rounded-[8px] max-w-fit h-[40px] cursor-pointer appearance-none pl-4 pr-8"
                   >
                     <option value="en">English</option>
                     <option value="ar">Arabic</option>
@@ -108,9 +110,10 @@ const Topheader = () => {
               </div>
             </div>
 
-            <div className="xl:hidden">
+            {/* <div className="xl:hidden">
               <MobileMenu />
-            </div>
+            </div> */}
+            
           </div>
         </Wrapper>
       </header>

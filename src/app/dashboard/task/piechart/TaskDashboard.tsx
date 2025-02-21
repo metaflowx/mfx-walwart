@@ -16,10 +16,18 @@ export default function TaskDashboard() {
   const [openCalender,setOpenCalender]=useState(false)
   return (
     <>
-    <Card sx={{ display: "flex", mb: 4, overflow: "hidden",mt:4,border: "1px solid #DCDCEB",borderRadius:"24px",boxShadow:"none" }}  >
+    <Card sx={{
+       display: "flex", mb: 4, overflow: "hidden",mt:4,border: "1px solid #DCDCEB",borderRadius:"24px",boxShadow:"none",
+       '@media(max-width : 900px)':{
+        flexWrap:'wrap'
+       } }}  >
       <CardMedia
         component="img"
-        sx={{ width: "40%", objectFit: "contain" }}
+        sx={{ width: "40%", objectFit: "contain",
+          '@media(max-width : 900px)':{
+        width:'100%'
+       }
+         }}
         image="/images/task/vrimage.png"
         alt="VR Technology"
       />

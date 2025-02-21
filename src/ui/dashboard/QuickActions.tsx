@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 const QuickActions = () => {
   const actions = [
-    { label: "Volunteable Assets", icon: "/images/home/dollar.png" ,url:"/dashboard/volunteable-assets"},
-    { label: "Withdraw", icon: "/images/home/Server.png",url:"/dashboard/withdraw" },
-    { label: "InvestPlus", icon: "/images/home/user.png",url:"/dashboard/investplus" },
-    { label: "System Tutorial", icon: "/images/home/location.png",url:"/dashboard/system-tutorial" },
+    { label: "Volunteable Assets", icon: "/images/home/dollar.svg" ,url:"/dashboard/volunteable-assets"},
+    { label: "Withdraw", icon: "/images/home/Server.svg",url:"/dashboard/withdraw" },
+    { label: "InvestPlus", icon: "/images/home/user.svg",url:"/dashboard/investplus" },
+    { label: "System Tutorial", icon: "/images/home/location.svg",url:"/dashboard/system-tutorial" },
   ];
 
   const router =useRouter()
