@@ -3,6 +3,7 @@ import Navbar from "@/components/marketing/navbar";
 import { Box, Grid2 } from "@mui/material";
 import { headers } from "next/headers";
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 interface Props {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ interface Props {
 const MarketingLayout = async ({ children }: Props) => {
   return (
     <div className="w-full">
+      <ToastContainer />
       <Navbar />
       <main className="mx-auto w-full z-40 relative px-4 md:px-12 py-6">
         <div className="border border-[#0071CE] rounded-[40px] pb-4 lg:pb-0 ">
