@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import Topheader from "@/ui/shared/topheader";
 import { Container } from "@mui/material";
 import MobileFooter from "@/components/marketing/mobileFooter";
-
+import { ToastContainer, toast } from 'react-toastify';
 const prompt = Inter({
   subsets: ["latin"], // Optional
   weight: "400", // Optional
@@ -25,6 +25,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${prompt.className} `}>
+        <ToastContainer />
         <Topheader />
         <div className="dsboard w-full">
           <Container

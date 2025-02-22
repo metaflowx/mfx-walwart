@@ -9,11 +9,13 @@ import MovieCard from "@/ui/dashboard/MovieCard";
 import { ChevronLeft } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
-import { Rating } from "@mui/material";
+import { CircularProgress, Rating } from "@mui/material";
+import { toast } from "react-toastify";
 export default function page() {
   const search =useSearchParams()
   const [taskDetails,setTaskDetails]=useState<any>("")
-  
+  const[isLoading,setIsLoading]=useState(false)
+  const[ratingStar,setRatingStar]=useState(0)
   const router = useRouter()
   const products = [
     {
@@ -66,6 +68,37 @@ export default function page() {
     const taskId=search.get("id")
     getTaskDetails(taskId)
   }, [])
+
+  const reviewHandler = async()=>{
+    try {
+      setIsLoading(true)
+      const id:any=search?.get("id")
+      const res = await apiRouterCall({
+        method:"POST",
+        endPoint:"review",
+        id:id,
+        data:{
+          rating:ratingStar
+        }
+      })
+      if(res?.status===200){
+        toast.success(res.data.message)
+        setIsLoading(false)
+      }else{
+        console.log(">>>>>>>>res87",res);
+        toast.error(res?.data.message)
+      }
+   
+      
+      setIsLoading(false)
+    } catch (error:any) {
+      console.log(">>>>>>>>>>.error",error);
+      
+      toast.error(error.response.data.message)
+      setIsLoading(false)
+      
+    }
+  }
   
 
   return (
@@ -90,11 +123,15 @@ export default function page() {
         }
         </p>
 
-        <Rating/>
+        <Rating 
+        onChange={(event, newValue:any) => {
+          setRatingStar(newValue);
+        }}
+         />
 
         <div>
-        <button className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
-          Rating immediately
+        <button onClick={()=>reviewHandler()} className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
+       {isLoading ? <CircularProgress size={24} style={{color:"#fff"}} />:"Rating immediately" }   
         </button>
         </div>
 

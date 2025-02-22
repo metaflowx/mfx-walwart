@@ -17,6 +17,8 @@ const apiConfig = {
   buyPacakgePlan: `${baseURL}/pacakage/buyPacakgePlan`,
   getActivePlan: `${baseURL}/investment/getActivePlan`,
   task: `${baseURL}/task`,
+  review: `${baseURL}/task/review`,
+
 
 
 
