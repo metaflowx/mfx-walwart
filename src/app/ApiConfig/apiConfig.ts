@@ -7,6 +7,23 @@ const apiConfig = {
   signup: `${baseURL}/user/signup`,
   login: `${baseURL}/user/login`,
   me: `${baseURL}/user/me`,
+  updatePassword: `${baseURL}/user/updatePassword`,
+
+
+  
+
+  // pacakage
+  all: `${baseURL}/pacakage/all`,
+  buyPacakgePlan: `${baseURL}/pacakage/buyPacakgePlan`,
+  getActivePlan: `${baseURL}/investment/getActivePlan`,
+  task: `${baseURL}/task`,
+
+
+
+
+
+  
+  
 
 
  

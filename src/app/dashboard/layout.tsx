@@ -1,7 +1,7 @@
-import "../../styles/globals.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
+
 import Topheader from "@/ui/shared/topheader";
 import { Container } from "@mui/material";
 import MobileFooter from "@/components/marketing/mobileFooter";
@@ -12,7 +12,7 @@ const prompt = Inter({
 });
 export const metadata: Metadata = {
   title: "Walmart Dashboard",
-  description: "Walmart Dashboard",
+ 
 };
 
 export default async function RootLayout({
@@ -20,8 +20,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headersObj = await headers();
-  const cookies = headersObj.get("cookie");
+
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${prompt.className} `}>

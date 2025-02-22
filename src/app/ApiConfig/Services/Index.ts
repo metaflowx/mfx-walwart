@@ -4,12 +4,12 @@ import apiConfigs from "../apiConfig";
 interface ApiRouterCallParams {
   method: AxiosRequestConfig["method"];
   id?: string | number;
-  endPoint: keyof typeof apiConfigs; // Ensure endPoint is a valid key of apiConfigs
+  endPoint: keyof typeof apiConfigs;
   data?: Record<string, any> | null;
   params?: Record<string, any> | null;
   token?: any;
   url?: string;
-  source?: { token: any }; // Optional cancel token for axios
+  source?: { token: any }; 
 }
 
 export const apiRouterCall = async ({
@@ -24,13 +24,13 @@ export const apiRouterCall = async ({
 }: ApiRouterCallParams): Promise<AxiosResponse<any> | undefined> => {
   const encryptedData = data ?? null;
   const encryptedParams = params ?? null;
-  console.log(">>>>>>>>>encryptedData", encryptedData);
+ 
 
   try {
     const requestUrl = url
       ? url
       : id
-      ? `${apiConfigs[endPoint]}/${id}` // Ensuring the URL is correctly typed
+      ? `${apiConfigs[endPoint]}/${id}` 
       : apiConfigs[endPoint];
 
     console.log("Request URL:", requestUrl);
@@ -44,14 +44,14 @@ export const apiRouterCall = async ({
           ? token
           : window.localStorage.getItem("token") ?? undefined,
       },
-      data: encryptedData ? encryptedData : undefined, // Send encrypted data
-      params: encryptedParams ? encryptedParams : undefined, // Send encrypted params
+      data: encryptedData ? encryptedData : undefined, 
+      params: encryptedParams ? encryptedParams : undefined,
       cancelToken: source?.token ?? undefined,
     });
 
     return response;
   } catch (error) {
-    console.log(">>>>>>>>>>>error", error);
+    
 
     if (axios.isAxiosError(error)) {
       if (error.response) {

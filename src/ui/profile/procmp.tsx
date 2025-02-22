@@ -89,15 +89,10 @@ const Listleft = [
   {
     id: 3,
     Image: l3,
-    Name: "Login Password",
-    href: "",
+    Name: "Change Password",
+    href: "/dashboard/update-password",
   },
-  {
-    id: 4,
-    Image: l4,
-    Name: "Security Password",
-    href: "",
-  },
+ 
   {
     id: 5,
     Image: l5,
@@ -119,24 +114,14 @@ const Listright = [
     Name: "Contact Customer Service",
     href: "/dashboard/contact-customer-service",
   },
-  {
-    id: 3,
-    Image: l8,
-    Name: "Switch Language",
-    href: "",
-  },
+ 
   {
     id: 4,
     Image: l9,
     Name: "Notification",
     href: "",
   },
-  {
-    id: 5,
-    Image: l10,
-    Name: "APP Download",
-    href: "",
-  },
+ 
 ];
 
 const Procmp = () => {
@@ -328,6 +313,7 @@ const Procmp = () => {
                 border: "1px solid #DCDCEB",
                 borderRadius: "12px",
                 padding: "1rem",
+                height:"100%"
               }}
             >
               {Listright.map((item, index) => (

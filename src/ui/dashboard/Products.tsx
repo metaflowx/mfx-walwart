@@ -2,17 +2,13 @@
 import React from 'react';
 import {  Typography, Button, Box } from '@mui/material';
 import MovieCard from './MovieCard';
+import taskListData from '@/app/customHooks/taskList';
 
 
-const products = [
-  { title: 'Róise & Frank', views: '51,944 views', image: '/images/home/mov1.png' },
-  { title: 'Róise & Frank', views: '51,944 views', image: '/images/home/mov2.png' },
-  { title: 'Róise & Frank', views: '51,944 views', image: '/images/home/mov3.png' },
-  { title: 'Róise & Frank', views: '51,944 views', image: '/images/home/mov1.png' }, // Added extra product for testing
-  { title: 'Róise & Frank', views: '51,944 views', image: '/images/home/mov2.png' }, // Added extra product for testing
-];
+
 
 const Products = () => {
+  const {taskList}=taskListData()
   return (
     <Box mt={2} >
      <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",pb:4}}  >
@@ -33,7 +29,7 @@ const Products = () => {
      </Box>
 
       {/* Swiper component for auto sliding */}
-      <MovieCard products={products} />
+      <MovieCard products={taskList} />
       
     </Box>
   );

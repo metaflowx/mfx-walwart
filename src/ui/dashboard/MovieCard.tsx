@@ -29,7 +29,7 @@ export default function MovieCard({ products }: { products?: any }) {
 
     >
       {products.map((product: any, index: number) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} style={{  height:"100%",}} >
           <Cardcmp product={product} />
         </SwiperSlide>
       ))}

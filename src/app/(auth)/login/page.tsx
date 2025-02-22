@@ -14,6 +14,7 @@ import React, { useState, useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
+import { serialize } from 'cookie';
 
 export default function Login() {
   const router = useRouter();
@@ -109,6 +110,13 @@ export default function Login() {
         if (res?.status === 200) {
           toast.success(res.data.message)
           window.localStorage.setItem("token",res.data.token)
+          const cookie = serialize('auth_token', res.data.token, {
+            httpOnly: false, // Protect against XSS
+            maxAge: 60 * 60 * 24, // Expiry (1 day)
+            path: '/', // Apply to all paths
+          });
+          document.cookie = cookie;
+        
           setIsLoading(false);
           router.replace("/dashboard");
         } else {
@@ -125,6 +133,20 @@ export default function Login() {
     { name: "Email", value: "email" },
     { name: "Mobile", value: "mobile" },
   ];
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {  // Check if we are on the client-side
+      const tokenCookie: any = window.localStorage.getItem('token');
+      if (tokenCookie) {
+        const tokenPayload = JSON.parse(atob(tokenCookie.split('.')[1])); // Decode JWT payload
+        const isTokenExpired = tokenPayload.exp * 1000 < Date.now();
+        if (!isTokenExpired) {
+          router.push("/dashboard");
+        }
+      }
+    }
+  }, []);
+  
 
   return (
     <Container maxWidth="md">
