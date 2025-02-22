@@ -54,7 +54,7 @@ const Cardcmp = ({product}:{product:any}) => {
           {product.title}
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Rating />
+          <Rating defaultValue={5} disabled style={{color:"#faaf00"}} />
           <Typography
             variant="body2"
             color="#110229"
