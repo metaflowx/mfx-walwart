@@ -70,7 +70,7 @@ const Topheader = () => {
                   <li
                     style={{ fontFamily: "Prompt" }}
                     key={index}
-                    className="text-[14px] text-black xl:text-[16px] object-contain font-[400]"
+                    className=" text-black text-[18px] font-[400]"
                   >
                     <Link href={link.href}>{link.name}</Link>
                   </li>
