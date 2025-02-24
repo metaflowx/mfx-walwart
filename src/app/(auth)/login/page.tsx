@@ -118,7 +118,12 @@ export default function Login() {
           document.cookie = cookie;
         
           setIsLoading(false);
-          router.replace("/dashboard");
+          if(res.data.user.role==="ADMIN"){
+            router.replace("/admin/dashboard");
+          }else{
+            router.replace("/dashboard");
+          }
+          
         } else {
           setIsLoading(false);
         }
