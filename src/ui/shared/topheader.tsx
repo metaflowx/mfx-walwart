@@ -6,41 +6,48 @@ import Wrapper from "@/components/global/wrapper";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/constants";
 import Link from "next/link";
-import MobileMenu from "@/components/marketing/mobileFooter";
 import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
     googleTranslateLoaded?: boolean;
     googleTranslateElementInit?: () => void;
+    google?: {
+      translate: {
+        TranslateElement: new (options: object, elementId: string) => void;
+      };
+    };
   }
 }
 
 const Topheader = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-const pathname=usePathname()
-  // useEffect(() => {
-  //   const addGoogleTranslate = () => {
-  //     if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
-  //       window.googleTranslateElementInit = () => {
-  //         new window.google.translate.TranslateElement(
-  //           { pageLanguage: "en", autoDisplay: false },
-  //           "google_translate_element"
-  //         );
-  //       };
+  const pathname = usePathname();
 
-  //       const script = document.createElement("script");
-  //       script.src =
-  //         "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-  //       script.async = true;
-  //       document.body.appendChild(script);
+  useEffect(() => {
+    const addGoogleTranslate = () => {
+      if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
+        window.googleTranslateElementInit = () => {
+          if (window.google && window.google.translate) {
+            new window.google.translate.TranslateElement(
+              { pageLanguage: "en", autoDisplay: false },
+              "google_translate_element"
+            );
+          }
+        };
 
-  //       window.googleTranslateLoaded = true; // Ensure it loads only once
-  //     }
-  //   };
+        const script = document.createElement("script");
+        script.src =
+          "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script.async = true;
+        document.body.appendChild(script);
 
-  //   addGoogleTranslate();
-  // }, []);
+        window.googleTranslateLoaded = true; // Ensure it loads only once
+      }
+    };
+
+    addGoogleTranslate();
+  }, []);
 
   const changeLanguage = (lang: string) => {
     setSelectedLanguage(lang);
@@ -55,9 +62,6 @@ const pathname=usePathname()
     }, 1000); // Delay ensures dropdown is ready
   };
 
-  console.log(">>>>>>>>>>>>>>pathname",pathname);
-  
-
   return (
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">
@@ -68,19 +72,24 @@ const pathname=usePathname()
               <Logo />
             </div>
 
-            <div className=" xl:flex items-center gap-4 " >
+            <div className="xl:flex items-center gap-4">
               <ul className="hidden xl:flex items-center gap-8">
-                {NAV_LINKS.map((link:any, index) => (
+                {NAV_LINKS.map((link: any, index) => (
                   <li
                     style={{ fontFamily: "Prompt" }}
                     key={index}
-                    className={`${pathname===link.href ? "text-red" :"text-black"}  text-[18px] font-[400]`}
+                    className={`${
+                      pathname === link.href ? "text-red" : "text-black"
+                    } text-[18px] font-[400]`}
                   >
-                    <Link 
-                    style={{
-                      color:pathname===link.href ? "blue":"black"
-                    }}
-                     href={link.href}>{link.name}</Link>
+                    <Link
+                      style={{
+                        color: pathname === link.href ? "blue" : "black",
+                      }}
+                      href={link.href}
+                    >
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -88,27 +97,44 @@ const pathname=usePathname()
               <div className="flex items-center gap-2">
                 <img
                   src="/images/home/notification.png"
-                  className="w-[40px] h-[40px] "
+                  className="w-[40px] h-[40px]"
                 />
 
                 <img
                   src="/images/auth/help.png"
                   className="w-[40px] h-[40px]"
-                  
                 />
 
-                <div className="relative ">
-                
-                  <select
-                    value={selectedLanguage}
-                    onChange={(e) => changeLanguage(e.target.value)}
-                    className="bg-[#0071CE] flex justify-center items-center text-white text-[15px] font-[600] border-none rounded-[8px] max-w-fit h-[40px] cursor-pointer appearance-none pl-4 pr-8"
-                  >
-                    <option value="en">English</option>
-                    <option value="ar">Arabic</option>
-                    {/* other options */}
-                    <option value="zh">Chinese</option>
-                  </select>
+                <div className="relative">
+                <select
+                  value={selectedLanguage}
+                  onChange={(e) => changeLanguage(e.target.value)}
+                  className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-8 pr-8"
+                >
+                  <option value="en">English</option>
+                  <option value="ar">Arabic</option>
+
+                  <option value="cs">Czech</option>
+                  <option value="nl">Dutch</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="hu">Hungarian</option>
+                  <option value="id">Indonesian</option>
+                  <option value="it">Italian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
+                  <option value="pl">Polish</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="ro">Romanian</option>
+                  <option value="ru">Russian</option>
+                  <option value="sk">Slovak</option>
+                  <option value="es">Spanish</option>
+                  <option value="th">Thai</option>
+                  <option value="tr">Turkish</option>
+                  <option value="vi">Vietnamese</option>
+                  <option value="zh">Chinese</option>
+                </select>
+
                   <img
                     src="/images/auth/arrow.png"
                     alt="Language Selector"
@@ -117,11 +143,6 @@ const pathname=usePathname()
                 </div>
               </div>
             </div>
-
-            {/* <div className="xl:hidden">
-              <MobileMenu />
-            </div> */}
-            
           </div>
         </Wrapper>
       </header>
