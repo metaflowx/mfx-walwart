@@ -1,166 +1,204 @@
-'use client'
-import { Box, Button, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import r2 from '../../icons/r2.svg'
-import { makeStyles } from '@mui/styles';
-import Image from "next/image";
-import Switch from '@mui/material/Switch';
+"use client";
+import { CircularProgress, Grid2, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import CommonBackButton from "@/components/ui/CommonBackButton";
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
+export default function Protable() {
+    const router = useRouter()
+  // State for password visibility
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+const[isLoading,setIsLoading]=useState(false)
+  // State for form values
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formErrors, setFormErrors] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
+  // Toggle password visibility
+  const handleClickShowOldPassword = () => setShowOldPassword(!showOldPassword);
+  const handleClickShowNewPassword = () => setShowNewPassword(!showNewPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
-const useStyles = makeStyles({
-    tableContainer: {
-        // maxHeight: 100,
-        '&::-webkit-scrollbar': {
-            width: '12px',
-        },
-        '&::-webkit-scrollbar-track': {
-            background: '#101012',
-            borderRadius: '0px',
-        },
-        '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#1D1D20',
-            borderRadius: '10px',
-            border: '3px solid #101012',
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#555',
-        },
-    },
-    stakebtn: {
-        backgroundColor: 'transparent',
-        padding: '10px',
-        borderRadius: '6px',
-        border: '1px solid #00ffff !important',
-        color: '#00ffff !important',
-        textDecoration: 'none',
-        transition: '0.5s',
-        '&:hover': {
-            backgroundColor: '#00ffff !important',
-            color: '#000 !important'
-        }
-    },
-    stakebtn__wrp: {
-        display: 'flex',
-        gap: '10px',
-        justifyContent: 'end'
-    },
-    noData: {
-        height: '50px',
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'center',
-        justifyItems: "center",
-        backgroundColor: '#080808'
+  // Validate the form inputs
+  const validateForm = () => {
+    let isValid = true;
+    let errors = { oldPassword: "", newPassword: "", confirmPassword: "" };
+
+    // Validate old password
+    if (!oldPassword) {
+      errors.oldPassword = "Old password is required";
+      isValid = false;
     }
-});
 
-const Protable = () => {
-    const classes = useStyles();
+    // Validate new password
+    if (!newPassword) {
+      errors.newPassword = "New password is required";
+      isValid = false;
+    } else if (newPassword.length < 6) {
+      errors.newPassword = "New password must be at least 6 characters";
+      isValid = false;
+    } else if (newPassword === oldPassword) {
+      errors.newPassword =
+        "New password cannot be the same as the old password";
+      isValid = false;
+    }
 
+    // Validate confirm password
+    if (!confirmPassword) {
+      errors.confirmPassword = "Please confirm your new password";
+      isValid = false;
+    } else if (confirmPassword !== newPassword) {
+      errors.confirmPassword = "Passwords do not match";
+      isValid = false;
+    }
 
+    setFormErrors(errors);
+    return isValid;
+  };
 
-    const TableList = [
-        {
-            id: 1,
-            User: "Js Reigns",
-            Earning: "0.00",
-            level: '3',
-        },
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage("");
 
-        {
-            id: 2,
-            User: "Js Reigns",
-            Earning: "0.00",
-            level: '4',
-        },
-        {
-            id: 3,
-            User: "Js Reigns",
-            Earning: "0.00",
-            level: '3',
-        },
-        {
-            id: 4,
-            User: "Js Reigns",
-            Earning: "0.00",
-            level: '2',
-        },
-        {
-            id: 5,
-            User: "Js Reigns",
-            Earning: "0.00",
-            level: '1',
-        },
+    try {
+      if (validateForm()) {
+        setIsLoading(true)
+        const res = await apiRouterCall({
+          method: "PUT",
+          endPoint: "updatePassword",
+          data: {
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmNewPassword: confirmPassword,
+          },
+        });
+        if(res?.status===200){
+            toast.success(res.data.message)
+            setIsLoading(false)
+            router.back()
+        }else{
+            toast.error(res?.data.message)
+            setIsLoading(false)
+        }
+      }
+    } catch (error:any) {
+        toast.error(error?.response?.data.message)
+        setIsLoading(false)
+    }
+  };
 
-    ];
+  return (
+    <div>
+      
+      <form onSubmit={handleSubmit} className="mt-4">
+        <Grid2 container spacing={2}>
+          {/* Old Password Field */}
+          <Grid2 size={{ xs: 12 }}>
+            <div className="flex items-center">
+              <input
+                disabled={isLoading}
+                type={showOldPassword ? "text" : "password"}
+                name="oldPassword"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                className="border border-[#DCDCEB] rounded-[8px] h-[50px] w-full pl-3 text-black"
+                placeholder="Enter old password"
+              />
+              <IconButton
+                onClick={handleClickShowOldPassword}
+                edge="end"
+                aria-label="toggle old password visibility"
+              >
+                {showOldPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+            {formErrors.oldPassword && (
+              <div className="text-red-500">{formErrors.oldPassword}</div>
+            )}
+          </Grid2>
 
+          {/* New Password Field */}
+          <Grid2 size={{ xs: 12 }}>
+            <div className="flex items-center">
+              <input
+                disabled={isLoading}
+                type={showNewPassword ? "text" : "password"}
+                name="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="border border-[#DCDCEB] rounded-[8px] h-[50px] w-full pl-3 text-black"
+                placeholder="Enter new password"
+              />
+              <IconButton
+                onClick={handleClickShowNewPassword}
+                edge="end"
+                aria-label="toggle new password visibility"
+              >
+                {showNewPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+            {formErrors.newPassword && (
+              <div className="text-red-500">{formErrors.newPassword}</div>
+            )}
+          </Grid2>
 
+          {/* Confirm Password Field */}
+          <Grid2 size={{ xs: 12 }}>
+            <div className="flex items-center">
+              <input
+                disabled={isLoading}
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="border border-[#DCDCEB] rounded-[8px] h-[50px] w-full pl-3 text-black"
+                placeholder="Confirm new password"
+              />
+              <IconButton
+                onClick={handleClickShowConfirmPassword}
+                edge="end"
+                aria-label="toggle confirm password visibility"
+              >
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+            {formErrors.confirmPassword && (
+              <div className="text-red-500">{formErrors.confirmPassword}</div>
+            )}
+          </Grid2>
 
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+          {/* Error Message */}
+          {errorMessage && (
+            <Grid2 size={{ xs: 12 }}>
+              <div className="text-red-500">{errorMessage}</div>
+            </Grid2>
+          )}
 
-
-
-
-
-    return (
-        <Box>
-            <TableContainer className={classes.tableContainer}>
-                <Table sx={{ minWidth: 650, backgroundColor: '#fff', border: '1px solid #DCDCEB', borderRadius: '8px' }} aria-label="simple table">
-                    <TableHead sx={{ backgroundColor: '#E8F7FF' }}>
-                        <TableRow>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }}>User</TableCell>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }}>Level1</TableCell>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }}>Level2</TableCell>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }}>Level3</TableCell>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }}>Earning</TableCell>
-                            <TableCell sx={{ borderBottom: '1px solid #DCDCEB', fontSize: 16, color: '#0071CE' }} align="right">Action</TableCell>
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody style={{ alignItems: 'center' }}>
-
-                        {TableList.map((item, index) => (
-                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-
-                                <>
-                                    <TableCell sx={{ borderBottom: '1px solid #DCDCEB',   color: '#fff' }} component="th" scope="row">
-                                        <Typography color="#000">{item.User}</Typography>
-                                    </TableCell>
-
-                                    <TableCell sx={{ borderBottom: '1px solid #DCDCEB',   color: '#fff' }} component="th" scope="row">
-                                        <Typography color="#000">{item.level}</Typography>
-                                    </TableCell>
-
-                                    <TableCell sx={{ borderBottom: '1px solid #DCDCEB',   color: '#fff' }} component="th" scope="row">
-                                        <Typography color="#000">{item.level}</Typography>
-                                    </TableCell>
-
-                                    <TableCell sx={{ borderBottom: '1px solid #DCDCEB',   color: '#fff' }} component="th" scope="row">
-                                        <Typography color="#000">{item.level}</Typography>
-                                    </TableCell>
-
-                                    <TableCell sx={{ borderBottom: '1px solid #DCDCEB',  color: '#fff' }} component="th" scope="row">
-                                        <Typography color="#000">{item.Earning}</Typography>
-                                    </TableCell>
-
-                                    <TableCell align="right" sx={{ borderBottom: '1px solid #DCDCEB',   color: '#fff' }} component="th" scope="row">
-                                    <Switch {...label} defaultChecked />
-                                    </TableCell>
-                                </>
-
-
-
-                            </TableRow>
-                        ))}
-
-
-
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
-    );
+          {/* Submit Button */}
+          <Grid2 size={{ xs: 12 }}>
+            <button
+            disabled={isLoading}
+              type="submit"
+              className="w-full h-[50px] bg-blue-500 text-white rounded-[8px]"
+            >
+          {isLoading ? <CircularProgress /> :"Submit"}    
+            </button>
+          </Grid2>
+        </Grid2>
+      </form>
+    </div>
+  );
 }
-
-export default Protable;
-
