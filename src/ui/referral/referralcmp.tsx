@@ -197,39 +197,9 @@ export default function Referralcmp() {
                 instantly.
               </Typography>
 
-              <Typography mt={1}>
-                <Typography component={"span"} fontWeight={700}>
-                  {" "}
-                  Level 4 –
-                </Typography>{" "}
-                Earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  5% commission
-                </Typography>{" "}
-                from second-level referrals.Example: A second-level referral
-                spends $100, and you earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  $5
-                </Typography>{" "}
-                .
-              </Typography>
+             
 
-              <Typography mt={1}>
-                <Typography component={"span"} fontWeight={700}>
-                  {" "}
-                  Level 5 –
-                </Typography>{" "}
-                Earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  5% commission
-                </Typography>{" "}
-                from second-level referrals.Example: A second-level referral
-                spends $100, and you earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  $5
-                </Typography>{" "}
-                .
-              </Typography>
+             
             </Box>
           </Grid2>
           <Grid2 size={{ lg: 6, md: 6, sm: 12, xs: 12 }}>
