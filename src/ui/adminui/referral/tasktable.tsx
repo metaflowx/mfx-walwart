@@ -1,5 +1,4 @@
 'use client'
-
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, FormControlLabel, Switch } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { useState } from "react";
@@ -8,18 +7,20 @@ const useStyles = makeStyles({
     tableContainer: {
         '&::-webkit-scrollbar': {
             width: '12px',
+           
         },
         '&::-webkit-scrollbar-track': {
-            background: '#101012',
+            background: '#E8F7FF',
             borderRadius: '0px',
+           
         },
         '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#1D1D20',
+            backgroundColor: '#0071CE',
             borderRadius: '10px',
-            border: '3px solid #101012',
+            border: '1px solid #0071CE',
         },
         '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#555',
+            backgroundColor: 'red',
         },
     }
 });
@@ -106,12 +107,15 @@ const Tasktable = () => {
                                 </TableCell>
                                 <TableCell>
                                     <Typography color="#000">{item.level1}</Typography>
+                                    <Typography color="#999">$0.00</Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography color="#000">{item.level2}</Typography>
+                                    <Typography color="#999">$0.00</Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography color="#000">{item.level3}</Typography>
+                                    <Typography color="#999">$0.00</Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography color="#000">{item.Earning}</Typography>

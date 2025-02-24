@@ -1,4 +1,4 @@
-import { Grid, Card, CardContent, Typography, CardMedia, Container, Grid2, Box } from "@mui/material";
+import { Card, CardContent, Typography, CardMedia, Container, Grid2, Box } from "@mui/material";
 
 const cardData = [
   {
@@ -25,10 +25,11 @@ export default function Dscard() {
       
       <Grid2 container spacing={2} justifyContent="center">
         {cardData.map((card, index) => (
-          <Grid2   key={index} size={{xs:12, sm:6, md:3}}>
+          <Grid2   key={index} size={{xs:12, sm:6, md:3}}  >
             <Card sx={{
               border:'1px solid #0071CE',
-              boxShadow:'none'
+              boxShadow:'none',
+              height:'100%'
             }}>
                
               <CardContent>

@@ -8,18 +8,20 @@ const useStyles = makeStyles({
     tableContainer: {
         '&::-webkit-scrollbar': {
             width: '12px',
+           
         },
         '&::-webkit-scrollbar-track': {
-            background: '#101012',
+            background: '#E8F7FF',
             borderRadius: '0px',
+           
         },
         '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#1D1D20',
+            backgroundColor: '#0071CE',
             borderRadius: '10px',
-            border: '3px solid #101012',
+            border: '1px solid #0071CE',
         },
         '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#555',
+            backgroundColor: 'red',
         },
     }
 });
