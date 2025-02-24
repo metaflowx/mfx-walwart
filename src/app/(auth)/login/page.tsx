@@ -7,6 +7,7 @@ import {
   Container,
   Grid,
   Grid2,
+  IconButton,
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,12 +16,14 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { serialize } from 'cookie';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("email");
   const [rememberMe, setRememberMe] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,6 +34,7 @@ export default function Login() {
     password: "",
     mobileNumber: "",
   });
+  const handleClickShowOldPassword = () => setShowPassword(!showPassword)
 
   useEffect(() => {
     // Load saved credentials if Remember Me was checked
@@ -203,9 +207,11 @@ export default function Login() {
             )}
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
-            <div>
+            <div className='flex items-center relative' >
+
+            <div className="w-full  ">
               <input
-                type="password"
+                   type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -216,6 +222,17 @@ export default function Login() {
               {errors.password && formData.password === "" && (
                 <p className="text-red-500 text-xs">{errors.password}</p>
               )}
+            </div>
+            <div className="absolute right-[12px] top-1" >
+            <IconButton
+                onClick={handleClickShowOldPassword}
+                edge="end"
+                aria-label="toggle old password visibility"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+           
             </div>
           </Grid2>
         </Grid2>

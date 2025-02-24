@@ -1,8 +1,9 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import CommonTab from "@/components/ui/CommonTab";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { Button, CircularProgress, Container, Grid2 } from "@mui/material";
+import { Button, CircularProgress, Container, Grid2, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
@@ -15,6 +16,9 @@ export default function Login() {
   const [activeTab, setActiveTab] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+      const [showPassword, setShowPassword] = useState(false)
+      const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
   const [formData, setFormData] = useState({
     email: "",
     referralCode: search.get("ref") || "Ex9NBdAI",
@@ -35,6 +39,10 @@ export default function Login() {
     { name: "Email", value: "email" },
     { name: "Mobile", value: "mobile" },
   ];
+
+  const handleClickShowOldPassword = () => setShowPassword(!showPassword)
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
+
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -181,9 +189,12 @@ export default function Login() {
         </Grid2>
 
         <Grid2 size={{ xs: 6 }}>
+          <div className='flex items-center relative'>
+            <div className="w-full" >
+
           <input
            disabled={isLoading}
-            type="password"
+           type={ showPassword? "text":"password"}
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -191,12 +202,27 @@ export default function Login() {
             placeholder="Password"
           />
           {errors.password && <p className="text-red-500">{errors.password}</p>}
+            </div>
+            <div className="absolute right-[12px] top-1" >
+            <IconButton
+                onClick={handleClickShowOldPassword}
+                edge="end"
+                aria-label="toggle old password visibility"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+          </div>
         </Grid2>
 
         <Grid2 size={{ xs: 6 }}>
+          <div   className='flex items-center relative'>
+
+          <div className="w-full">
+
           <input
           disabled={isLoading}
-            type="password"
+            type={ showConfirmPassword? "text":"password"}
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
@@ -204,6 +230,17 @@ export default function Login() {
             placeholder="Confirm Password"
           />
           {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword}</p>}
+          </div>
+          <div className="absolute right-[12px] top-1" >
+            <IconButton
+                onClick={handleClickShowConfirmPassword}
+                edge="end"
+                aria-label="toggle old password visibility"
+              >
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+          </div>
         </Grid2>
       </Grid2>
 
