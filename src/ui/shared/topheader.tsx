@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/constants";
 import Link from "next/link";
 import MobileMenu from "@/components/marketing/mobileFooter";
+import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
@@ -17,7 +18,7 @@ declare global {
 
 const Topheader = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-
+const pathname=usePathname()
   // useEffect(() => {
   //   const addGoogleTranslate = () => {
   //     if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
@@ -54,6 +55,9 @@ const Topheader = () => {
     }, 1000); // Delay ensures dropdown is ready
   };
 
+  console.log(">>>>>>>>>>>>>>pathname",pathname);
+  
+
   return (
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">
@@ -66,13 +70,17 @@ const Topheader = () => {
 
             <div className=" xl:flex items-center gap-4 " >
               <ul className="hidden xl:flex items-center gap-8">
-                {NAV_LINKS.map((link, index) => (
+                {NAV_LINKS.map((link:any, index) => (
                   <li
                     style={{ fontFamily: "Prompt" }}
                     key={index}
-                    className=" text-black text-[18px] font-[400]"
+                    className={`${pathname===link.href ? "text-red" :"text-black"}  text-[18px] font-[400]`}
                   >
-                    <Link href={link.href}>{link.name}</Link>
+                    <Link 
+                    style={{
+                      color:pathname===link.href ? "blue":"black"
+                    }}
+                     href={link.href}>{link.name}</Link>
                   </li>
                 ))}
               </ul>

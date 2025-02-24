@@ -77,8 +77,8 @@ const Listleft = [
   {
     id: 1,
     Image: l1,
-    Name: "InvestPlus",
-    href: "",
+    Name: "Invest",
+    href: "/dashboard/invest",
   },
   {
     id: 2,

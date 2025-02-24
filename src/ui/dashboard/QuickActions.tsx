@@ -5,7 +5,7 @@ const QuickActions = () => {
   const actions = [
     { label: "Wallet Recharge", icon: "/images/home/dollar.svg" ,url:"/dashboard/volunteable-assets"},
     { label: "Withdraw", icon: "/images/home/Server.svg",url:"/dashboard/withdraw" },
-    { label: "InvestPlus", icon: "/images/home/user.svg",url:"/dashboard/investplus" },
+    { label: "Invest", icon: "/images/home/user.svg",url:"dashboard/invest" },
     { label: "System Tutorial", icon: "/images/home/location.svg",url:"/dashboard/system-tutorial" },
   ];
 
