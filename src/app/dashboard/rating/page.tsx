@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,7 +11,9 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { CircularProgress, Rating } from "@mui/material";
 import { toast } from "react-toastify";
+import taskListData from "@/app/customHooks/taskList";
 export default function page() {
+  const {taskList}=taskListData()
   const search =useSearchParams()
   const [taskDetails,setTaskDetails]=useState<any>("")
   const[isLoading,setIsLoading]=useState(false)
@@ -67,7 +69,7 @@ export default function page() {
   useEffect(() => {
     const taskId=search.get("id")
     getTaskDetails(taskId)
-  }, [])
+  }, [search.get("id")])
 
   const reviewHandler = async()=>{
     try {
@@ -84,21 +86,31 @@ export default function page() {
       if(res?.status===200){
         toast.success(res.data.message)
         setIsLoading(false)
+        setRatingStar(0)
       }else{
-        console.log(">>>>>>>>res87",res);
+      
         toast.error(res?.data.message)
       }
    
       
       setIsLoading(false)
     } catch (error:any) {
-      console.log(">>>>>>>>>>.error",error);
+     
       
       toast.error(error.response.data.message)
       setIsLoading(false)
       
     }
   }
+
+  const filterData= useMemo(() => {
+    const taskId=search.get("id")
+    const filterMoviewData = taskList && taskList.filter((item:any,index)=>{
+      return item?._id!==taskId
+    })
+    return filterMoviewData
+    
+  }, [taskList,search.get("id")])
   
 
   return (
@@ -143,7 +155,7 @@ export default function page() {
         Related Recommendations
       </h3>
 
-      <MovieCard products={products} />
+      <MovieCard products={filterData} />
     </div>
   );
 }

@@ -175,7 +175,7 @@ const Procmp = () => {
                   <Typography color="#fff">Invitation Code</Typography>
                   <AddressCopy
                     text={profileData?.referralCode}
-                    addresstext={`${window.location.host}/login?ref=${profileData?.referralCode}` }
+                    addresstext={`${window.location.host}/signup?ref=${profileData?.referralCode}` }
                     hrefLink={""}
                   />
                 </Box>

@@ -4,19 +4,20 @@ import CommonTab from "@/components/ui/CommonTab";
 
 import { Button, CircularProgress, Container, Grid2 } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 
 export default function Login() {
+   const search =useSearchParams()
   const [activeTab, setActiveTab] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
-    referralCode: "Ex9NBdAI",
+    referralCode: search.get("ref") || "Ex9NBdAI",
     password: "",
     confirmPassword: "",
     mobileNumber: "",
