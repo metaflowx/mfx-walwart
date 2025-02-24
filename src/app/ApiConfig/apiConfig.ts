@@ -1,4 +1,4 @@
-export const baseURL = "http://192.168.1.17:8000/api/v1"; //mine
+export const baseURL = "http://192.168.1.17:8000/api/v1"; 
 
 
 const apiConfig = {

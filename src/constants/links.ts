@@ -5,7 +5,7 @@ export const NAV_LINKS = [
         href: "/dashboard"
     },
     {
-        name: "Task",
+        name: "Promotion",
         href: "/dashboard/task"
     },
     {

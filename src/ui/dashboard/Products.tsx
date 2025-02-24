@@ -3,11 +3,13 @@ import React from 'react';
 import {  Typography, Button, Box } from '@mui/material';
 import MovieCard from './MovieCard';
 import taskListData from '@/app/customHooks/taskList';
+import { useRouter } from 'next/navigation';
 
 
 
 
 const Products = () => {
+  const router=useRouter()
   const {taskList}=taskListData()
   return (
     <Box mt={2} >
@@ -15,7 +17,9 @@ const Products = () => {
      <Typography variant="h4" sx={{ fontWeight: 700, color: "#0071CE", fontSize: "24px", mt: 2 }}>
         Products
       </Typography>
-      <Button sx={{
+      <Button 
+      onClick={()=>router.push("/dashboard/score-center")}
+      sx={{
         border: "1px solid #DCDCEB",
         borderRadius:"12px",
         height:"50px",

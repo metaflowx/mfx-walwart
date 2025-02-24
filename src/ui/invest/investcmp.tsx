@@ -6,7 +6,7 @@ import SpecialPackage from "./specialPackage";
 
 const Investcmp = () => {
   const futureDate = new Date();
-  futureDate.setDate(futureDate.getDate() + 45);
+  futureDate.setDate(futureDate.getDate() + 24);
   const targetDate = futureDate.toISOString().split("T")[0] + " 00:00:00"; // Format: YYYY-MM-DD HH:mm:ss
   return (
     <>
