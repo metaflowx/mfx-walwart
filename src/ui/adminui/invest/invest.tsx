@@ -1,7 +1,9 @@
 import { Box } from "@mui/material"
 import Todolist from "./todolist"
+ 
+ 
 
-const Task=()=>{
+const Invest=()=>{
     return(
         <>
         <Box sx={{
@@ -11,10 +13,9 @@ const Task=()=>{
             }
         }}>
             <Todolist/>
-            {/* <Tasktable/> */}
         </Box>
         </>
     )
 }
 
-export default Task
+export default Invest

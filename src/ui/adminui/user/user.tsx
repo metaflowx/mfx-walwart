@@ -1,7 +1,12 @@
 import { Box } from "@mui/material"
-import Todolist from "./todolist"
+import UserTable from "./userTable"
+ 
+ 
+ 
+ 
+ 
 
-const Task=()=>{
+const User=()=>{
     return(
         <>
         <Box sx={{
@@ -10,11 +15,10 @@ const Task=()=>{
                 padding:'0.5rem'
             }
         }}>
-            <Todolist/>
-            {/* <Tasktable/> */}
+            <UserTable/>
         </Box>
         </>
     )
 }
 
-export default Task
+export default User

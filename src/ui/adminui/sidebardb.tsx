@@ -32,7 +32,10 @@ const useStyles = makeStyles({
         padding: 15,
         margin: 0,
         listStyle: 'none',
-        marginTop:'3.5rem'
+        marginTop:'3.5rem',
+        '@media(max-width : 600px)':{
+            marginTop:'1.5rem'
+        }
 
     },
     list__item: {
@@ -91,8 +94,8 @@ const navLinks = [
     {
         name: 'User',
         href: '/admin/user',
-        iconl: sideiconl_04,
-        icond: sideicond_04,
+        iconl: sideiconl_03,
+        icond: sideicond_03,
     },
     
     

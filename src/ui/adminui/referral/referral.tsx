@@ -1,7 +1,8 @@
 import { Box } from "@mui/material"
-import Todolist from "./todolist"
+import Tasktable from "./tasktable"
+ 
 
-const Task=()=>{
+const Referral=()=>{
     return(
         <>
         <Box sx={{
@@ -10,11 +11,11 @@ const Task=()=>{
                 padding:'0.5rem'
             }
         }}>
-            <Todolist/>
-            {/* <Tasktable/> */}
+         
+            <Tasktable/>
         </Box>
         </>
     )
 }
 
-export default Task
+export default Referral

@@ -1,7 +1,10 @@
 import { Box } from "@mui/material"
-import Todolist from "./todolist"
+import Protable from "./protable"
+ 
+ 
+ 
 
-const Task=()=>{
+const Profile=()=>{
     return(
         <>
         <Box sx={{
@@ -10,11 +13,10 @@ const Task=()=>{
                 padding:'0.5rem'
             }
         }}>
-            <Todolist/>
-            {/* <Tasktable/> */}
+            <Protable/>
         </Box>
         </>
     )
 }
 
-export default Task
+export default Profile

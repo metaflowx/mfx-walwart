@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material"
+import Hero from "../dashboard/Hero"
 
  
 
@@ -13,10 +14,11 @@ const Dsboard = () => {
 
     return (
         <>
-            <Box>
-
-                <Typography color="#000">Dashboard</Typography>
-
+            <Box sx={{
+                padding:'1rem'
+            }}>
+                <Hero/>
+                
             </Box>
 
         </>

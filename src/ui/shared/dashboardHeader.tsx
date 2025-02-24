@@ -97,9 +97,10 @@ const DashboardHeader = () => {
                         display: 'none'
                     }
                 }}>
+                   <Link href={"/admin/profile"}>
                     <IconButton aria-label="delete">
                         <PersonIcon  sx={{color:'#fff'}}/>
-                    </IconButton>
+                    </IconButton></Link>
                 </Box>
 
 

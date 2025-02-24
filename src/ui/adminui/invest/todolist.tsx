@@ -156,11 +156,11 @@ export default function Todolist() {
           <TableHead>
             <TableRow sx={{backgroundColor:'#E8F7FF'}}>
             <TableCell>User</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Completed</TableCell>
+              <TableCell>Cryptocurrency</TableCell>
+              <TableCell>Amount Invested ($)</TableCell>
+              <TableCell>Price at Purchase ($)</TableCell>
+              <TableCell align="center">Current Price ($)</TableCell>
+              <TableCell align="center">Change</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
