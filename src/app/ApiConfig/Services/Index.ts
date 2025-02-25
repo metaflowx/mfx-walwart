@@ -39,7 +39,7 @@ export const apiRouterCall = async ({
       method: method,
       url: requestUrl,
       headers: {
-        "Content-Type": "application/json",
+     
         Authorization: token
           ? token
           : window.localStorage.getItem("token") ?? undefined,

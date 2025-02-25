@@ -19,6 +19,18 @@ const apiConfig = {
   task: `${baseURL}/task`,
   review: `${baseURL}/task/review`,
 
+  //admin
+
+  createTask: `${baseURL}/task/create`,
+  edit: `${baseURL}/task/edit`,
+
+  delete: `${baseURL}/task/delete`,
+
+
+  
+
+  
+
 
 
 
