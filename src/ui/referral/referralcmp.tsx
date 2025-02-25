@@ -1,15 +1,21 @@
 "use client";
 import { Box, Grid2, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddressCopy from "../shared/addressCopy";
-import Image from "next/image";
-import qr from "../../../public/profile/qr.svg";
 import { useQRCode } from "next-qrcode";
 import useProfileData from "@/app/customHooks/profiledata";
 
 export default function Referralcmp() {
   const { profileData, loading } = useProfileData();
+  const [url,setUrl]=useState("")
   const { Canvas } = useQRCode();
+  useEffect(() => {
+   
+    
+    if (typeof window !== "undefined" && profileData) {
+      setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
+    }
+  }, [profileData]);
   return (
     <>
       <Box
@@ -50,11 +56,14 @@ export default function Referralcmp() {
                 <Typography color="#fff" variant="h6">
                   Invitation Link
                 </Typography>
+             
+
                 <AddressCopy
-                  text={`${window.location.host}/signup?ref=${profileData?.referralCode}`}
-                  addresstext={`${window.location.host}/signup?ref=${profileData?.referralCode}`}
-                  hrefLink={`${window.location.host}/signup?ref=${profileData?.referralCode}`}
+                  text={url}
+                  addresstext={url}
+                  hrefLink={url}
                 />
+              
               </Box>
             </Box>
           </Grid2>
@@ -77,7 +86,7 @@ export default function Referralcmp() {
               </Box>
               <Box>
                 <Canvas
-                  text={`${window.location.host}/signup?ref=${profileData?.referralCode}`}
+                  text={url}
                   options={{
                     errorCorrectionLevel: "M",
                     margin: 3,

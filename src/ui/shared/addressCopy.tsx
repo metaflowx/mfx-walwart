@@ -7,10 +7,10 @@ import React, { useState } from "react";
 
 
 interface props {
-    text: string;
+    text?: string;
     textColor?: string;
-    addresstext: string;
-    hrefLink: string;
+    addresstext?: string;
+    hrefLink?: string;
 
 }
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -37,7 +37,7 @@ const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleCopy = () => {
-        copy(addresstext);
+        copy(addresstext ? addresstext:"");
         setOpenSnackbar(true);
         // alert('Text copied to clipboard!');
     };
@@ -49,7 +49,7 @@ const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
     return (
         <>
             <StyledBox>
-                <StyledLink sx={{ color: textColor }} href={hrefLink} target="_black">
+                <StyledLink sx={{ color: textColor }} href={hrefLink ? hrefLink:""} target="_black">
                     {text}
                 </StyledLink>
 

@@ -17,6 +17,7 @@ import l9 from "../../../public/profile/l9.svg";
 import l10 from "../../../public/profile/l10.svg";
 import rArrow from "../../../public/profile/rArrow.svg";
 import useProfileData from "@/app/customHooks/profiledata";
+import { useEffect, useState } from "react";
 
 const Top___list = [
   {
@@ -126,8 +127,14 @@ const Listright = [
 
 const Procmp = () => {
     const { profileData, loading } = useProfileData();
-
-    console.log(">>>>>>>>>profileData",profileData);
+ const [url,setUrl]=useState("")
+    useEffect(() => {
+      
+       
+       if (typeof window !== "undefined" && profileData) {
+         setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
+       }
+     }, [profileData]);
     
   return (
     <Box>
@@ -175,7 +182,7 @@ const Procmp = () => {
                   <Typography color="#fff">Invitation Code</Typography>
                   <AddressCopy
                     text={profileData?.referralCode}
-                    addresstext={`${window.location.host}/signup?ref=${profileData?.referralCode}` }
+                    addresstext={url }
                     hrefLink={""}
                   />
                 </Box>
