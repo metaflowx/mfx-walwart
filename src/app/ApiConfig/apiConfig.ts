@@ -26,6 +26,16 @@ const apiConfig = {
 
   delete: `${baseURL}/task/delete`,
 
+  addPacakage: `${baseURL}/pacakage/add`,
+  editPacakage: `${baseURL}/pacakage/edit`,
+  deletePacakage: `${baseURL}/pacakage/delete`,
+  allPacakage: `${baseURL}/pacakage/all`,
+
+
+
+
+
+  
 
   
 

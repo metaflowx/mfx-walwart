@@ -101,7 +101,7 @@ export default function Todolist() {
       if (res?.status === 200) {
         toast.success(res.data.message);
         refetch();
-        handleClose();
+        setOpenDelete(false);
         setIsLoading(false);
       } else {
         toast.error(res?.data.message);
