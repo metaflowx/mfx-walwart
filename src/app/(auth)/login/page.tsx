@@ -130,6 +130,7 @@ export default function Login() {
           
         } else {
           setIsLoading(false);
+          toast.error(res?.data.message)
         }
       }
     } catch (error:any) {
