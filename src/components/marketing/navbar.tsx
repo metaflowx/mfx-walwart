@@ -9,6 +9,11 @@ declare global {
   interface Window {
     googleTranslateLoaded?: boolean;
     googleTranslateElementInit?: () => void;
+    google?: {
+      translate: {
+        TranslateElement: new (options: object, elementId: string) => void;
+      };
+    };
   }
 }
 const Navbar = () => {
@@ -16,28 +21,30 @@ const Navbar = () => {
 
 
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  // useEffect(() => {
-  //   const addGoogleTranslate = () => {
-  //     if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
-  //       window.googleTranslateElementInit = () => {
-  //         new window.google.translate.TranslateElement(
-  //           { pageLanguage: "en", autoDisplay: false },
-  //           "google_translate_element"
-  //         );
-  //       };
+  useEffect(() => {
+    const addGoogleTranslate = () => {
+      if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
+        window.googleTranslateElementInit = () => {
+          if (window.google && window.google.translate) {
+            new window.google.translate.TranslateElement(
+              { pageLanguage: "en", autoDisplay: false },
+              "google_translate_element"
+            );
+          }
+        };
 
-  //       const script = document.createElement("script");
-  //       script.src =
-  //         "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-  //       script.async = true;
-  //       document.body.appendChild(script);
+        const script = document.createElement("script");
+        script.src =
+          "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script.async = true;
+        document.body.appendChild(script);
 
-  //       window.googleTranslateLoaded = true; // Ensure it loads only once
-  //     }
-  //   };
+        window.googleTranslateLoaded = true; // Ensure it loads only once
+      }
+    };
 
-  //   addGoogleTranslate();
-  // }, []);
+    addGoogleTranslate();
+  }, []);
 
   const changeLanguage = (lang: string) => {
     setSelectedLanguage(lang);

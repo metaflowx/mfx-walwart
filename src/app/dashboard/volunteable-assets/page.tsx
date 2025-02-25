@@ -10,12 +10,12 @@ export default function page() {
     const assestList=[
         {
             logo:"/images/coin/usdt.png",
-            name:"TRC20-USDT",
+            name:"POL20-USDT",
             url:"/dashboard/rechange"
         },
         {
-            logo:"/images/coin/trx.png",
-            name:"TRX",
+            logo:"/images/coin/bnb.png",
+            name:"POL",
              url:"/dashboard/rechange"
         },
         {

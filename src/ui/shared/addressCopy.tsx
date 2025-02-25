@@ -37,7 +37,7 @@ const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleCopy = () => {
-        copy(text);
+        copy(addresstext);
         setOpenSnackbar(true);
         // alert('Text copied to clipboard!');
     };
@@ -50,7 +50,7 @@ const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
         <>
             <StyledBox>
                 <StyledLink sx={{ color: textColor }} href={hrefLink} target="_black">
-                    {addresstext}
+                    {text}
                 </StyledLink>
 
                 <Box onClick={handleCopy}>

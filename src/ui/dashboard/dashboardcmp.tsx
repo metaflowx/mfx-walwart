@@ -15,7 +15,7 @@ const Dashboardcmp = () => {
       <Box >
      <Hero />
      <QuickActions />
-     <Trending />
+     {/* <Trending /> */}
      <Products />
      <MemberList />
     

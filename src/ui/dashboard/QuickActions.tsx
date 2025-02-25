@@ -1,17 +1,11 @@
 import { Box, Button, Container, Grid2 } from "@mui/material";
-import {
-  AccountBalance,
-  CreditCard,
-  TrendingUp,
-  School,
-} from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
 const QuickActions = () => {
   const actions = [
-    { label: "Volunteable Assets", icon: "/images/home/dollar.svg" ,url:"/dashboard/volunteable-assets"},
+    { label: "Wallet Recharge", icon: "/images/home/dollar.svg" ,url:"/dashboard/volunteable-assets"},
     { label: "Withdraw", icon: "/images/home/Server.svg",url:"/dashboard/withdraw" },
-    { label: "InvestPlus", icon: "/images/home/user.svg",url:"/dashboard/investplus" },
+    { label: "Invest", icon: "/images/home/user.svg",url:"dashboard/invest" },
     { label: "System Tutorial", icon: "/images/home/location.svg",url:"/dashboard/system-tutorial" },
   ];
 

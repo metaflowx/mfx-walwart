@@ -9,8 +9,8 @@ export default function CommonTab({tabList,setActiveTab,activeTab}:{tabList?:any
 
         {tabList.map((item:any,index:number)=>{
             return(
-                <Grid2 size={{xs:6}} >
-                    <button onClick={()=>setActiveTab(item.value)} key={index} className={`${activeTab===item.value ? "bg-[#0071CE] border border-[#0071CE] text-white" :"text-black"}  text-[18px] font-[700] w-full h-[52px] rounded-[6px] ${index===0 ? " mr-[3px]" :" mr-[0px]"} `} >{item?.name}</button>
+                <Grid2 key={index} size={{xs:6}} >
+                    <button onClick={()=>setActiveTab(item.value)}  className={`${activeTab===item.value ? "bg-[#0071CE] border border-[#0071CE] text-white" :"text-black"}  text-[18px] font-[700] w-full h-[52px] rounded-[6px] ${index===0 ? " mr-[3px]" :" mr-[0px]"} `} >{item?.name}</button>
                 </Grid2>
             )
         })}
