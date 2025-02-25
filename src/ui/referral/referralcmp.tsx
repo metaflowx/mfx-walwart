@@ -85,8 +85,10 @@ export default function Referralcmp() {
                 </Typography>
               </Box>
               <Box>
+                {url && (
+
                 <Canvas
-                  text={url}
+                  text={url ? url :""}
                   options={{
                     errorCorrectionLevel: "M",
                     margin: 3,
@@ -98,6 +100,7 @@ export default function Referralcmp() {
                     },
                   }}
                 />
+                )}
               </Box>
             </Box>
           </Grid2>
