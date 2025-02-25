@@ -31,7 +31,7 @@ const Cardcmp = ({product}:{product:any}) => {
   >
     <Card sx={{ borderRadius: '12px',  height:"100%", }}>
       <Box sx={{position:"relative"}}>
-        <img src={product?.image} style={{padding:"15px",width:"100%",borderRadius:"30px"}} alt={''}/>
+        <img src={product?.image} style={{padding:"15px",width:"100%",borderRadius:"30px",height:"350px",objectFit:"cover"}} alt={''}/>
         {/* <Box sx={{position:"absolute",bottom:"30px",display:"flex",justifyContent:"space-between",left:"30px",right:"30px"}}>
           <Box sx={{display:"flex",alignItems:"center"}} >
             <img src="/images/home/play.png" />
