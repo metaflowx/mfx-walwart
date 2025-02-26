@@ -16,8 +16,13 @@ import {
   CircularProgress,
   Typography,
   TablePagination,
+  TextField,
 } from "@mui/material";
-import { Delete } from "@mui/icons-material";
+import {
+  Delete,
+  Edit as EditIcon,
+  ChangeCircle as ChangeCircleIcon,
+} from "@mui/icons-material";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { toast } from "react-toastify";
 import taskListData from "@/app/customHooks/taskList";
@@ -30,14 +35,42 @@ export default function Todolist() {
   const [openDelete, setOpenDelete] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [newTask, setNewTask] = useState({
+    title: "",
+    type: "",
+    description: "",
+    image: "",
+    points: "5",
+  });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewTask({ ...newTask, [name]: value });
+  };
+  const handleOpen = () => setOpen(true);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setEditTaskId(null);
+
+    setImagePreview(null);
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: any = e?.target?.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewTask({ ...newTask, image: file });
+      setImagePreview(imageUrl);
+    }
   };
 
   const deleteTaskHandler = async () => {
@@ -62,8 +95,144 @@ export default function Todolist() {
     }
   };
 
+  const createTask = async () => {
+    try {
+      setIsLoading(true);
+
+      // Check if an image is selected
+      if (!newTask.image) {
+        toast.error("Please upload an image.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("image", newTask.image);
+      formData.append("title", newTask.title);
+      formData.append("type", newTask.type);
+      formData.append("description", newTask.description);
+      formData.append("point", newTask.points);
+      const res = await apiRouterCall({
+        method: editTaskId ? "PUT" : "POST",
+        endPoint: editTaskId ? "edit" : "createTask",
+        data: formData,
+        id: editTaskId ? editTaskId : undefined,
+      });
+
+      if (res?.status === 200) {
+        toast.success(res.data.message);
+        refetch();
+        handleClose();
+      } else {
+        toast.error(res?.data.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const editTask = (data: any) => {
+    if (data) {
+      setNewTask({
+        title: data.title,
+        type: data.type,
+        description: data.description,
+        image: data.image,
+        points: "5",
+      });
+      setImagePreview(data.image);
+
+      setEditTaskId(data?._id);
+      handleOpen();
+    }
+  };
+
   return (
     <Box sx={{ margin: "auto", padding: 2, border: "1px solid #DCDCEB" }}>
+       <Box textAlign={"end"}>
+        <Button
+          sx={{
+            backgroundColor: "#0071CE",
+            boxShadow: "none",
+            borderRadius: "6px",
+          }}
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+        >
+          Add Task
+        </Button>
+      </Box>
+       <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <TextField
+            label="Title"
+            name="title"
+            variant="outlined"
+            fullWidth
+            value={newTask.title}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Type"
+            name="type"
+            variant="outlined"
+            fullWidth
+            value={newTask.type}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Description"
+            name="description"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={3}
+            value={newTask.description}
+            onChange={handleInputChange}
+          />
+          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              style={{
+                width: 100,
+                height: 100,
+                objectFit: "cover",
+                marginTop: 10,
+              }}
+            />
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              createTask();
+            }}
+          >
+            {isLoading ? (
+              <CircularProgress size={24} style={{ color: "#fff" }} />
+            ) : (
+              <>{editTaskId !== null ? "Update Task" : "Add Task"}</>
+            )}
+          </Button>
+        </Box>
+      </Modal>
       {openDelete && (
         <ConfirmationDialog
           open={openDelete}
@@ -100,6 +269,9 @@ export default function Todolist() {
                   <TableCell align="right">
                     <IconButton color="error" onClick={() => { setEditTaskId(task.id); setOpenDelete(true); }}>
                       <Delete />
+                    </IconButton>
+                      <IconButton color="info" onClick={() => editTask(task)}>
+                      <EditIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>

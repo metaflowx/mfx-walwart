@@ -67,12 +67,15 @@ const Tasktable = () => {
     setPage(0);
   };
 
-  const handleChange = async (id: string) => {
+  const handleChange = async (id: string,status:string) => {
     try {
       const res = await apiRouterCall({
         method: "PUT",
         endPoint: "changeUserStatus",
         id: id,
+        data:{
+          status:status
+        }
       });
       if (res?.status === 200) {
         toast.success(res.data.message);
@@ -142,7 +145,7 @@ const Tasktable = () => {
                 </TableCell>
                 <TableCell align="right">
                   <FormControlLabel
-                    control={<Switch checked={item.status === "BLOCK"} onChange={() => handleChange(item._id)} />}
+                    control={<Switch checked={item.status === "BLOCK"} onChange={() => handleChange(item._id,item.status === "BLOCK"? "ACTIVE":"BLOCK")} />}
                     label={item.status === "BLOCK" ? "Unblocked" : "Blocked"}
                     sx={{ color: "#000" }}
                   />

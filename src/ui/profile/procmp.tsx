@@ -179,7 +179,7 @@ const Procmp = () => {
               </Box>
               <Box>
                 <Typography variant="h5" fontWeight={500} color="#fff">
-                 {profileData?.email}
+                 {profileData?.email || profileData?.mobileNumber}
                 </Typography>
                 <Box
                   sx={{

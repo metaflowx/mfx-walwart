@@ -1,5 +1,5 @@
-export const baseURL = "http://192.168.1.17:8000/api/v1"; 
-// export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
+// export const baseURL = "http://192.168.1.17:8000/api/v1"; 
+export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
 
 
 
@@ -24,6 +24,10 @@ const apiConfig = {
 
 
   ReferralListHistory: `${baseURL}/referral/ReferralListHistory`,
+  disableReferral: `${baseURL}/referral/disableReferral`,
+
+
+  
 
 
 

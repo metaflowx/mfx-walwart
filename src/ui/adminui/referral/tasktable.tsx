@@ -1,7 +1,9 @@
 'use client'
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useReferralList from "@/app/customHooks/useReferralList";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, FormControlLabel, Switch } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { toast } from "react-toastify";
 
 const StyledTableContainer = styled(TableContainer)({
     '&::-webkit-scrollbar': {
@@ -24,9 +26,28 @@ const StyledTableContainer = styled(TableContainer)({
 
 
 const Tasktable = () => {
-   const {referralList}=useReferralList()
+   const {referralList,refetch}=useReferralList()
 
-  console.log(">>>>>>>>>>>referralList",referralList);
+    const handleChange = async (id: string,status:boolean) => {
+      try {
+        const res = await apiRouterCall({
+          method: "PUT",
+          endPoint: "disableReferral",
+          id: id,
+          data:{
+            enableReferral:status
+          }
+        });
+        if (res?.status === 200) {
+          toast.success(res.data.message);
+          refetch();
+        } else {
+          toast.error(res?.data.message);
+        }
+      } catch (error: any) {
+        toast.error(error?.response?.data.message);
+      }
+    };
   
 
     return (
@@ -36,37 +57,43 @@ const Tasktable = () => {
                     <TableHead sx={{ backgroundColor: '#E8F7FF' }}>
                         <TableRow>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>User</TableCell>
+                            <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Referral Code</TableCell>
+
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Level1</TableCell>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Level2</TableCell>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Level3</TableCell>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Earning</TableCell>
-                            {/* <TableCell sx={{ fontSize: 16, color: '#0071CE' }} align="right">Action</TableCell> */}
+                            <TableCell sx={{ fontSize: 16, color: '#0071CE' }} align="right">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {referralList.map((item:any) => (
                             <TableRow key={item._id}>
                                 <TableCell><Typography color="#000">{item?.userId?.email ||item?.userId?.mobileNumber }</Typography></TableCell>
+                                <TableCell><Typography color="#000">{item?.referralCode}</Typography></TableCell>
+
                                 <TableCell>
-                                    {/* <Typography color="#000">{item.referralStats?.levels?.level1?.earnings}</Typography> */}
-                                    <Typography color="#999">${item.referralStats?.levels?.level1?.earnings}</Typography>
+                                    <Typography color="#000">Count:{item.referralStats?.levels?.level1?.count}</Typography>
+                                    <Typography color="#999">Earning:${item.referralStats?.levels?.level1?.earnings}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {/* <Typography color="#000">{item.level2}</Typography> */}
-                                    <Typography color="#999">${item.referralStats?.levels?.level2?.earnings}</Typography>
+                                    <Typography color="#000">Count:{item.referralStats?.levels?.level2?.count}</Typography>
+                                    <Typography color="#999">Earning:${item.referralStats?.levels?.level2?.earnings}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {/* <Typography color="#000">{item.level3}</Typography> */}
-                                    <Typography color="#999">${item.referralStats?.levels?.level3?.earnings}</Typography>
+                                    <Typography color="#000">Count:{item.referralStats?.levels?.level3?.count}</Typography>
+                                    <Typography color="#999">Earning:${item.referralStats?.levels?.level3?.earnings}</Typography>
                                 </TableCell>
                                 <TableCell><Typography color="#000">{item?.totalEarnings}</Typography></TableCell>
-                                {/* <TableCell align="right">
+                                <TableCell align="right">
                                     <FormControlLabel
-                                        control={<Switch checked={checkedState[item.id]} onChange={handleChange(item.id)} />}
-                                        label={checkedState[item.id] ? "Unblocked" : "Blocked"}
+                                        control={<Switch checked={!item?.enableReferral} 
+                                        onChange={()=>handleChange(item._id,item?.enableReferral ? false : true)}
+                                         />}
+                                        label={!item?.enableReferral ? "Unblocked" : "Blocked"}
                                         sx={{ color: '#000' }}
                                     />
-                                </TableCell> */}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

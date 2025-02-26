@@ -151,7 +151,7 @@ const SpecialCard = ({
   }, [item, activePlan]);
 
   return (
-    <Grid2 size={{ lg: 4, md: 4, sm: 6, xs: 12 }}>
+    <Grid2 size={{ lg: 4, md: 6, sm: 6, xs: 12 }}>
       <Box position={"relative"} mt={5}>
         <Box
           sx={{
@@ -192,6 +192,12 @@ const SpecialCard = ({
                     {item?.durationInDays} Days
                   </Typography>
                   <Typography color="#000">Expire date</Typography>
+                </Box>
+                <Box textAlign={"center"}>
+                  <Typography fontWeight={700}>
+                    {item?.bonus}USDT 
+                  </Typography>
+                  <Typography color="#000">Bonus</Typography>
                 </Box>
                 <Box textAlign={"right"}>
                   <Typography fontWeight={700}>

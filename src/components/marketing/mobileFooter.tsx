@@ -50,7 +50,7 @@ const NavbarList = [
     },
     {
         id: 2,
-        Name: "Task",
+        Name: "Promotion",
         Url: "/dashboard/task",
         Gradient: "#fff",
         Border: "1px solid #1ab3e5",
