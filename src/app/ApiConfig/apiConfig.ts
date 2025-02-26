@@ -1,5 +1,5 @@
-// export const baseURL = "http://192.168.1.17:8000/api/v1"; 
-export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
+export const baseURL = "http://192.168.1.17:8000/api/v1"; 
+// export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
 
 
 
@@ -12,6 +12,17 @@ const apiConfig = {
   login: `${baseURL}/user/login`,
   me: `${baseURL}/user/me`,
   updatePassword: `${baseURL}/user/updatePassword`,
+  userList: `${baseURL}/user/list`,
+  changeUserStatus: `${baseURL}/user/changeUserStatus`,
+
+  // admin
+
+  profile: `${baseURL}/admin/profile`,
+  update: `${baseURL}/admin/update`,
+
+
+
+
 
 
   

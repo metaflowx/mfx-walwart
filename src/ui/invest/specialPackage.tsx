@@ -82,9 +82,9 @@ const SpecialPackage = () => {
     <>
       <Box>
         <Box mt={4}>
-          <Typography variant="h4" fontWeight={700} color="#0071CE">
+          <h4 className="font-[700] text-[#0071CE] text-[20px] sm:text-[30px] " >
             Special Package
-          </Typography>
+          </h4>
         </Box>
 
         <Box

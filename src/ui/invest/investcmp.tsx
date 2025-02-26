@@ -79,7 +79,7 @@ const Investcmp = () => {
             >
               <Image src={circleLine} alt={""} />
             </Box>
-            <Countdown targetDate={targetDate} />
+            <Countdown  />
             <Box
               sx={{
                 transform: "rotate(180deg)",

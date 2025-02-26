@@ -66,9 +66,9 @@ export default function page() {
         <TaskCard />
       </Box>
       <TaskDashboard />
-      <Typography variant="h5" sx={{ mb: 3, color: "#0071CE", fontSize: "40px", fontWeight: 700 }}>
+      <h5 className="mb-3 text-[#0071CE] text-[18px] sm:text-[40px] font-[700] " >
         Added today : {mockData.addedToday.toFixed(2)}
-      </Typography>
+      </h5>
 
       <Grid2 container spacing={3}>
         {Object.entries(mockData.levels).map(([level, data]) => (

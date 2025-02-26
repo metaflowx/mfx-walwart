@@ -71,8 +71,8 @@ export default function Referralcmp() {
             <Box
               sx={{
                 backgroundColor: "#FFFFFF",
-                display: "flex",
-                justifyContent: "space-between",
+                display: {xs:"block", md:"flex"} ,
+                justifyContent:  "space-between",
                 alignItems: "center",
                 padding: "2rem",
                 borderRadius: "12px",
@@ -84,7 +84,7 @@ export default function Referralcmp() {
                   SCAN <Typography variant="h5"> QR Code</Typography>
                 </Typography>
               </Box>
-              <Box>
+              <Box sx={{display:{xs:"flex",md:"block"},justifyContent:"center"}} >
                 {url && (
 
                 <Canvas

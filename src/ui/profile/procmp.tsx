@@ -1,5 +1,5 @@
 "use client"
-import { Box, Container, Grid2, Typography } from "@mui/material";
+import { Box, Button, Container, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
 import logo from "../../../public/profile/logo.svg";
 import AddressCopy from "../shared/addressCopy";
@@ -18,6 +18,8 @@ import l10 from "../../../public/profile/l10.svg";
 import rArrow from "../../../public/profile/rArrow.svg";
 import useProfileData from "@/app/customHooks/profiledata";
 import { useEffect, useState } from "react";
+import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Top___list = [
   {
@@ -123,10 +125,12 @@ const Listright = [
     href: "",
   },
  
+ 
 ];
 
 const Procmp = () => {
     const { profileData, loading } = useProfileData();
+    const router = useRouter()
  const [url,setUrl]=useState("")
     useEffect(() => {
       
@@ -135,6 +139,12 @@ const Procmp = () => {
          setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
        }
      }, [profileData]);
+
+     const handleLogout = () => {
+    
+      document.cookie = 'auth_token=; max-age=0; path=/;'; 
+      router.push('/login');
+    };
     
   return (
     <Box>
@@ -369,6 +379,12 @@ const Procmp = () => {
             </Box>
           </Grid2>
         </Grid2>
+       
+
+        <Button onClick={()=>handleLogout()} fullWidth startIcon={<LogOut />} style={{marginBottom:"10px",marginTop:"10px"}}  >
+          Logout
+        </Button>
+        
       </Box>
     </Box>
   );
