@@ -2,31 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { Stack, Box, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles({
-  timeBox: {
-    backgroundColor: "#0071CE",
-    padding: "12px",
-    borderRadius: "8px",
-    minWidth: "60px",
-    textAlign: "center",
-    color: '#fff',
-    width: '80px',
-    height: '80px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '@media(max-width: 600px)': {
-      width: '70px',
-      height: '70px',
-    }
+const TimeBox = styled(Box)(({ theme }) => ({
+  backgroundColor: "#0071CE",
+  padding: "12px",
+  borderRadius: "8px",
+  minWidth: "60px",
+  textAlign: "center",
+  color: "#fff",
+  width: "80px",
+  height: "80px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  [theme.breakpoints.down("sm")]: {
+    width: "70px",
+    height: "70px",
   },
-});
+}));
 
 const Countdown: React.FC = () => {
-  const classes = useStyles();
-
   // Declare state to check if it's running client-side
   const [isClient, setIsClient] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
@@ -34,9 +30,9 @@ const Countdown: React.FC = () => {
   // Function to get the time from cookies
   const getTimeFromCookies = (): number => {
     if (typeof document !== "undefined") {
-      const cookie = document.cookie.split('; ').find(row => row.startsWith('countdownTime='));
+      const cookie = document.cookie.split("; ").find(row => row.startsWith("countdownTime="));
       if (cookie) {
-        const value = cookie.split('=')[1];
+        const value = cookie.split("=")[1];
         return parseInt(value, 10);
       }
     }
@@ -104,20 +100,20 @@ const Countdown: React.FC = () => {
 
   return (
     <Stack direction="row" spacing={2} justifyContent="center">
-      <Box className={classes.timeBox}>
-        <TimeBox label="Hours" value={timeLeft.h} />
-      </Box>
-      <Box className={classes.timeBox}>
-        <TimeBox label="Min" value={timeLeft.m} />
-      </Box>
-      <Box className={classes.timeBox}>
-        <TimeBox label="Sec" value={timeLeft.s} />
-      </Box>
+      <TimeBox>
+        <TimeDisplay label="Hours" value={timeLeft.h} />
+      </TimeBox>
+      <TimeBox>
+        <TimeDisplay label="Min" value={timeLeft.m} />
+      </TimeBox>
+      <TimeBox>
+        <TimeDisplay label="Sec" value={timeLeft.s} />
+      </TimeBox>
     </Stack>
   );
 };
 
-const TimeBox: React.FC<{ label: string; value: number }> = ({ label, value }) => (
+const TimeDisplay: React.FC<{ label: string; value: number }> = ({ label, value }) => (
   <Stack direction="column" alignItems="center">
     <Typography variant="h4" fontWeight="bold">
       {String(value).padStart(2, "0")}

@@ -1,93 +1,37 @@
 'use client'
+import useReferralList from "@/app/customHooks/useReferralList";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, FormControlLabel, Switch } from "@mui/material";
-import { makeStyles } from '@mui/styles';
-import { useState } from "react";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles({
-    tableContainer: {
-        '&::-webkit-scrollbar': {
-            width: '12px',
-           
-        },
-        '&::-webkit-scrollbar-track': {
-            background: '#E8F7FF',
-            borderRadius: '0px',
-           
-        },
-        '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#0071CE',
-            borderRadius: '10px',
-            border: '1px solid #0071CE',
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: 'red',
-        },
-    }
+const StyledTableContainer = styled(TableContainer)({
+    '&::-webkit-scrollbar': {
+        width: '12px',
+    },
+    '&::-webkit-scrollbar-track': {
+        background: '#E8F7FF',
+        borderRadius: '0px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#0071CE',
+        borderRadius: '10px',
+        border: '1px solid #0071CE',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: 'red',
+    },
 });
 
-const TableList = [
-    {
-        id: 1,
-        User: "Js Reigns",
-        Earning: "0.00",
-        level1: '3',
-        level2: '2',
-        level3: '1',
-    },
-    {
-        id: 2,
-        User: "Js Reigns",
-        Earning: "0.00",
-        level1: '3',
-        level2: '2',
-        level3: '1',
-    },
-    {
-        id: 3,
-        User: "Js Reigns",
-        Earning: "0.00",
-        level1: '3',
-        level2: '2',
-        level3: '1',
-    },
-    {
-        id: 4,
-        User: "Js Reigns",
-        Earning: "0.00",
-        level1: '3',
-        level2: '2',
-        level3: '1',
-    },
-    {
-        id: 5,
-        User: "Js Reigns",
-        Earning: "0.00",
-        level1: '3',
-        level2: '2',
-        level3: '1',
-    },
-];
+
 
 const Tasktable = () => {
-    const classes = useStyles();
+   const {referralList}=useReferralList()
 
-     
-    const [checkedState, setCheckedState] = useState<{ [key: number]: boolean }>(
-        TableList.reduce((acc, item) => ({ ...acc, [item.id]: true }), {})
-    );
-
-     
-    const handleChange = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckedState(prevState => ({
-            ...prevState,
-            [id]: event.target.checked
-        }));
-        console.log(`User ID: ${id} is now ${event.target.checked ? "Unblocked" : "Blocked"}`);
-    };
+  console.log(">>>>>>>>>>>referralList",referralList);
+  
 
     return (
         <Box>
-            <TableContainer className={classes.tableContainer}>
+            <StyledTableContainer>
                 <Table sx={{ minWidth: 650, backgroundColor: '#fff', border: '1px solid #DCDCEB', borderRadius: '8px' }} aria-label="simple table">
                     <TableHead sx={{ backgroundColor: '#E8F7FF' }}>
                         <TableRow>
@@ -96,47 +40,38 @@ const Tasktable = () => {
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Level2</TableCell>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Level3</TableCell>
                             <TableCell sx={{ fontSize: 16, color: '#0071CE' }}>Earning</TableCell>
-                            <TableCell sx={{ fontSize: 16, color: '#0071CE' }} align="right">Action</TableCell>
+                            {/* <TableCell sx={{ fontSize: 16, color: '#0071CE' }} align="right">Action</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {TableList.map((item) => (
-                            <TableRow key={item.id}>
+                        {referralList.map((item:any) => (
+                            <TableRow key={item._id}>
+                                <TableCell><Typography color="#000">{item?.userId?.email ||item?.userId?.mobileNumber }</Typography></TableCell>
                                 <TableCell>
-                                    <Typography color="#000">{item.User}</Typography>
+                                    {/* <Typography color="#000">{item.referralStats?.levels?.level1?.earnings}</Typography> */}
+                                    <Typography color="#999">${item.referralStats?.levels?.level1?.earnings}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <Typography color="#000">{item.level1}</Typography>
-                                    <Typography color="#999">$0.00</Typography>
+                                    {/* <Typography color="#000">{item.level2}</Typography> */}
+                                    <Typography color="#999">${item.referralStats?.levels?.level2?.earnings}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <Typography color="#000">{item.level2}</Typography>
-                                    <Typography color="#999">$0.00</Typography>
+                                    {/* <Typography color="#000">{item.level3}</Typography> */}
+                                    <Typography color="#999">${item.referralStats?.levels?.level3?.earnings}</Typography>
                                 </TableCell>
-                                <TableCell>
-                                    <Typography color="#000">{item.level3}</Typography>
-                                    <Typography color="#999">$0.00</Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography color="#000">{item.Earning}</Typography>
-                                </TableCell>
-                                <TableCell align="right">
+                                <TableCell><Typography color="#000">{item?.totalEarnings}</Typography></TableCell>
+                                {/* <TableCell align="right">
                                     <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={checkedState[item.id]}
-                                                onChange={handleChange(item.id)}
-                                            />
-                                        }
+                                        control={<Switch checked={checkedState[item.id]} onChange={handleChange(item.id)} />}
                                         label={checkedState[item.id] ? "Unblocked" : "Blocked"}
                                         sx={{ color: '#000' }}
                                     />
-                                </TableCell>
+                                </TableCell> */}
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </StyledTableContainer>
         </Box>
     );
 }

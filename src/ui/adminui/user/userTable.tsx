@@ -15,7 +15,7 @@ import {
   Snackbar,
   TablePagination,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import moment from "moment";
 import copy from "clipboard-copy";
@@ -24,23 +24,21 @@ import { Copy } from "lucide-react";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { toast, ToastContainer } from "react-toastify";
 
-const useStyles = makeStyles({
-  tableContainer: {
-    "&::-webkit-scrollbar": {
-      width: "12px",
-    },
-    "&::-webkit-scrollbar-track": {
-      background: "#E8F7FF",
-      borderRadius: "0px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#0071CE",
-      borderRadius: "10px",
-      border: "1px solid #0071CE",
-    },
-    "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: "red",
-    },
+const StyledTableContainer = styled(TableContainer)({
+  "&::-webkit-scrollbar": {
+    width: "12px",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#E8F7FF",
+    borderRadius: "0px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#0071CE",
+    borderRadius: "10px",
+    border: "1px solid #0071CE",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    backgroundColor: "red",
   },
 });
 
@@ -55,7 +53,6 @@ interface User {
 }
 
 const Tasktable = () => {
-  const classes = useStyles();
   const { allUserList, refetch } = useUserList();
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
@@ -107,15 +104,15 @@ const Tasktable = () => {
         onClose={handleCloseSnackbar}
         message="Address copied"
       />
-      <TableContainer className={classes.tableContainer}>
+      <StyledTableContainer>
         <Table sx={{ minWidth: 650, backgroundColor: "#fff", border: "1px solid #DCDCEB", borderRadius: "8px" }}>
           <TableHead sx={{ backgroundColor: "#E8F7FF" }}>
             <TableRow>
-              {['Wallet Add.', 'Email/Phone', 'Status', 'Joining Date', 'Earning', 'Action'].map((header) => (
+              {["Wallet Add.", "Email/Phone", "Status", "Joining Date", "Earning", "Action"].map((header) => (
                 <TableCell
                   key={header}
                   sx={{ borderBottom: "1px solid #DCDCEB", fontSize: 16, color: "#0071CE" }}
-                  align={header === 'Action' ? "right" : "left"}
+                  align={header === "Action" ? "right" : "left"}
                 >
                   {header}
                 </TableCell>
@@ -154,7 +151,7 @@ const Tasktable = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </StyledTableContainer>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

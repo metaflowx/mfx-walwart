@@ -20,8 +20,10 @@ const apiConfig = {
   profile: `${baseURL}/admin/profile`,
   update: `${baseURL}/admin/update`,
 
+  //referral 
 
 
+  ReferralListHistory: `${baseURL}/referral/ReferralListHistory`,
 
 
 
