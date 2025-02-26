@@ -200,6 +200,10 @@ export default function Login() {
                     borderRadius: "8px",
                     color: "#000",
                   }}
+                  dropdownStyle={{
+                    backgroundColor: "#fff",
+                    color: "#000",
+                  }}
                 />
                 {errors.mobileNumber && formData.mobileNumber === "" && (
                   <p className="text-red-500 text-xs">{errors.mobileNumber}</p>
