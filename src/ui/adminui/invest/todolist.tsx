@@ -15,6 +15,8 @@ import {
   Button,
   Modal,
   Box,
+  CircularProgress,
+  Typography,
 } from "@mui/material";
 import {
   Delete,
@@ -27,7 +29,7 @@ import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import usePackageList from "@/app/customHooks/usePackageList";
 
 export default function Todolist() {
-  const { packageList, refetch } = usePackageList();
+  const { packageList,loading, refetch } = usePackageList();
 
   const [newTask, setNewTask] = useState({
     name: "",
@@ -191,7 +193,11 @@ export default function Todolist() {
           <TextField label="Total Returns" name="totalReturns" fullWidth value={newTask.totalReturns} onChange={handleInputChange} error={!!errors.totalReturns} helperText={errors.totalReturns} />
           <TextField label="Bonus" name="bonus" fullWidth value={newTask.bonus} onChange={handleInputChange} error={!!errors.bonus} helperText={errors.bonus} />
           <Button variant="contained" color="primary" onClick={createPackage} sx={{ mt: 2 }}>
-            {editTaskId !== null ? "Update Task" : "Add Task"}
+          {isLoading ? <CircularProgress size={24} style={{ color: "#fff" }} /> :(
+            <>
+             {editTaskId !== null ? "Update Task" : "Add Task"}
+            </>
+          ) } 
           </Button>
         </Box>
       </Modal>
@@ -213,6 +219,16 @@ export default function Todolist() {
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
+            {loading ? <Box style={{
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center"
+            }} >
+
+              <CircularProgress size={24} style={{ color: "#fff" }} />
+
+            </Box> : (
+
             <TableBody>
               {packageList &&
                 packageList.map((task: any) => (
@@ -254,8 +270,16 @@ export default function Todolist() {
                   </TableRow>
                 ))}
             </TableBody>
+            ) }
           </Table>
         </TableContainer>
+        {!loading && packageList && packageList.length===0 && (
+
+          <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
+            <Typography color="#fff" >Data not found</Typography>
+          </Box>
+
+        )}
       </Box>
     </>
   );

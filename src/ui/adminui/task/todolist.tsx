@@ -16,6 +16,7 @@ import {
   Modal,
   Box,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import {
   Delete,
@@ -30,7 +31,7 @@ import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 
 
 export default function Todolist() {
-  const { taskList, refetch } = taskListData();
+  const { taskList,loading, refetch } = taskListData();
   const [isLoading, setIsLoading] = useState(false);
   const [newTask, setNewTask] = useState({
     title: "",
@@ -319,6 +320,13 @@ export default function Todolist() {
           </TableBody>
         </Table>
       </TableContainer>
+      {!loading && taskList && taskList.length===0 && (
+
+<Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
+  <Typography color="#fff" >Data not found</Typography>
+</Box>
+
+)}
     </Box>
     </>
   );
