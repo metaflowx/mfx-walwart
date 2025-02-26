@@ -23,7 +23,7 @@ const useUserList = () => {
       });
 
       if (res?.status === 200) {
-        setAllUserList(res.data.packages);
+        setAllUserList(res.data);
       }
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Unknown error"));

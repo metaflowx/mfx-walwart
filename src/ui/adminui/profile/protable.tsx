@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import CommonBackButton from "@/components/ui/CommonBackButton";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 
@@ -80,7 +80,7 @@ const[isLoading,setIsLoading]=useState(false)
         setIsLoading(true)
         const res = await apiRouterCall({
           method: "PUT",
-          endPoint: "updatePassword",
+          endPoint: "update",
           data: {
             oldPassword: oldPassword,
             newPassword: newPassword,
@@ -90,7 +90,7 @@ const[isLoading,setIsLoading]=useState(false)
         if(res?.status===200){
             toast.success(res.data.message)
             setIsLoading(false)
-            router.back()
+            router.push("/admin/dashboard")
         }else{
             toast.error(res?.data.message)
             setIsLoading(false)
@@ -104,7 +104,7 @@ const[isLoading,setIsLoading]=useState(false)
 
   return (
     <div>
-      
+        <ToastContainer />
       <form onSubmit={handleSubmit} className="mt-4">
         <Grid2 container spacing={2}>
           {/* Old Password Field */}
