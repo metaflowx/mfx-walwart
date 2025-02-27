@@ -22,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${prompt.className} `}>
-        <ToastContainer />
+      
         <DashboardHeader />
         <Grid2 container spacing={0}>
           <Grid2 size={{ lg: 2, md: 2.5, sm: 12, xs: 12 }}>
@@ -31,7 +31,9 @@ export default async function RootLayout({
             </Box>
           </Grid2>
 
-          <Grid2 size={{ lg: 10, md: 9.5, sm: 12, xs: 12 }}>{children}</Grid2>
+          <Grid2 size={{ lg: 10, md: 9.5, sm: 12, xs: 12 }}>
+          <ToastContainer />
+            {children}</Grid2>
         </Grid2>
       </body>
     </html>

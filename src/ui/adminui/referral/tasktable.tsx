@@ -13,9 +13,11 @@ import {
   FormControlLabel,
   Switch,
   Skeleton,
+  TablePagination,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const StyledTableContainer = styled(TableContainer)({
   "&::-webkit-scrollbar": {
@@ -36,7 +38,9 @@ const StyledTableContainer = styled(TableContainer)({
 });
 
 const Tasktable = () => {
-  const { referralList,loading, refetch } = useReferralList();
+  const { referralList, loading, refetch } = useReferralList();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChange = async (id: string, status: boolean) => {
     try {
@@ -59,8 +63,18 @@ const Tasktable = () => {
     }
   };
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Box>
+      <ToastContainer />
       <StyledTableContainer>
         <Table
           sx={{
@@ -99,97 +113,121 @@ const Tasktable = () => {
           </TableHead>
           <TableBody>
             {loading ? (
+              Array.from(new Array(5)).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton variant="text" width={120} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={60} />
+                  </TableCell>
 
-Array.from(new Array(5)).map((_, index) => (
-    <TableRow key={index}>
-      <TableCell>
-        <Skeleton variant="text" width={120} />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="text" width={80} />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="text" width={80} />
-      </TableCell>
-      <TableCell >
-        <Skeleton variant="text" width={60} />
-      </TableCell>
-    
-      <TableCell align="center">
-        <Skeleton variant="text" width={80} />
-      </TableCell>
-      <TableCell align="right" style={{display:"flex"}} >
-        <Skeleton variant="circular" width={32} height={32} />
-        <Skeleton variant="circular" width={32} height={32} />
-      </TableCell>
-    </TableRow>
-  ))
-
-            ) :(
-                <>
-                 {referralList && referralList.map((item: any) => (
-              <TableRow key={item._id}>
-                <TableCell>
-                  <Typography color="#000">
-                    {item?.userId?.email || item?.userId?.mobileNumber}
+                  <TableCell align="center">
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell align="right" style={{ display: "flex" }}>
+                    <Skeleton variant="circular" width={32} height={32} />
+                    <Skeleton variant="circular" width={32} height={32} />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : referralList?.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={8} align="center">
+                  <Typography variant="h6" color="textSecondary">
+                    No data found
                   </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="#000">{item?.referralCode}</Typography>
-                </TableCell>
-
-                <TableCell>
-                  <Typography color="#000">
-                    Count:{item.referralStats?.levels?.level1?.count}
-                  </Typography>
-                  <Typography color="#999">
-                    Earning:${item.referralStats?.levels?.level1?.earnings}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="#000">
-                    Count:{item.referralStats?.levels?.level2?.count}
-                  </Typography>
-                  <Typography color="#999">
-                    Earning:${item.referralStats?.levels?.level2?.earnings}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="#000">
-                    Count:{item.referralStats?.levels?.level3?.count}
-                  </Typography>
-                  <Typography color="#999">
-                    Earning:${item.referralStats?.levels?.level3?.earnings}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="#000">{item?.totalEarnings}</Typography>
-                </TableCell>
-                <TableCell align="right">
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={!item?.enableReferral}
-                        onChange={() =>
-                          handleChange(
-                            item._id,
-                            item?.enableReferral ? false : true
-                          )
-                        }
-                      />
-                    }
-                    label={!item?.enableReferral ? "Unblocked" : "Blocked"}
-                    sx={{ color: "#000" }}
-                  />
                 </TableCell>
               </TableRow>
-            ))}
-                </>
+            ) : (
+              referralList
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item: any) => (
+                  <TableRow key={item._id}>
+                    <TableCell>
+                      <Typography color="#000">
+                        {item?.userId?.email || item?.userId?.mobileNumber}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="#000">
+                        {item?.referralCode}
+                      </Typography>
+                    </TableCell>
+
+                    <TableCell>
+                      <Typography color="#000">
+                        Count:{item.referralStats?.levels?.level1?.count}
+                      </Typography>
+                      <Typography color="#999">
+                        Earning:$
+                        {item.referralStats?.levels?.level1?.earnings}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="#000">
+                        Count:{item.referralStats?.levels?.level2?.count}
+                      </Typography>
+                      <Typography color="#999">
+                        Earning:$
+                        {item.referralStats?.levels?.level2?.earnings}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="#000">
+                        Count:{item.referralStats?.levels?.level3?.count}
+                      </Typography>
+                      <Typography color="#999">
+                        Earning:$
+                        {item.referralStats?.levels?.level3?.earnings}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="#000">
+                        {item?.totalEarnings}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={!item?.enableReferral}
+                            onChange={() =>
+                              handleChange(
+                                item._id,
+                                item?.enableReferral ? false : true
+                              )
+                            }
+                          />
+                        }
+                        label={
+                          !item?.enableReferral ? "Unblocked" : "Blocked"
+                        }
+                        sx={{ color: "#000" }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
             )}
-           
           </TableBody>
         </Table>
       </StyledTableContainer>
+
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={referralList?.length || 0}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Box>
   );
 };
