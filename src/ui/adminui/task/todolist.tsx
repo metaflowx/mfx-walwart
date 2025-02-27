@@ -17,6 +17,7 @@ import {
   Typography,
   TablePagination,
   TextField,
+  Skeleton,
 } from "@mui/material";
 import {
   Delete,
@@ -37,6 +38,7 @@ export default function Todolist() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [imageFile, setImageFile] = useState("");
   const [newTask, setNewTask] = useState({
     title: "",
     type: "",
@@ -55,20 +57,41 @@ export default function Todolist() {
   };
   const handleClose = () => {
     setOpen(false);
+    setNewTask({
+      title: "",
+      type: "",
+      description: "",
+      image: "",
+      points: "5",
+    });
     setEditTaskId(null);
 
     setImagePreview(null);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async(e: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = e?.target?.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setNewTask({ ...newTask, image: file });
+      const formDataImage = new FormData();
+      formDataImage.append("image", file);
+      
+      // Check if an image is selected
+   
+        const res = await apiRouterCall({
+          method: "POST",
+          endPoint: "uploadImage",
+          data: formDataImage,
+        });
+        if (res?.status === 200) {
+          setNewTask({...newTask,image:res.data.url});
+        }
       setImagePreview(imageUrl);
     }
   };
@@ -98,22 +121,12 @@ export default function Todolist() {
   const createTask = async () => {
     try {
       setIsLoading(true);
+     
 
-      // Check if an image is selected
-      if (!newTask.image) {
-        toast.error("Please upload an image.");
-        return;
-      }
-      const formData = new FormData();
-      formData.append("image", newTask.image);
-      formData.append("title", newTask.title);
-      formData.append("type", newTask.type);
-      formData.append("description", newTask.description);
-      formData.append("point", newTask.points);
       const res = await apiRouterCall({
         method: editTaskId ? "PUT" : "POST",
         endPoint: editTaskId ? "edit" : "createTask",
-        data: formData,
+        data: newTask,
         id: editTaskId ? editTaskId : undefined,
       });
 
@@ -149,7 +162,7 @@ export default function Todolist() {
 
   return (
     <Box sx={{ margin: "auto", padding: 2, border: "1px solid #DCDCEB" }}>
-       <Box textAlign={"end"}>
+      <Box textAlign={"end"}>
         <Button
           sx={{
             backgroundColor: "#0071CE",
@@ -163,7 +176,7 @@ export default function Todolist() {
           Add Task
         </Button>
       </Box>
-       <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
             position: "absolute",
@@ -256,43 +269,94 @@ export default function Todolist() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {taskList &&
-              taskList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((task: any) => (
-                <TableRow key={task.id}>
+            {loading ? (
+              Array.from(new Array(5)).map((_, index) => (
+                <TableRow key={index}>
                   <TableCell>
-                    {task.image && <img src={task.image} alt="Task" style={{ width: 40, height: 40 }} />}
+                    <Skeleton variant="text" width={120} />
                   </TableCell>
-                  <TableCell>{task.title}</TableCell>
-                  <TableCell>{task.type}</TableCell>
-                  <TableCell>{task.description}</TableCell>
-                  <TableCell align="center">{task.status}</TableCell>
-                  <TableCell align="right">
-                    <IconButton color="error" onClick={() => { setEditTaskId(task.id); setOpenDelete(true); }}>
-                      <Delete />
-                    </IconButton>
-                      <IconButton color="info" onClick={() => editTask(task)}>
-                      <EditIcon />
-                    </IconButton>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={60} />
+                  </TableCell>
+
+                  <TableCell align="center">
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell align="right" style={{ display: "flex" }}>
+                    <Skeleton variant="circular" width={32} height={32} />
+                    <Skeleton variant="circular" width={32} height={32} />
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <>
+                {taskList &&
+                  taskList
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((task: any) => (
+                      <TableRow key={task.id}>
+                        <TableCell>
+                          {task.image && (
+                            <img
+                              src={task.image}
+                              alt="Task"
+                              style={{ width: 40, height: 40 }}
+                            />
+                          )}
+                        </TableCell>
+                        <TableCell>{task.title}</TableCell>
+                        <TableCell>{task.type}</TableCell>
+                        <TableCell>{task.description}</TableCell>
+                        <TableCell align="center">{task.status}</TableCell>
+                        <TableCell align="right">
+                          <IconButton
+                            color="error"
+                            onClick={() => {
+                              setEditTaskId(task.id);
+                              setOpenDelete(true);
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                          <IconButton
+                            color="info"
+                            onClick={() => editTask(task)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+              </>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
-      {taskList && taskList.length >0 && (
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={taskList?.length || 0}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      {taskList && taskList.length > 0 && (
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={taskList?.length || 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       )}
       {!loading && taskList && taskList.length === 0 && (
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Typography color="#fff">Data not found</Typography>
         </Box>
       )}

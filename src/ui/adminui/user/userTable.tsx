@@ -14,6 +14,7 @@ import {
   Switch,
   Snackbar,
   TablePagination,
+  Skeleton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
@@ -53,7 +54,7 @@ interface User {
 }
 
 const Tasktable = () => {
-  const { allUserList, refetch } = useUserList();
+  const { allUserList,loading, refetch } = useUserList();
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -123,7 +124,35 @@ const Tasktable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allUserList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item: User) => (
+            {loading ?(
+              Array.from(new Array(5)).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton variant="text" width={120} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell >
+                    <Skeleton variant="text" width={60} />
+                  </TableCell>
+                
+                  <TableCell align="center">
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell align="right" style={{display:"flex"}} >
+                    <Skeleton variant="circular" width={32} height={32} />
+                    <Skeleton variant="circular" width={32} height={32} />
+                  </TableCell>
+                </TableRow>
+              ))
+            ):(
+
+              <>
+               {allUserList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item: User) => (
               <TableRow key={item._id}>
                 <TableCell>
                   <Typography onClick={() => handleCopy(item.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
@@ -152,6 +181,10 @@ const Tasktable = () => {
                 </TableCell>
               </TableRow>
             ))}
+              </>
+
+            )}
+           
           </TableBody>
         </Table>
       </StyledTableContainer>

@@ -25,13 +25,13 @@ export default async function RootLayout({
         <ToastContainer />
         <DashboardHeader />
         <Grid2 container spacing={0}>
-          <Grid2 size={{ lg: 1.5, md: 2.5, sm: 12, xs: 12 }}>
+          <Grid2 size={{ lg: 2, md: 2.5, sm: 12, xs: 12 }}>
             <Box sx={{ "@media(max-width : 900px)": { display: "none" } }}>
               <Sidebardb />
             </Box>
           </Grid2>
 
-          <Grid2 size={{ lg: 10.5, md: 9.5, sm: 12, xs: 12 }}>{children}</Grid2>
+          <Grid2 size={{ lg: 10, md: 9.5, sm: 12, xs: 12 }}>{children}</Grid2>
         </Grid2>
       </body>
     </html>
