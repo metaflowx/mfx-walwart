@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 
 const Products = () => {
   const router=useRouter()
-  const {taskList}=taskListData()
+  const {taskList,loading}=taskListData()
   return (
     <Box mt={2} >
      <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",pb:4}}  >
@@ -33,7 +33,7 @@ const Products = () => {
      </Box>
 
       {/* Swiper component for auto sliding */}
-      <MovieCard products={taskList} />
+      <MovieCard products={taskList} loading={loading} />
       
     </Box>
   );

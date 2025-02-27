@@ -45,6 +45,12 @@ const apiConfig = {
   deletePacakage: `${baseURL}/pacakage/delete`,
   allPacakage: `${baseURL}/pacakage/all`,
 
+  dashboard: `${baseURL}/dashboard`,
+
+
+
+  
+
 
 
 

@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const newsItems = [
-  "1. 迎 Welcome to the latest Walmart investment platform   minimum gold amount: 12 usd  Trading every 24 hours  minimum withdrawal amount:n get 3% (30USDT) ",
+  "  🚀 Kickstart your earnings with just 11 USDT! Refer friends and earn daily rewards – Walmart’s platform launches 5 March 2025! 💰✨",
  
 ];
 

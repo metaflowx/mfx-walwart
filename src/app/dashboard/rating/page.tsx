@@ -13,7 +13,7 @@ import { CircularProgress, Rating } from "@mui/material";
 import { toast } from "react-toastify";
 import taskListData from "@/app/customHooks/taskList";
 export default function page() {
-  const {taskList}=taskListData()
+  const {taskList,loading}=taskListData()
   const search =useSearchParams()
   const [taskDetails,setTaskDetails]=useState<any>("")
   const[isLoading,setIsLoading]=useState(false)
@@ -155,7 +155,7 @@ export default function page() {
         Related Recommendations
       </h3>
 
-      <MovieCard products={filterData} />
+      <MovieCard products={filterData} loading={loading} />
     </div>
   );
 }

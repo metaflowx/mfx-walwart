@@ -1,18 +1,33 @@
-"use client"
-import { Box, Button, Card, CardContent, Grid2, Rating, Typography } from '@mui/material'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { Autoplay } from 'swiper/modules'
+"use client";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid2,
+  Rating,
+  Skeleton,
+  Typography,
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { Autoplay } from "swiper/modules";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import Cardcmp from './cardcmp'
-export default function MovieCard({ products }: { products?: any }) {
-  const router = useRouter()
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Cardcmp from "./cardcmp";
+import CommonCardSkeltonLoader from "@/components/ui/CommonCardSkeltonLoader";
+export default function MovieCard({
+  products,
+  loading,
+}: {
+  products?: any;
+  loading: boolean;
+}) {
+  const router = useRouter();
   return (
-
     <Swiper
       spaceBetween={20}
       slidesPerView={3}
@@ -24,18 +39,24 @@ export default function MovieCard({ products }: { products?: any }) {
         1200: { slidesPerView: 3 },
         900: { slidesPerView: 2 },
         200: { slidesPerView: 1 },
-
       }}
-
     >
-      {products.map((product: any, index: number) => (
-        <SwiperSlide key={index} style={{  height:"100%",}} >
-          <Cardcmp product={product} />
-        </SwiperSlide>
-      ))}
-
-
+      {loading ? (
+        Array.from(new Array(5)).map((_, index) => (
+          <SwiperSlide key={index} style={{ height: "100%" }}>
+             <CommonCardSkeltonLoader />
+            </SwiperSlide>
+         
+        ))
+      ) : (
+        <>
+          {products.map((product: any, index: number) => (
+            <SwiperSlide key={index} style={{ height: "100%" }}>
+              <Cardcmp product={product} />
+            </SwiperSlide>
+          ))}
+        </>
+      )}
     </Swiper>
-
-  )
+  );
 }

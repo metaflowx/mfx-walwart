@@ -83,12 +83,12 @@ const Listleft = [
     Name: "Invest",
     href: "/dashboard/invest",
   },
-  {
-    id: 2,
-    Image: l2,
-    Name: "Official Website",
-    href: "",
-  },
+  // {
+  //   id: 2,
+  //   Image: l2,
+  //   Name: "Official Website",
+  //   href: "",
+  // },
   {
     id: 3,
     Image: l3,
@@ -100,7 +100,8 @@ const Listleft = [
     id: 5,
     Image: l5,
     Name: "Record",
-    href: "",
+    href: "/dashboard/invest-record",
+    
   },
 ];
 
@@ -178,9 +179,9 @@ const Procmp = () => {
                 <Image src={logo} alt={""} width={60} height={60} />
               </Box>
               <Box>
-                <Typography variant="h5" fontWeight={500} color="#fff">
+                <h2  className="text-white font-[500] text-[16px] sm:text-[25px] " >
                  {profileData?.email || profileData?.mobileNumber}
-                </Typography>
+                </h2>
                 <Box
                   sx={{
                     display: "flex",
