@@ -28,9 +28,10 @@ import { toast } from "react-toastify";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import usePackageList from "@/app/customHooks/usePackageList";
+import { handleNegativeValue } from "@/utils/fun";
 
 export default function Todolist() {
-  const { packageList,loading, refetch } = usePackageList();
+  const { packageList, loading, refetch } = usePackageList();
 
   const [newTask, setNewTask] = useState({
     name: "",
@@ -40,9 +41,8 @@ export default function Todolist() {
     totalReturns: "",
     bonus: "",
     description: "",
-
   });
- 
+
   const [errors, setErrors] = useState({
     name: "",
     amount: "",
@@ -50,7 +50,7 @@ export default function Todolist() {
     durationInDays: "",
     totalReturns: "",
     bonus: "",
-    description:""
+    description: "",
   });
   const [editTaskId, setEditTaskId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -67,9 +67,8 @@ export default function Todolist() {
       durationInDays: "",
       totalReturns: "",
       bonus: "",
-      description:""
+      description: "",
     });
-    
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +96,7 @@ export default function Todolist() {
 
         setOpenDelete(false);
         setIsLoading(false);
-        refetch()
+        refetch();
       } else {
         toast.error(res?.data.message);
         setIsLoading(false);
@@ -110,13 +109,19 @@ export default function Todolist() {
   const validateFields = () => {
     let tempErrors: any = {};
     if (!newTask.name) tempErrors.name = "Name is required";
-    if (!newTask.description) tempErrors.description = "Description is required";
+    if (!newTask.description)
+      tempErrors.description = "Description is required";
 
-    if (!newTask.amount || isNaN(Number(newTask.amount))) tempErrors.amount = "Valid amount is required";
-    if (!newTask.dailyEarnings || isNaN(Number(newTask.dailyEarnings))) tempErrors.dailyEarnings = "Valid daily earnings required";
-    if (!newTask.durationInDays || isNaN(Number(newTask.durationInDays))) tempErrors.durationInDays = "Valid duration required";
-    if (!newTask.totalReturns || isNaN(Number(newTask.totalReturns))) tempErrors.totalReturns = "Valid total returns required";
-    if (!newTask.bonus || isNaN(Number(newTask.bonus))) tempErrors.bonus = "Valid bonus required";
+    if (!newTask.amount || isNaN(Number(newTask.amount)))
+      tempErrors.amount = "Valid amount is required";
+    if (!newTask.dailyEarnings || isNaN(Number(newTask.dailyEarnings)))
+      tempErrors.dailyEarnings = "Valid daily earnings required";
+    if (!newTask.durationInDays || isNaN(Number(newTask.durationInDays)))
+      tempErrors.durationInDays = "Valid duration required";
+    if (!newTask.totalReturns || isNaN(Number(newTask.totalReturns)))
+      tempErrors.totalReturns = "Valid total returns required";
+    if (!newTask.bonus || isNaN(Number(newTask.bonus)))
+      tempErrors.bonus = "Valid bonus required";
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -133,7 +138,7 @@ export default function Todolist() {
       if (res?.status === 200) {
         toast.success(res.data.message);
         handleClose();
-        refetch()
+        refetch();
       } else {
         toast.error(res?.data.message);
       }
@@ -153,8 +158,7 @@ export default function Todolist() {
         durationInDays: data.durationInDays,
         totalReturns: data.totalReturns,
         bonus: data.bonus,
-        description:data?.description
-      
+        description: data?.description,
       });
       setEditTaskId(data?._id);
       handleOpen();
@@ -196,125 +200,220 @@ export default function Todolist() {
           </Button>
         </Box>
 
-        <Modal open={open} onClose={handleClose}   >
-        <Box  sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: {xs:"100%", sm:500},
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}>
-          <TextField label="Package Name" name="name" fullWidth value={newTask.name} onChange={handleInputChange} error={!!errors.name} helperText={errors.name} />
-          <TextField label="Amount" name="amount" fullWidth value={newTask.amount} onChange={handleInputChange} error={!!errors.amount} helperText={errors.amount} />
-          <TextField label="Daily Earnings" name="dailyEarnings" fullWidth value={newTask.dailyEarnings} onChange={handleInputChange} error={!!errors.dailyEarnings} helperText={errors.dailyEarnings} />
-          <TextField label="Duration (Days)" name="durationInDays" fullWidth value={newTask.durationInDays} onChange={handleInputChange} error={!!errors.durationInDays} helperText={errors.durationInDays} />
-          <TextField label="Total Returns" name="totalReturns" fullWidth value={newTask.totalReturns} onChange={handleInputChange} error={!!errors.totalReturns} helperText={errors.totalReturns} />
-          <TextField label="Bonus" name="bonus" fullWidth value={newTask.bonus} onChange={handleInputChange} error={!!errors.bonus} helperText={errors.bonus} />
-          <TextField label="Description" name="description" fullWidth value={newTask.description} onChange={handleInputChange} error={!!errors.description} helperText={errors.description} />
-
-          <Button variant="contained" color="primary" onClick={createPackage} sx={{ mt: 2 }}>
-          {isLoading ? <CircularProgress size={24} style={{ color: "#fff" }} /> :(
-            <>
-             {editTaskId !== null ? "Update Task" : "Add Task"}
-            </>
-          ) } 
-          </Button>
-        </Box>
-      </Modal>
-
-      <TableContainer sx={{ marginTop: 2 }}>
-  <Table sx={{ border: "1px solid #DCDCEB" }}>
-    <TableHead>
-      <TableRow sx={{ backgroundColor: "#E8F7FF" }}>
-        <TableCell>Package Name</TableCell>
-        <TableCell>Amount</TableCell>
-        <TableCell>Daily Earnings</TableCell>
-        <TableCell align="center">Duration In Days</TableCell>
-        <TableCell align="center">Total Returns</TableCell>
-        <TableCell align="center">Bonus</TableCell>
-        <TableCell align="right">Actions</TableCell>
-      </TableRow>
-    </TableHead>
-
-    <TableBody>
-      {loading ? (
-        Array.from(new Array(5)).map((_, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <Skeleton variant="text" width={120} />
-            </TableCell>
-            <TableCell>
-              <Skeleton variant="text" width={80} />
-            </TableCell>
-            <TableCell>
-              <Skeleton variant="text" width={80} />
-            </TableCell>
-            <TableCell align="center">
-              <Skeleton variant="text" width={60} />
-            </TableCell>
-            <TableCell align="center">
-              <Skeleton variant="text" width={80} />
-            </TableCell>
-            <TableCell align="center">
-              <Skeleton variant="text" width={80} />
-            </TableCell>
-            <TableCell align="right">
-              <Skeleton variant="circular" width={32} height={32} />
-              <Skeleton variant="circular" width={32} height={32} />
-            </TableCell>
-          </TableRow>
-        ))
-      ) : (
-        packageList &&
-        packageList.map((task: any) => (
-          <TableRow key={task.id}>
-            <TableCell
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
+        <Modal open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: { xs: "100%", sm: 500 },
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            <TextField
+              label="Package Name"
+              name="name"
+              fullWidth
+              value={newTask.name}
+              onChange={handleInputChange}
+              error={!!errors.name}
+              helperText={errors.name}
+            />
+            <TextField
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
               }}
+              type="number"
+              label="Amount"
+              name="amount"
+              fullWidth
+              value={newTask.amount}
+              onChange={handleInputChange}
+              error={!!errors.amount}
+              helperText={errors.amount}
+            />
+            <TextField
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Daily Earnings"
+              name="dailyEarnings"
+              fullWidth
+              value={newTask.dailyEarnings}
+              onChange={handleInputChange}
+              error={!!errors.dailyEarnings}
+              helperText={errors.dailyEarnings}
+            />
+            <TextField
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Duration (Days)"
+              name="durationInDays"
+              fullWidth
+              value={newTask.durationInDays}
+              onChange={handleInputChange}
+              error={!!errors.durationInDays}
+              helperText={errors.durationInDays}
+            />
+            <TextField
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Total Returns"
+              name="totalReturns"
+              fullWidth
+              value={newTask.totalReturns}
+              onChange={handleInputChange}
+              error={!!errors.totalReturns}
+              helperText={errors.totalReturns}
+            />
+            <TextField
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Bonus"
+              name="bonus"
+              fullWidth
+              value={newTask.bonus}
+              onChange={handleInputChange}
+              error={!!errors.bonus}
+              helperText={errors.bonus}
+            />
+            <TextField
+              label="Description"
+              name="description"
+              fullWidth
+              value={newTask.description}
+              onChange={handleInputChange}
+              error={!!errors.description}
+              helperText={errors.description}
+            />
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={createPackage}
+              sx={{ mt: 2 }}
             >
-              {task.name}
-            </TableCell>
-            <TableCell>${task.amount}</TableCell>
-            <TableCell>${task.dailyEarnings}</TableCell>
-            <TableCell align="center">{task.durationInDays}</TableCell>
-            <TableCell align="center">${task.totalReturns}</TableCell>
-            <TableCell align="center">${task.bonus}</TableCell>
-            <TableCell align="right">
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "4px",
-                  justifyContent: "end",
-                }}
-              >
-                <IconButton color="error" onClick={() => deltePackage(task)}>
-                  <Delete />
-                </IconButton>
-                <IconButton color="info" onClick={() => editTask(task)}>
-                  <EditIcon />
-                </IconButton>
-              </Box>
-            </TableCell>
-          </TableRow>
-        ))
-      )}
-    </TableBody>
-  </Table>
-</TableContainer>
-
-        {!loading && packageList && packageList.length===0 && (
-
-          <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
-            <Typography color="#fff" >Data not found</Typography>
+              {isLoading ? (
+                <CircularProgress size={24} style={{ color: "#fff" }} />
+              ) : (
+                <>{editTaskId !== null ? "Update Task" : "Add Task"}</>
+              )}
+            </Button>
           </Box>
+        </Modal>
 
+        <TableContainer sx={{ marginTop: 2 }}>
+          <Table sx={{ border: "1px solid #DCDCEB" }}>
+            <TableHead>
+              <TableRow sx={{ backgroundColor: "#E8F7FF" }}>
+                <TableCell>Package Name</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Daily Earnings</TableCell>
+                <TableCell align="center">Duration In Days</TableCell>
+                <TableCell align="center">Total Returns</TableCell>
+                <TableCell align="center">Bonus</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {loading
+                ? Array.from(new Array(5)).map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Skeleton variant="text" width={120} />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" width={80} />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" width={80} />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Skeleton variant="text" width={60} />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Skeleton variant="text" width={80} />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Skeleton variant="text" width={80} />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Skeleton variant="circular" width={32} height={32} />
+                        <Skeleton variant="circular" width={32} height={32} />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                : packageList &&
+                  packageList.map((task: any) => (
+                    <TableRow key={task.id}>
+                      <TableCell
+                        style={{
+                          textDecoration: task.completed
+                            ? "line-through"
+                            : "none",
+                        }}
+                      >
+                        {task.name}
+                      </TableCell>
+                      <TableCell>${task.amount}</TableCell>
+                      <TableCell>${task.dailyEarnings}</TableCell>
+                      <TableCell align="center">
+                        {task.durationInDays}
+                      </TableCell>
+                      <TableCell align="center">${task.totalReturns}</TableCell>
+                      <TableCell align="center">${task.bonus}</TableCell>
+                      <TableCell align="right">
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: "4px",
+                            justifyContent: "end",
+                          }}
+                        >
+                          <IconButton
+                            color="error"
+                            onClick={() => deltePackage(task)}
+                          >
+                            <Delete />
+                          </IconButton>
+                          <IconButton
+                            color="info"
+                            onClick={() => editTask(task)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        {!loading && packageList && packageList.length === 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography color="#fff">Data not found</Typography>
+          </Box>
         )}
       </Box>
     </>

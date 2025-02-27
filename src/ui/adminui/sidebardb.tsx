@@ -52,6 +52,8 @@ const navLinks = [
     { name: 'Referral', href: '/admin/referral', iconl: sideiconl_04, icond: sideicond_04 },
     { name: 'User', href: '/admin/user', iconl: sideiconl_03, icond: sideicond_03 },
     { name: 'Profile', href: '/admin/profile', iconl: sideiconl_07, icond: sideicond_07 },
+    { name: 'Assets', href: '/admin/assets-list', iconl: sideiconl_07, icond: sideicond_07 },
+
 ];
 
 const Sidebardb = () => {

@@ -9,12 +9,12 @@ export default function page() {
     const router =useRouter()
     const assestList=[
         {
-            logo:"/images/coin/usdt.png",
+            logo:"https://cryptologos.cc/logos/polygon-matic-logo.png?v=025",
             name:"POL20-USDT",
             url:"/dashboard/rechange"
         },
         {
-            logo:"/images/coin/bnb.png",
+            logo:"https://cryptologos.cc/logos/polygon-matic-logo.png?v=025",
             name:"POL",
              url:"/dashboard/rechange"
         },
@@ -58,7 +58,7 @@ export default function page() {
                     >
                         <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center"}} >
                         <Box sx={{display:"flex",alignItems:"center"}} >
-                            <img src={item.logo} />
+                            <img src={item.logo} style={{width:"40px",height:"40px"}} />
                             <Typography sx={{
                                 color:"#110229",
                                 fontSize:"24px",

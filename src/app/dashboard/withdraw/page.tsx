@@ -17,11 +17,11 @@ export default function page() {
       value: "0 USDT",
       val: "Free Fee Times 1",
     },
-    {
-      title: "Taxes :",
-      value: "0 USDT",
-      val: "",
-    },
+    // {
+    //   title: "Taxes :",
+    //   value: "0 USDT",
+    //   val: "",
+    // },
     {
       title: "Actual arrival：",
       value: "0 USDT",

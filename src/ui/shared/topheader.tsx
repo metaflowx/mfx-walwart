@@ -6,7 +6,9 @@ import Wrapper from "@/components/global/wrapper";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/constants";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import useProfileData from "@/app/customHooks/profiledata";
+import CommonButton from "@/components/ui/CommonButton";
 
 declare global {
   interface Window {
@@ -22,8 +24,9 @@ declare global {
 
 const Topheader = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const router=useRouter()
   const pathname = usePathname();
-
+  const {profileData}=useProfileData()
   useEffect(() => {
     const addGoogleTranslate = () => {
       if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
@@ -104,6 +107,12 @@ const Topheader = () => {
                   src="/images/auth/help.png"
                   className="w-[40px] h-[40px]"
                 />
+
+                {profileData && profileData?.role==="ADMIN" && (
+                 <button onClick={()=>router.push("/admin/dashboard")} className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-2 pr-2">
+                  Dashboard
+                 </button>
+                )}
 
                 <div className="relative">
                 <select
