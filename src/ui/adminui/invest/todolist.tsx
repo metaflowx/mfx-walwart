@@ -39,6 +39,8 @@ export default function Todolist() {
     durationInDays: "",
     totalReturns: "",
     bonus: "",
+    description: "",
+
   });
  
   const [errors, setErrors] = useState({
@@ -48,6 +50,7 @@ export default function Todolist() {
     durationInDays: "",
     totalReturns: "",
     bonus: "",
+    description:""
   });
   const [editTaskId, setEditTaskId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -64,6 +67,7 @@ export default function Todolist() {
       durationInDays: "",
       totalReturns: "",
       bonus: "",
+      description:""
     });
     
   };
@@ -106,6 +110,8 @@ export default function Todolist() {
   const validateFields = () => {
     let tempErrors: any = {};
     if (!newTask.name) tempErrors.name = "Name is required";
+    if (!newTask.description) tempErrors.description = "Description is required";
+
     if (!newTask.amount || isNaN(Number(newTask.amount))) tempErrors.amount = "Valid amount is required";
     if (!newTask.dailyEarnings || isNaN(Number(newTask.dailyEarnings))) tempErrors.dailyEarnings = "Valid daily earnings required";
     if (!newTask.durationInDays || isNaN(Number(newTask.durationInDays))) tempErrors.durationInDays = "Valid duration required";
@@ -147,6 +153,7 @@ export default function Todolist() {
         durationInDays: data.durationInDays,
         totalReturns: data.totalReturns,
         bonus: data.bonus,
+        description:data?.description
       
       });
       setEditTaskId(data?._id);
@@ -189,13 +196,13 @@ export default function Todolist() {
           </Button>
         </Box>
 
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose}   >
         <Box  sx={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 300,
+            width: {xs:"100%", sm:500},
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
@@ -209,6 +216,8 @@ export default function Todolist() {
           <TextField label="Duration (Days)" name="durationInDays" fullWidth value={newTask.durationInDays} onChange={handleInputChange} error={!!errors.durationInDays} helperText={errors.durationInDays} />
           <TextField label="Total Returns" name="totalReturns" fullWidth value={newTask.totalReturns} onChange={handleInputChange} error={!!errors.totalReturns} helperText={errors.totalReturns} />
           <TextField label="Bonus" name="bonus" fullWidth value={newTask.bonus} onChange={handleInputChange} error={!!errors.bonus} helperText={errors.bonus} />
+          <TextField label="Description" name="description" fullWidth value={newTask.description} onChange={handleInputChange} error={!!errors.description} helperText={errors.description} />
+
           <Button variant="contained" color="primary" onClick={createPackage} sx={{ mt: 2 }}>
           {isLoading ? <CircularProgress size={24} style={{ color: "#fff" }} /> :(
             <>

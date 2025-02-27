@@ -17,7 +17,6 @@ const SpecialPackage = () => {
 
   const fetchPackage = async () => {
     try {
-    
       const res: any = await apiRouterCall({
         method: "GET",
         endPoint: "all",
@@ -82,7 +81,7 @@ const SpecialPackage = () => {
     <>
       <Box>
         <Box mt={4}>
-          <h4 className="font-[700] text-[#0071CE] text-[20px] sm:text-[30px] " >
+          <h4 className="font-[700] text-[#0071CE] text-[20px] sm:text-[30px] ">
             Special Package
           </h4>
         </Box>
@@ -108,13 +107,17 @@ const SpecialPackage = () => {
                   />
                 ))}
           </Grid2>
-          {!loading && packageList && packageList.length===0 && (
-
-<Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
-  <Typography color="#fff" >Data not found</Typography>
-</Box>
-
-)}
+          {!loading && packageList && packageList.length === 0 && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography color="#fff">Data not found</Typography>
+            </Box>
+          )}
         </Box>
       </Box>
       {isConfirm && (
@@ -194,9 +197,7 @@ const SpecialCard = ({
                   <Typography color="#000">Expire date</Typography>
                 </Box>
                 <Box textAlign={"center"}>
-                  <Typography fontWeight={700}>
-                    {item?.bonus}USDT 
-                  </Typography>
+                  <Typography fontWeight={700}>{item?.bonus}USDT</Typography>
                   <Typography color="#000">Bonus</Typography>
                 </Box>
                 <Box textAlign={"right"}>
