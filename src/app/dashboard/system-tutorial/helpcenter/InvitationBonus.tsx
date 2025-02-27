@@ -71,6 +71,12 @@ export default function InvitationBonus() {
       {/* Call to Action */}
       <section className="mt-16 text-center">
         <h2 className="text-2xl font-semibold mb-4">📈 Start Referring Today and Watch Your Earnings Multiply! 💸</h2>
+
+        <p className="text-xl mt-4 font-semibold">The more you refer, the more you earn—there's no limit to how much you can make! 🌍</p>
+        <p className="text-xl mt-4 font-semibold">Don’t wait—your financial freedom is just a referral away. 🌟💰</p>
+
+        
+
         <button onClick={()=>router.push("/dashboard")} className="bg-green-500 text-white py-2 px-6 rounded-lg text-xl font-semibold hover:bg-green-400 transition duration-300">
           Start Earning Now!
         </button>
