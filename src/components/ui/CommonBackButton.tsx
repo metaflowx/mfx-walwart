@@ -25,7 +25,7 @@ export default function CommonBackButton({title,isIcon}:{title:string,isIcon?:an
     </div>
     {isIcon && (
 
-    <img src="/images/withdraw/calender.png" style={{width:"40px",objectFit:"contain"}} />
+    <img onClick={()=>router.push("/dashboard/transaction-history")} src="/images/withdraw/calender.png" style={{width:"40px",objectFit:"contain",cursor:"pointer",pointerEvents:"all"}} />
     )}
     </div>
   )

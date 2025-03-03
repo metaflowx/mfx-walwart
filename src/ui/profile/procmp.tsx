@@ -20,6 +20,7 @@ import useProfileData from "@/app/customHooks/profiledata";
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 
 const Top___list = [
   {
@@ -139,6 +140,7 @@ const Procmp = () => {
        if (typeof window !== "undefined" && profileData) {
          setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
        }
+       walletDetails()
      }, [profileData]);
 
      const handleLogout = () => {
@@ -146,6 +148,20 @@ const Procmp = () => {
       document.cookie = 'auth_token=; max-age=0; path=/;'; 
       router.push('/login');
     };
+
+    const walletDetails=async()=>{
+      try {
+        const res =await apiRouterCall({
+          method:"GET",
+          endPoint:"walletdetail",
+
+        })
+        console.log(">>>>>>>>>>.res",res);
+        
+      } catch (error) {
+        
+      }
+    }
     
   return (
     <Box>
