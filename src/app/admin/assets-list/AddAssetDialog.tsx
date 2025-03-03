@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, CircularProgress } from "@mui/material";
 import { handleNegativeValue } from "@/utils/fun";
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import { toast } from "react-toastify";
 
-const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
- 
+const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:any,editTaskId?:any|null,refetch:any}) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     chainId: "",
     assetAddress: "",
@@ -14,33 +16,38 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
     withdrawalEnabled: "",
     withdrawalFee: "",
     minWithdrawalAmount:"",
-    maxWithdrawalAmount:""
-  });
+    maxWithdrawalAmount:"",
+    coinGeckoId:"",
 
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
     let newErrors: Record<string, string> = {};
 
-    if (!formData.chainId.trim() || isNaN(Number(formData.chainId))) {
+    if (!formData.chainId || isNaN(Number(formData.chainId))) {
       newErrors.chainId = "Chain ID must be a valid number.";
     }
-    if (!formData.assetAddress.trim()) {
+    if (!formData.assetAddress) {
       newErrors.assetAddress = "Asset Address is required.";
     }
-    if (!formData.assetType.trim()) {
+    if (!formData.assetType) {
       newErrors.assetType = "Asset Type is required.";
     }
-    if (!formData.name.trim()) {
+    if (!formData.coinGeckoId) {
+      newErrors.coinGeckoId = "coinGeckoId is required.";
+    }
+    if (!formData.name) {
       newErrors.name = "Name is required.";
     }
-    if (!formData.symbol.trim()) {
+    if (!formData.symbol) {
       newErrors.symbol = "Symbol is required.";
     }
-    if (!["true", "false"].includes(formData.depositEnabled.trim().toLowerCase())) {
+    if (!["true", "false"].includes(formData.depositEnabled)) {
       newErrors.depositEnabled = "Deposit Enabled must be true or false.";
     }
-    if (!["true", "false"].includes(formData.withdrawalEnabled.trim().toLowerCase())) {
+    if (!["true", "false"].includes(formData.withdrawalEnabled)) {
       newErrors.withdrawalEnabled = "Withdrawal Enabled must be true or false.";
     }
 
@@ -52,31 +59,95 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit =async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form Data:", formData);
-      setOpen(false);
-      setFormData({
-        chainId: "",
-        assetAddress: "",
-        assetType: "",
-        name: "",
-        symbol: "",
-        depositEnabled: "",
-        withdrawalEnabled: "",
-        withdrawalFee:"",
-        minWithdrawalAmount:"",
-        maxWithdrawalAmount:""
-      });
+      setIsLoading(true)
+    
+      
+      try {
+        const res= await apiRouterCall({
+          method: editTaskId?._id ?"PUT": "POST",
+          endPoint:  editTaskId?._id ? "editAssets" : "addAssets",
+          data:formData,
+        
+          params:{
+            id: editTaskId?._id || undefined,
+          }
+        })
+        if (res?.status === 200) {
+               toast.success(res.data.message);
+               setOpen(false)
+               setIsLoading(false)
+               refetch()
+               setFormData({
+                chainId: "",
+                assetAddress: "",
+                assetType: "",
+                name: "",
+                symbol: "",
+                depositEnabled: "",
+                withdrawalEnabled: "",
+                withdrawalFee:"",
+                minWithdrawalAmount:"",
+                maxWithdrawalAmount:"",
+                coinGeckoId:""
+              });
+             } else {
+               toast.error(res?.data.message);
+               setIsLoading(false)
+             }
+      } catch (error:any) {
+        toast.error(error?.response?.data.message);
+        setIsLoading(false)
+      }
     }
   };
+
+  useEffect(() => {
+    if(editTaskId._id){
+      setFormData(
+        {
+          chainId: editTaskId?.chainId,
+          assetAddress: editTaskId?.assetAddress,
+          assetType: editTaskId?.assetType,
+          name: editTaskId?.name,
+          symbol: editTaskId?.symbol,
+          depositEnabled: editTaskId?.depositEnabled.toString().toLowerCase(),
+          withdrawalEnabled: editTaskId?.withdrawalEnabled.toString().toLowerCase(),
+          withdrawalFee: editTaskId?.withdrawalFee,
+          minWithdrawalAmount:editTaskId?.minWithdrawalAmount,
+          maxWithdrawalAmount:editTaskId?.maxWithdrawalAmount,
+          coinGeckoId:editTaskId?.coinGeckoId,
+      
+        }
+      )
+    }
+   
+  }, [editTaskId])
+  
+
+ 
 
   return (
     <>
      
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+      <Dialog open={open} onClose={() => {
+        setFormData({
+          chainId: "",
+          assetAddress: "",
+          assetType: "",
+          name: "",
+          symbol: "",
+          depositEnabled: "",
+          withdrawalEnabled: "",
+          withdrawalFee:"",
+          minWithdrawalAmount:"",
+          maxWithdrawalAmount:"",
+          coinGeckoId:""
+        });
+        setOpen(false)}} fullWidth maxWidth="sm">
         <DialogTitle>Add New Asset</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit} noValidate>
@@ -88,6 +159,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
                 handleNegativeValue(e);
               }}
               fullWidth
+              disabled={isLoading}
               margin="dense"
               value={formData.chainId}
               onChange={handleChange}
@@ -99,6 +171,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
               name="assetAddress"
               label="Asset Address"
               fullWidth
+              disabled={isLoading}
               margin="dense"
               value={formData.assetAddress}
               onChange={handleChange}
@@ -110,6 +183,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
               name="assetType"
               label="Asset Type"
               fullWidth
+              disabled={isLoading}
               margin="dense"
               value={formData.assetType}
               onChange={handleChange}
@@ -119,6 +193,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
 
             <TextField
               name="name"
+              disabled={isLoading}
               label="Name"
               fullWidth
               margin="dense"
@@ -131,6 +206,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
             <TextField
               name="symbol"
               label="Symbol"
+              disabled={isLoading}
               fullWidth
               margin="dense"
               value={formData.symbol}
@@ -160,6 +236,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
               <FormHelperText>{errors.withdrawalEnabled}</FormHelperText>
             </FormControl>
               <TextField
+              disabled={isLoading}
               name="withdrawalFee"
               label="Withdrawable Fees"
               type="number"
@@ -181,6 +258,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
                 handleNegativeValue(e);
               }}
               fullWidth
+              disabled={isLoading}
               margin="dense"
               value={formData.minWithdrawalAmount}
               onChange={handleChange}
@@ -194,6 +272,7 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
+              disabled={isLoading}
               fullWidth
               margin="dense"
               value={formData.maxWithdrawalAmount}
@@ -201,11 +280,45 @@ const AddAssetDialog = ({setOpen,open}:{open:boolean,setOpen:any}) => {
               error={!!errors.maxWithdrawalAmount}
               helperText={errors.maxWithdrawalAmount}
             />
+             <TextField
+              name="coinGeckoId"
+              label="Coin Geck OId"
+              disabled={isLoading}
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              fullWidth
+              margin="dense"
+              value={formData.coinGeckoId}
+              onChange={handleChange}
+              error={!!errors.coinGeckoId}
+              helperText={errors.coinGeckoId}
+            />
+
+
 
             <DialogActions>
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
-              <Button type="submit" variant="contained">
-                Submit
+              <Button onClick={() => {
+                setFormData({
+                  chainId: "",
+                  assetAddress: "",
+                  assetType: "",
+                  name: "",
+                  symbol: "",
+                  depositEnabled: "",
+                  withdrawalEnabled: "",
+                  withdrawalFee:"",
+                  minWithdrawalAmount:"",
+                  maxWithdrawalAmount:"",
+                  coinGeckoId:""
+                });
+                setOpen(false)}}>Cancel</Button>
+              <Button disabled={isLoading} type="submit" variant="contained">
+               {isLoading ? (
+                              <CircularProgress size={24} style={{ color: "#fff" }} />
+                            ) : (
+                              <>{editTaskId?._id !== null ? "Update Assets" : "Add Assets"}</>
+                            )}  
               </Button>
             </DialogActions>
           </form>

@@ -1,5 +1,5 @@
-export const baseURL = "http://192.168.1.17:8000/api/v1"; 
-// export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
+// export const baseURL = "http://192.168.1.17:8000/api/v1"; 
+export const baseURL = "https://mfx.ramabridge.com/api/v1"; 
 
 
 
@@ -46,6 +46,39 @@ const apiConfig = {
   allPacakage: `${baseURL}/pacakage/all`,
 
   dashboard: `${baseURL}/dashboard`,
+
+  //admin assets
+  addAssets: `${baseURL}/assets/add`,
+  editAssets: `${baseURL}/assets/edit`,
+  deleteAssets: `${baseURL}/assets/delete`,
+  listAssets: `${baseURL}/assets/list`,
+  assetsById: `${baseURL}/assets`,
+
+  // user wallet
+
+  walletdetail: `${baseURL}/wallet/detail`,
+  balance: `${baseURL}/wallet/balance`,
+  balances: `${baseURL}/wallet/balances`,
+
+
+  // user transaction
+  deposit: `${baseURL}/transaction/deposit`,
+  confirmed: `${baseURL}/transaction/deposit/confirmed`,
+  withdraw: `${baseURL}/transaction/withdraw`,
+  allHistory: `${baseURL}/transaction/all`,
+  transactionById: `${baseURL}/transaction`,
+
+
+
+
+
+  
+
+
+  
+
+
+  
 
 
 

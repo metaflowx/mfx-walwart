@@ -1,26 +1,83 @@
+"use client"
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import usePackageList from "@/app/customHooks/usePackageList";
+import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import {
-    Delete,
-    Edit as EditIcon,
-    ChangeCircle as ChangeCircleIcon,
-  } from "@mui/icons-material";
+  Delete,
+  Edit as EditIcon,
+  ChangeCircle as ChangeCircleIcon,
+} from "@mui/icons-material";
 import { Box, IconButton, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import { toast } from "react-toastify";
 
-export default function AssetsList() {
-    const { packageList,loading } = usePackageList();
+export default function AssetsList({loading,assetsList,refetch,setEditTaskId,setOpen,editTaskId}:{loading:boolean,assetsList:any,refetch:any,setEditTaskId:any,setOpen:any,editTaskId:any}) {
+  const [openDelete, setOpenDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const deltePackage = (data: any) => {
+    if (data) {
+      setEditTaskId(data?._id);
+      setOpenDelete(true);
+    }
+  };
+
+  const editTask = (data: any) => {
+    if (data) {
+      setEditTaskId(data)
+      setOpen(true)
+    }
+  };
+
+   const deletePackageHandler = async () => {
+      try {
+        setIsLoading(true);
+        const res = await apiRouterCall({
+          method: "DELETE",
+          endPoint: "deletePacakage",
+          id: editTaskId?.toString(),
+        });
+        if (res?.status === 200) {
+          toast.success(res.data.message);
+  
+          setOpenDelete(false);
+          setIsLoading(false);
+          refetch();
+        } else {
+          toast.error(res?.data.message);
+          setIsLoading(false);
+        }
+      } catch (error: any) {
+        toast.error(error?.response?.data.message);
+        setIsLoading(false);
+      }
+    };
+   
   return (
     <div>
+        {openDelete && (
+        <ConfirmationDialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          onConfirm={() => deletePackageHandler()}
+          title="Delete Confirmation"
+          des="Are you sure want to delete this assets?"
+          isLoading={isLoading}
+        />
+      )}
        <TableContainer sx={{ marginTop: 2 }}>
   <Table sx={{ border: "1px solid #DCDCEB" }}>
     <TableHead>
       <TableRow sx={{ backgroundColor: "#E8F7FF" }}>
-        <TableCell>Package Name</TableCell>
-        <TableCell>Amount</TableCell>
-        <TableCell>Daily Earnings</TableCell>
-        <TableCell align="center">Duration In Days</TableCell>
-        <TableCell align="center">Total Returns</TableCell>
-        <TableCell align="center">Bonus</TableCell>
+      <TableCell>Chain Id</TableCell>
+
+        <TableCell>Assets Name</TableCell>
+        <TableCell>Asset Type</TableCell>
+        <TableCell>Symbol</TableCell>
+        <TableCell align="center">Withdrawal Enabled</TableCell>
+        <TableCell align="center">Deposit Enabled</TableCell>
+        <TableCell align="center">Max Withdrawal Amount</TableCell>
+        <TableCell align="center">Min Withdrawal Amount</TableCell>
+
         <TableCell align="right">Actions</TableCell>
       </TableRow>
     </TableHead>
@@ -54,21 +111,25 @@ export default function AssetsList() {
           </TableRow>
         ))
       ) : (
-        packageList &&
-        packageList.map((task: any) => (
+        assetsList &&
+        assetsList.map((task: any) => (
           <TableRow key={task.id}>
+            <TableCell>{task.chainId}</TableCell>
+
             <TableCell
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
+             
             >
               {task.name}
             </TableCell>
-            <TableCell>${task.amount}</TableCell>
-            <TableCell>${task.dailyEarnings}</TableCell>
-            <TableCell align="center">{task.durationInDays}</TableCell>
-            <TableCell align="center">${task.totalReturns}</TableCell>
-            <TableCell align="center">${task.bonus}</TableCell>
+            <TableCell>{task.assetType}</TableCell>
+            <TableCell>{task.symbol}</TableCell>
+
+            <TableCell>{task.withdrawalEnabled ? "Yes":"No" }</TableCell>
+            <TableCell align="center">{task.depositEnabled ? "Yes":"No"}</TableCell>
+           
+            <TableCell align="center">{task.maxWithdrawalAmount}</TableCell>
+            <TableCell align="center">{task.minWithdrawalAmount}</TableCell>
+
             <TableCell align="right">
               <Box
                 sx={{
@@ -77,12 +138,12 @@ export default function AssetsList() {
                   justifyContent: "end",
                 }}
               >
-                {/* <IconButton color="error" onClick={() => deltePackage(task)}>
+                <IconButton color="error" onClick={() => deltePackage(task)}>
                   <Delete />
                 </IconButton>
                 <IconButton color="info" onClick={() => editTask(task)}>
                   <EditIcon />
-                </IconButton> */}
+                </IconButton>
               </Box>
             </TableCell>
           </TableRow>
@@ -92,7 +153,7 @@ export default function AssetsList() {
   </Table>
 </TableContainer>
 
-        {!loading && packageList && packageList.length===0 && (
+        {!loading && assetsList && assetsList.length===0 && (
 
           <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
             <Typography color="#fff" >Data not found</Typography>

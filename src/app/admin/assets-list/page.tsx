@@ -3,9 +3,12 @@ import { Box, Button } from '@mui/material'
 import React, { useState } from 'react'
 import AddAssetDialog from './AddAssetDialog';
 import AssetsList from './AssetsList';
+import useAssetsList from '@/app/customHooks/useAssetsList';
 
 export default function page() {
+  const { assetsList,loading,refetch } = useAssetsList();
      const [open, setOpen] = useState(false);
+     const [editTaskId, setEditTaskId] = useState<number | null>(null);
   return (
     <Box
     sx={{
@@ -40,9 +43,9 @@ export default function page() {
       
 
             {open && (
-                <AddAssetDialog open={open} setOpen={setOpen} />
+                <AddAssetDialog refetch={refetch} editTaskId={editTaskId} open={open} setOpen={setOpen} />
             )}
-            <AssetsList />
+            <AssetsList editTaskId={editTaskId} setOpen={setOpen} setEditTaskId={setEditTaskId} assetsList={assetsList} loading={loading} refetch={refetch} />
     </Box>
     </Box>
   )
