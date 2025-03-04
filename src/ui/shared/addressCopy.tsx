@@ -23,7 +23,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     padding:'5px 10px'
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(Box)(({ theme }) => ({
     textDecoration: 'none',
     color: '#000 !important',
     fontWeight: 500,
@@ -33,7 +33,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     }
 }));
 
-const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
+const AddressCopy = ({ text, textColor, addresstext }: props) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleCopy = () => {
@@ -49,12 +49,12 @@ const AddressCopy = ({ text, textColor, addresstext, hrefLink }: props) => {
     return (
         <>
             <StyledBox>
-                <StyledLink sx={{ color: textColor }} href={hrefLink ? hrefLink:""} target="_black">
+                <StyledLink sx={{ color: textColor }}  >
                     {text}
                 </StyledLink>
 
                 <Box onClick={handleCopy}>
-                    <ContentCopyIcon sx={{ color: '#000', width: 18 }} />
+                    <ContentCopyIcon sx={{ color: '#000', width: 18 ,cursor:"pointer"}} />
                 </Box>
                 <Snackbar
 

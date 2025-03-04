@@ -7,44 +7,44 @@ export default function MemberList() {
 
   const listData = [
     {
-      title: "VIP 1",
+      title: "Sliver",
       des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
     },
     {
-      title: "VIP 2",
+      title: "Gold",
       des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
     },
     {
-      title: "VIP 3",
-      des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
+      title: "Platinum",
+      des: "Congratulations to +95****32 for unlocking and directly inviting 50 people.",
     },
     {
-      title: "VIP 4",
-      des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
+      title: "Sliver",
+      des: "Kudos to +99****89 for achieving a new milestone and inviting 3 people.",
     },
     {
-      title: "VIP 5",
-      des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
+      title: "Gold",
+      des: "Congratulations to +80****43 for unlocking and directly inviting 4 people.",
     },
     {
-      title: "VIP 6",
-      des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
+      title: "Platinum",
+      des: "Kudos to +70****81 for achieving a new milestone and inviting 40 people.",
     },
     {
-      title: "VIP 7",
-      des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
+      title: "Gold",
+      des: "Congratulations to +76****34 for unlocking and directly inviting 28 people.",
     },
     {
-      title: "VIP 8",
-      des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
+      title: "Sliver",
+      des: "Kudos to +77****23 for achieving a new milestone and inviting 20 people.",
     },
     {
-      title: "VIP 9",
-      des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
+      title: "Platinum",
+      des: "Congratulations to +98****24 for unlocking and directly inviting 14 people.",
     },
     {
-      title: "VIP 10",
-      des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
+      title: "Gold",
+      des: "Kudos to +91****61 for achieving a new milestone and inviting 10 people.",
     },
   ];
 

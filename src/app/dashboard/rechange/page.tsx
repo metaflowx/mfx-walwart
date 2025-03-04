@@ -2,6 +2,7 @@
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import CommonBackButton from "@/components/ui/CommonBackButton";
 import AddressCopy from "@/ui/shared/addressCopy";
+import { sortAddress } from "@/utils/fun";
 import { Box, Button, Grid2, Typography, Skeleton } from "@mui/material";
 import { useQRCode } from "next-qrcode";
 import { useSearchParams } from "next/navigation";
@@ -33,6 +34,36 @@ export default function Page() {
       setLoader(false);
     }
   };
+  const depositeHandler=async()=>{
+    try {
+      const res = await apiRouterCall({
+        method:"POST",
+        endPoint:"deposit",
+        params:{
+          txId:""
+        }
+
+      })
+    } catch (error) {
+      
+    }
+  }
+
+
+  const completeRechargeHAndler=async()=>{
+    try {
+      const res = await apiRouterCall({
+        method:"POST",
+        endPoint:"confirmed",
+        params:{
+          txId:""
+        }
+
+      })
+    } catch (error) {
+      
+    }
+  }
 
   useEffect(() => {
     if (id) {
@@ -45,7 +76,7 @@ export default function Page() {
       <CommonBackButton title="Recharge" />
 
       <Grid2 container spacing={3} mt={4}>
-        {/* First Grid - Select Mainnet */}
+      
         <Grid2
           size={{ xs: 12, md: 6 }}
           sx={{
@@ -78,7 +109,7 @@ export default function Page() {
                 Select Mainnet
               </Typography>
 
-              {/* Show Skeleton Loader */}
+             
               {loader ? (
                 <Skeleton width="100px" height="24px" />
               ) : (
@@ -98,7 +129,7 @@ export default function Page() {
               )}
             </Box>
 
-            {/* QR Code */}
+          
             {loader ? (
               <Skeleton variant="rectangular" width={200} height={200} />
             ) : (
@@ -121,7 +152,7 @@ export default function Page() {
           </Box>
         </Grid2>
 
-        {/* Second Grid - Address */}
+      
         <Grid2
           size={{ xs: 12, md: 6 }}
           sx={{
@@ -152,12 +183,12 @@ export default function Page() {
                 }}
               >
                 Address
-                {/* Show Skeleton Loader */}
+              
                 {loader ? (
                   <Skeleton width="100%" height="24px" />
                 ) : (
                   <AddressCopy
-                    text={assetsDetails?.assetAddress}
+                    text={sortAddress(assetsDetails?.assetAddress)}
                     addresstext={assetsDetails?.assetAddress}
                     hrefLink={""}
                   />
@@ -168,7 +199,7 @@ export default function Page() {
         </Grid2>
       </Grid2>
 
-      {/* Button and Reminder */}
+     
       <Box sx={{
         display: "flex",
         flexDirection: "column",
