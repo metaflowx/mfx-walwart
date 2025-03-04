@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 
 const Top___list = [
   {
@@ -132,6 +133,8 @@ const Listright = [
 
 const Procmp = () => {
     const { profileData, loading } = useProfileData();
+    const { walletAssetsList, loading:dataLoading } = useAssetsDetail();
+
     const router = useRouter()
  const [url,setUrl]=useState("")
     useEffect(() => {
@@ -140,7 +143,7 @@ const Procmp = () => {
        if (typeof window !== "undefined" && profileData) {
          setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
        }
-       walletDetails()
+     
      }, [profileData]);
 
      const handleLogout = () => {
@@ -149,19 +152,7 @@ const Procmp = () => {
       router.push('/login');
     };
 
-    const walletDetails=async()=>{
-      try {
-        const res =await apiRouterCall({
-          method:"GET",
-          endPoint:"walletdetail",
-
-        })
-        console.log(">>>>>>>>>>.res",res);
-        
-      } catch (error) {
-        
-      }
-    }
+   
     
   return (
     <Box>
