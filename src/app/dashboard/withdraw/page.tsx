@@ -45,8 +45,7 @@ export default function Page() {
   console.log(">>>>>>>>>>>walletBalances", walletBalance, walletBalances);
 
   const validateAmount = (amount: string) => {
-    const minAmount = 1.8;
-    const maxAmount = 1000000.0;
+   
     const amountFloat = parseFloat(amount);
 
   

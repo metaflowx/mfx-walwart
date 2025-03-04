@@ -10,11 +10,12 @@ import React, { useEffect, useState } from "react";
 
 export default function Page() {
   const { Canvas } = useQRCode();
+ 
   const searchParams = useSearchParams();
   const [assetsDetails, setAssetsDetails] = useState<any | null>(null);
   const id: any = searchParams.get('id');
   const [loader, setLoader] = useState(true);
-
+const[walletAddress,setWalletAddress]=useState("")
   const getAssetsDetails = async (id: string) => {
     try {
       const res = await apiRouterCall({
@@ -48,6 +49,25 @@ export default function Page() {
       
     }
   }
+
+  const walletDetails=async()=>{
+    try {
+      const res =await apiRouterCall({
+        method:"GET",
+        endPoint:"walletdetail",
+
+      })
+      console.log(">>>>>>>>>>.res",res);
+      if(res?.status===200){
+        setWalletAddress(res.data.data.address)
+      }
+    } catch (error) {
+      
+    }
+  }
+useEffect(() => {
+  walletDetails()
+}, [])
 
 
   const completeRechargeHAndler=async()=>{
@@ -133,9 +153,9 @@ export default function Page() {
             {loader ? (
               <Skeleton variant="rectangular" width={200} height={200} />
             ) : (
-              assetsDetails?.assetAddress && (
+              walletAddress && (
                 <Canvas
-                  text={assetsDetails?.assetAddress || ""}
+                  text={walletAddress || ""}
                   options={{
                     errorCorrectionLevel: "M",
                     margin: 3,
@@ -188,8 +208,8 @@ export default function Page() {
                   <Skeleton width="100%" height="24px" />
                 ) : (
                   <AddressCopy
-                    text={sortAddress(assetsDetails?.assetAddress)}
-                    addresstext={assetsDetails?.assetAddress}
+                    text={sortAddress(walletAddress)}
+                    addresstext={walletAddress}
                     hrefLink={""}
                   />
                 )}

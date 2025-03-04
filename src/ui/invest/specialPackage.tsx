@@ -1,19 +1,23 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useProfileData from "@/app/customHooks/profiledata";
+import useWalletBalance from "@/app/customHooks/useWalletBalance";
+import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import { Box, Button, Grid2, Skeleton, Typography } from "@mui/material";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const SpecialPackage = () => {
+  const { walletBalances } = useWalletBalnces();
+  const { walletBalance } = useWalletBalance();
   const [packageList, setPackageList] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
   const { profileData } = useProfileData();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
+console.log(">>>>>>>>walletBalances",walletBalances,walletBalance);
 
   const fetchPackage = async () => {
     try {
