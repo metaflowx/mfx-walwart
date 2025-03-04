@@ -1,16 +1,62 @@
 "use client"
 import useAllTransactionHistory from '@/app/customHooks/useAllTransactionHistory'
 import CommonBackButton from '@/components/ui/CommonBackButton'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TransactionDetailCard from './TransactionDetailCard'
-import { Grid2, Skeleton } from '@mui/material'
+import { FormControl, Grid2, InputLabel, MenuItem, Pagination, Select, Skeleton, Typography } from '@mui/material'
 
 export default function Page() {
-    const { allTransactionHistory, loading } = useAllTransactionHistory()
-    
+  const [filters, setFilters] = useState({
+    txType: '',
+    txStatus: '',
+    settlementStatus: '',
+    page: 1,
+    limit: 10,
+   
+   
+});
+    const { allTransactionHistory, loading,refetch } = useAllTransactionHistory(filters)
+    const handleFilterChange = (e:any) => {
+      setFilters({ ...filters, [e.target.name]: e.target.value, page: 1 });
+  };
+
+  const handlePageChange = (event:any, value:any) => {
+      setFilters({ ...filters, page: value });
+  };
+  useEffect(() => {
+    refetch();
+}, [filters]);
     return (
         <div>
             <CommonBackButton title="All History" />
+            <div className="mt-6 flex gap-4">
+                <FormControl fullWidth size="small">
+                    <InputLabel>Tx Type</InputLabel>
+                    <Select fullWidth name="txType" value={filters.txType} onChange={handleFilterChange}>
+                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="deposit">Deposit</MenuItem>
+                        <MenuItem value="withdrawal">Withdrawal</MenuItem>
+                    </Select>
+                </FormControl>
+                
+                <FormControl fullWidth size="small">
+                    <InputLabel>Tx Status</InputLabel>
+                    <Select fullWidth name="txStatus" value={filters.txStatus} onChange={handleFilterChange}>
+                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                    </Select>
+                </FormControl>
+                
+                <FormControl fullWidth size="small">
+                    <InputLabel>Settlement Status</InputLabel>
+                    <Select fullWidth name="settlementStatus" value={filters.settlementStatus} onChange={handleFilterChange}>
+                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="settled">Settled</MenuItem>
+                        <MenuItem value="unsettled">Unsettled</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <div className="mt-6">
                 <Grid2 container spacing={3}>
                     {loading ? (
@@ -31,6 +77,23 @@ export default function Page() {
                     )}
                 </Grid2>
             </div>
+            {allTransactionHistory && allTransactionHistory.length>0 && (
+ <div className="mt-6 flex justify-center">
+ <Pagination
+     count={10} // Update dynamically based on total pages
+     page={filters.page}
+     onChange={handlePageChange}
+     color="primary"
+ />
+</div>
+            )}
+
+            {!loading && allTransactionHistory && allTransactionHistory.length===0 && (
+               <Typography variant="h6" color="textSecondary">
+               No data found
+             </Typography>
+            ) }
+           
         </div>
     )
 }
