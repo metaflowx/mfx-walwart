@@ -33,7 +33,7 @@ export default function AssetsList({loading,assetsList,refetch,setEditTaskId,set
         setIsLoading(true);
         const res = await apiRouterCall({
           method: "DELETE",
-          endPoint: "deletePacakage",
+          endPoint: "deleteAssets",
           id: editTaskId?.toString(),
         });
         if (res?.status === 200) {

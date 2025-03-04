@@ -58,7 +58,7 @@ export default function page() {
                         >
                             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                                    <img src={`/images/coin/${item?.symbol}.png`} style={{ width: "40px", height: "40px" }} />
+                                    <img src={`/images/coin/${item?.symbol}.png`} style={{ width: "40px", height: "40px",borderRadius:"100px" }} />
                                     <Typography sx={{
                                         color: "#110229",
                                         fontSize: "24px",
