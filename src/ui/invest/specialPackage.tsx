@@ -7,17 +7,20 @@ import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import { Box, Button, Grid2, Skeleton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
+import { formatUnits } from "viem";
 
 const SpecialPackage = () => {
+  const router =useRouter()
   const { walletBalances } = useWalletBalnces();
-  const { walletBalance } = useWalletBalance();
+
   const [packageList, setPackageList] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
   const { profileData } = useProfileData();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [isConfirm, setIsConfirm] = useState(false);
-console.log(">>>>>>>>walletBalances",walletBalances,walletBalance);
+  const [isConfirm, setIsConfirm] = useState<any>("");
+
 
   const fetchPackage = async () => {
     try {
@@ -57,14 +60,22 @@ console.log(">>>>>>>>walletBalances",walletBalances,walletBalance);
     }
   }, [profileData]);
 
-  const buyPackageHandler = async (id: string) => {
+  const buyPackageHandler = async () => {
+    const avlBalance=walletBalances && formatUnits(walletBalances?.totalBalanceInWeiUsd,18)
+    
+    
+    if(avlBalance < isConfirm?.amount   ){
+      router.push("/dashboard/volunteable-assets")
+      toast.warn("Insuffiecient balance")
+      return
+    }
     try {
       setIsLoading(true);
       const res = await apiRouterCall({
         method: "POST",
         endPoint: "buyPacakgePlan",
         data: {
-          packageId: isConfirm,
+          packageId: isConfirm?._id,
         },
       });
       if (res?.status === 200) {
@@ -72,7 +83,7 @@ console.log(">>>>>>>>walletBalances",walletBalances,walletBalance);
           getActivePackage(profileData?._id);
         }
         setIsLoading(false);
-        setIsConfirm(false);
+        setIsConfirm("");
         fetchPackage();
       }
       setIsLoading(false);
@@ -217,7 +228,7 @@ const SpecialCard = ({
                   if (checkIsBuy?.packageId === item?._id) {
                     router.push("/dashboard/score-center");
                   } else {
-                    setIsConfirm(item?._id);
+                    setIsConfirm(item);
                   }
                 }}
                 sx={{

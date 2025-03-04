@@ -5,7 +5,7 @@ import { apiRouterCall } from "../ApiConfig/Services/Index";
 
 
 const useAssetsDetail = () => {
-    const [walletAssetsList, setWalletAssetsList] = useState<any[]>([]);
+    const [walletAssetsList, setWalletAssetsList] = useState<any>("");
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
 
