@@ -32,9 +32,9 @@ const Flexible = () => {
                         gap: '1rem',
                         flexWrap:'wrap'
                     }}>
-                        <CustomButton href={""} title={"Recharge"} />
-                        <CustomButton href={""} title={"InvestPlus"} />
-                        <CustomButton href={""} title={"Withdraw"} />
+                        <CustomButton href={"/dashboard/volunteable-assets"} title={"Recharge"} />
+                        <CustomButton href={"/dashboard/invest"} title={"Invest"} />
+                        <CustomButton href={"/dashboard/withdraw"} title={"Withdraw"} />
                     </Box>
                 </Box>
 

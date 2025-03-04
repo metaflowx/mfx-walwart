@@ -1,20 +1,18 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useAssetsList from "@/app/customHooks/useAssetsList";
-import useWalletBalance from "@/app/customHooks/useWalletBalance";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import CommonBackButton from "@/components/ui/CommonBackButton";
 import { Box, Grid2, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import { formatUnits, isAddress } from 'viem'
 
 
 
 const validateAddress = (address: string) => {
-  // Add a proper regex for address validation based on the network
-  const regex = /^[a-zA-Z0-9]{34}$/; // Example for a typical cryptocurrency address format
-  if (!regex.test(address)) {
+  if (!isAddress(address)) {
     return "Please enter a valid withdrawal address";
   }
   return null;
@@ -28,21 +26,22 @@ const validatePassword = (password: string) => {
 };
 
 export default function Page() {
+  const router =useRouter()
   const { assetsList, loading, refetch } = useAssetsList();
   const [activeTab, setActiveTab] = useState<any>("");
   const { walletBalances } = useWalletBalnces();
-  const { walletBalance } = useWalletBalance();
+const[transactionId,setTransactionId]=useState<any>("")
 
   const [formData, setFormData] = useState({
     withdrawalAddress: "",
     withdrawalAmount: "",
     password: "",
-    assetId: "",
+    
   });
 
   const [error, setError] = useState<string | null>(null);
 
-  console.log(">>>>>>>>>>>walletBalances", walletBalance, walletBalances);
+
 
   const validateAmount = (amount: string) => {
    
@@ -52,7 +51,7 @@ export default function Page() {
     if (activeTab==="") {
       return `Please select a network`;
     }
-    if (isNaN(amountFloat) || amountFloat < activeTab?.minWithdrawalAmount || amountFloat > activeTab?.maxWithdrawalAmount) {
+    if (isNaN(amountFloat) || amountFloat < parseFloat(activeTab?.minWithdrawalAmount) || amountFloat > parseFloat(activeTab?.maxWithdrawalAmount)) {
       return `Please enter a valid amount between ${activeTab?.minWithdrawalAmount} and ${activeTab?.maxWithdrawalAmount}`;
     }
     return null;
@@ -102,11 +101,12 @@ export default function Page() {
       const res = await apiRouterCall({
         method: "POST",
         endPoint: "withdraw",
-        data: formData,
+        data: {...formData,assetId:activeTab?._id},
       });
 
-      if(res?.status===200){
+      if(res?.status===200 || res?.status===201){
         toast.success(res.data.message)
+        router.push("/dashboard/profile")
       }else{
         toast.error(res?.data?.message)
       }
@@ -119,6 +119,35 @@ export default function Page() {
       setError("An error occurred while processing your withdrawal.");
     }
   };
+
+
+    const getDepositeRequest = async (id: string) => {
+      try {
+        const res = await apiRouterCall({
+          method: "POST",
+          endPoint: "deposit",
+          params: {
+            assetId:id
+          }
+        });
+        if (res?.status === 200) {
+          setTransactionId(res.data)
+          
+        }
+      } catch (error) {
+       console.log(">>>>>>>>>>error");
+       
+      }
+    };
+
+      useEffect(() => {
+        if (activeTab?._id) {
+        
+          getDepositeRequest(activeTab?._id)
+        }
+      }, [activeTab?._id]);
+  
+
 
   return (
     <Box>
@@ -146,7 +175,7 @@ export default function Page() {
                   fontWeight: 700,
                 }}
               >
-                0.000000
+              {walletBalances && Number(formatUnits(walletBalances?.totalBalanceInWeiUsd,18)).toFixed(6)}
               </Typography>
               <Typography
                 sx={{
@@ -189,7 +218,7 @@ export default function Page() {
                 <button
                   key={tab?._id}
                   onClick={() => setActiveTab(tab)}
-                  className={`${index === 1 ? "ml-[10px]" : "ml-0"} ${
+                  className={`${index === 1 ? "ml-[10px]" : "ml-[10px]"} ${
                     activeTab?._id === tab?._id
                       ? "bg-[#0071CE] text-white border-[#0071CE]"
                       : "bg-[#FFFFFF] text-black border-[#DCDCEB]"

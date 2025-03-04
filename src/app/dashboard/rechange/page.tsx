@@ -1,21 +1,24 @@
 "use client"
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useProfileData from "@/app/customHooks/profiledata";
 import CommonBackButton from "@/components/ui/CommonBackButton";
 import AddressCopy from "@/ui/shared/addressCopy";
 import { sortAddress } from "@/utils/fun";
-import { Box, Button, Grid2, Typography, Skeleton } from "@mui/material";
+import { Box, Button, Grid2, Typography, Skeleton, CircularProgress } from "@mui/material";
 import { useQRCode } from "next-qrcode";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Page() {
   const { Canvas } = useQRCode();
- 
   const searchParams = useSearchParams();
   const [assetsDetails, setAssetsDetails] = useState<any | null>(null);
   const id: any = searchParams.get('id');
   const [loader, setLoader] = useState(true);
 const[walletAddress,setWalletAddress]=useState("")
+const[transactionId,setTransactionId]=useState<any>("")
+const[isLoading,setIsLoading]=useState(false)
   const getAssetsDetails = async (id: string) => {
     try {
       const res = await apiRouterCall({
@@ -35,18 +38,50 @@ const[walletAddress,setWalletAddress]=useState("")
       setLoader(false);
     }
   };
-  const depositeHandler=async()=>{
+
+
+  const getDepositeRequest = async (id: string) => {
     try {
       const res = await apiRouterCall({
+        method: "POST",
+        endPoint: "deposit",
+        params: {
+          assetId:id
+        }
+      });
+      if (res?.status === 200) {
+        setTransactionId(res.data)
+        setLoader(false);
+      } else {
+        setLoader(false);
+      }
+    } catch (error) {
+      setLoader(false);
+    }
+  };
+
+  console.log(">>>>>>>>>>>>transactionId",transactionId);
+  
+
+  const depositeHandler=async()=>{
+    try {
+      setIsLoading(false)
+      const res = await apiRouterCall({
         method:"POST",
-        endPoint:"deposit",
+        endPoint:"confirmed",
         params:{
-          txId:""
+          txId:transactionId?.txId
         }
 
       })
-    } catch (error) {
-      
+      if(res?.status===200){
+        setIsLoading(false)
+        toast.success(res.data.message)
+      }else{
+        toast.error(res?.data?.message)
+      }
+    } catch (error:any) {
+      toast.error(error?.response.data.message)
     }
   }
 
@@ -67,27 +102,16 @@ const[walletAddress,setWalletAddress]=useState("")
   }
 useEffect(() => {
   walletDetails()
+
 }, [])
 
 
-  const completeRechargeHAndler=async()=>{
-    try {
-      const res = await apiRouterCall({
-        method:"POST",
-        endPoint:"confirmed",
-        params:{
-          txId:""
-        }
 
-      })
-    } catch (error) {
-      
-    }
-  }
 
   useEffect(() => {
     if (id) {
       getAssetsDetails(id);
+      getDepositeRequest(id)
     }
   }, [id]);
 
@@ -232,12 +256,16 @@ useEffect(() => {
           background: "#0071CE",
           borderRadius: "10px",
           color: "#fff",
+          
           height: "50px",
           fontWeight: 700,
           fontSize: "18px",
           textTransform: "capitalize"
-        }}>
-          Recharge Complete
+        }}
+        disabled={isLoading || transactionId?._id==="" || transactionId===""}
+        onClick={()=>depositeHandler()}
+        >
+        {isLoading ? <CircularProgress size={24} style={{color:"#fff"}} /> :"Recharge Complete" }  
         </Button>
         <Box sx={{ display: "flex", alignItems: "center", pt: 2 }}>
           <img src="/images/coin/info.png" alt="info" />

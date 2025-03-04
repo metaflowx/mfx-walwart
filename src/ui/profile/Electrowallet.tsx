@@ -11,12 +11,9 @@ import NoData from "./noData";
 
 
 const Electrowallet = () => {
-    const [activeTab, setActiveTab] = useState("Asset Deposit");
+   
 
-    const tabList = [
-        { name: "Asset Deposit", value: "Asset Deposit" },
-        { name: "InvestPlus", value: "InvestPlus" },
-    ];
+   
     return (
         <>
             <Box>
@@ -39,8 +36,8 @@ const Electrowallet = () => {
                         gap: '1rem',
                         flexWrap:'wrap'
                     }}>
-                        <CustomButton href={""} title={"Asset Deposit"}/>
-                        <CustomButton href={""} title={"InvestPlus"}/>
+                        <CustomButton href={"/dashboard/volunteable-assets"} title={"Asset Deposit"}/>
+                        <CustomButton href={"/dashboard/invest"} title={"Invest"}/>
                         
                     </Box>
                 </Box>

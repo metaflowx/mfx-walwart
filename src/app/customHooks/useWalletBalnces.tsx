@@ -8,7 +8,7 @@ import { apiRouterCall } from "../ApiConfig/Services/Index";
 
 
 const useWalletBalnces = () => {
-    const [walletBalances, setWalletBalances] = useState([]);
+    const [walletBalances, setWalletBalances] = useState<any>("");
 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
