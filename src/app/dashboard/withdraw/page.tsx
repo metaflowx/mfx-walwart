@@ -8,17 +8,8 @@ import { Box, Grid2, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-// Validation helper functions
-const validateAmount = (amount: string) => {
-  const minAmount = 1.8;
-  const maxAmount = 1000000.0;
-  const amountFloat = parseFloat(amount);
 
-  if (isNaN(amountFloat) || amountFloat < minAmount || amountFloat > maxAmount) {
-    return `Please enter a valid amount between ${minAmount} and ${maxAmount}`;
-  }
-  return null;
-};
+
 
 const validateAddress = (address: string) => {
   // Add a proper regex for address validation based on the network
@@ -52,6 +43,24 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
 
   console.log(">>>>>>>>>>>walletBalances", walletBalance, walletBalances);
+
+  const validateAmount = (amount: string) => {
+    const minAmount = 1.8;
+    const maxAmount = 1000000.0;
+    const amountFloat = parseFloat(amount);
+
+  
+    if (activeTab==="") {
+      return `Please select a network`;
+    }
+    if (isNaN(amountFloat) || amountFloat < activeTab?.minWithdrawalAmount || amountFloat > activeTab?.maxWithdrawalAmount) {
+      return `Please enter a valid amount between ${activeTab?.minWithdrawalAmount} and ${activeTab?.maxWithdrawalAmount}`;
+    }
+    return null;
+
+  
+   
+  };
 
   const dataList = [
     {
