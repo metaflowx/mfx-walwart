@@ -113,7 +113,7 @@ export default function AssetsList({loading,assetsList,refetch,setEditTaskId,set
       ) : (
         assetsList &&
         assetsList.map((task: any) => (
-          <TableRow key={task.id}>
+          <TableRow key={task?._id}>
             <TableCell>{task.chainId}</TableCell>
 
             <TableCell

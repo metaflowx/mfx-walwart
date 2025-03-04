@@ -43,7 +43,7 @@ export default function page() {
       
 
             {open && (
-                <AddAssetDialog refetch={refetch} editTaskId={editTaskId} open={open} setOpen={setOpen} />
+                <AddAssetDialog refetch={refetch} editTaskId={editTaskId} open={open} setOpen={setOpen}  />
             )}
             <AssetsList editTaskId={editTaskId} setOpen={setOpen} setEditTaskId={setEditTaskId} assetsList={assetsList} loading={loading} refetch={refetch} />
     </Box>

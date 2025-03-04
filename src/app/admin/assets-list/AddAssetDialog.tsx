@@ -5,7 +5,7 @@ import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { toast } from "react-toastify";
 
 const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:any,editTaskId?:any|null,refetch:any}) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     chainId: "",
     assetAddress: "",
@@ -105,7 +105,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
   };
 
   useEffect(() => {
-    if(editTaskId._id){
+    if(editTaskId?._id){
       setFormData(
         {
           chainId: editTaskId?.chainId,
@@ -243,6 +243,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
+               className="remove-number-spinner"
               fullWidth
               margin="dense"
               value={formData.withdrawalFee}
@@ -257,6 +258,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
+               className="remove-number-spinner"
               fullWidth
               disabled={isLoading}
               margin="dense"
@@ -279,6 +281,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
               onChange={handleChange}
               error={!!errors.maxWithdrawalAmount}
               helperText={errors.maxWithdrawalAmount}
+             className="remove-number-spinner"
             />
              <TextField
               name="coinGeckoId"
@@ -317,7 +320,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
                {isLoading ? (
                               <CircularProgress size={24} style={{ color: "#fff" }} />
                             ) : (
-                              <>{editTaskId?._id !== null ? "Update Assets" : "Add Assets"}</>
+                              <>{editTaskId?._id ? "Update Assets" : "Add Assets"}</>
                             )}  
               </Button>
             </DialogActions>

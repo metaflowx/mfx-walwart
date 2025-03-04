@@ -234,6 +234,7 @@ export default function Todolist() {
               name="amount"
               fullWidth
               value={newTask.amount}
+               className="remove-number-spinner"
               onChange={handleInputChange}
               error={!!errors.amount}
               helperText={errors.amount}
@@ -247,6 +248,7 @@ export default function Todolist() {
               name="dailyEarnings"
               fullWidth
               value={newTask.dailyEarnings}
+               className="remove-number-spinner"
               onChange={handleInputChange}
               error={!!errors.dailyEarnings}
               helperText={errors.dailyEarnings}
@@ -259,6 +261,7 @@ export default function Todolist() {
               label="Duration (Days)"
               name="durationInDays"
               fullWidth
+               className="remove-number-spinner"
               value={newTask.durationInDays}
               onChange={handleInputChange}
               error={!!errors.durationInDays}
@@ -272,6 +275,7 @@ export default function Todolist() {
               label="Total Returns"
               name="totalReturns"
               fullWidth
+               className="remove-number-spinner"
               value={newTask.totalReturns}
               onChange={handleInputChange}
               error={!!errors.totalReturns}
@@ -284,6 +288,7 @@ export default function Todolist() {
               type="number"
               label="Bonus"
               name="bonus"
+               className="remove-number-spinner"
               fullWidth
               value={newTask.bonus}
               onChange={handleInputChange}
