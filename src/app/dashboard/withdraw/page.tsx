@@ -196,7 +196,7 @@ export default function Page() {
                       : "bg-[#FFFFFF] text-black border-[#DCDCEB]"
                   } h-[60px] rounded-[12px]  text-[20px] font-[700] border px-[10px] transition-all duration-300 ease-in-out`}
                 >
-                  {tab?.coinGeckoId}
+                  {tab?.assetType}
                 </button>
               ))}
             <Box pt={2}>
