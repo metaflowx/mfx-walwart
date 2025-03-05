@@ -24,7 +24,7 @@ const Investcmp = () => {
           }}
         >
           <Grid2 container spacing={2}>
-            <Grid2 size={{ lg: 6, md: 6, sm: 12, xs: 12 }}>
+            <Grid2 size={{  md: 4, sm: 12, xs: 12 }}>
               <Box
                 sx={{
                   backgroundColor: "#fff",
@@ -40,8 +40,9 @@ const Investcmp = () => {
                 <Typography color="#0071CE">Today's Earnings(USDT)</Typography>
               </Box>
             </Grid2>
+           
 
-            <Grid2 size={{ lg: 6, md: 6, sm: 12, xs: 12 }}>
+            <Grid2 size={{ md: 4, sm: 12, xs: 12 }}>
               <Box
                 sx={{
                   padding: "3rem 1rem",
@@ -52,7 +53,23 @@ const Investcmp = () => {
                 <Typography color="#fff" variant="h6" fontWeight={700}>
                   0.00
                 </Typography>
-                <Typography color="#fff">Today's Earnings(USDT)</Typography>
+                <Typography color="#fff">Total's Earnings(USDT)</Typography>
+              </Box>
+            </Grid2>
+            <Grid2 size={{  md: 4, sm: 12, xs: 12 }}>
+              <Box
+                sx={{
+                  backgroundColor: "#fff",
+                  padding: "3rem 0rem",
+                  borderRadius: "12px",
+                  border: "1px solid #0071CE",
+                  textAlign: "center",
+                }}
+              >
+                <Typography color="#0071CE" variant="h6" fontWeight={700}>
+                  0.00
+                </Typography>
+                <Typography color="#0071CE">Bonus Earnings(USDT)</Typography>
               </Box>
             </Grid2>
           </Grid2>
@@ -79,7 +96,7 @@ const Investcmp = () => {
             >
               <Image src={circleLine} alt={""} />
             </Box>
-            <Countdown targetDate={targetDate} />
+            <Countdown  />
             <Box
               sx={{
                 transform: "rotate(180deg)",

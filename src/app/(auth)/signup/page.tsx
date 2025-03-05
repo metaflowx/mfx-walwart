@@ -250,6 +250,7 @@ export default function Login() {
 
       <div className="flex justify-center items-center pt-8">
         <button
+         disabled={isLoading}
           onClick={signupHandler}
           type="submit"
           className="bg-[#0071CE] w-[150px] h-[50px] rounded-[50px]"

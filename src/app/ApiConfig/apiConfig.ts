@@ -12,10 +12,19 @@ const apiConfig = {
   login: `${baseURL}/user/login`,
   me: `${baseURL}/user/me`,
   updatePassword: `${baseURL}/user/updatePassword`,
+  userList: `${baseURL}/user/list`,
+  changeUserStatus: `${baseURL}/user/changeUserStatus`,
+
+  // admin
+
+  profile: `${baseURL}/admin/profile`,
+  update: `${baseURL}/admin/update`,
+
+  //referral 
 
 
-  
-
+  ReferralListHistory: `${baseURL}/referral/ReferralListHistory`,
+  disableReferral: `${baseURL}/referral/disableReferral`,
   // pacakage
   all: `${baseURL}/pacakage/all`,
   buyPacakgePlan: `${baseURL}/pacakage/buyPacakgePlan`,
@@ -23,17 +32,60 @@ const apiConfig = {
   task: `${baseURL}/task`,
   review: `${baseURL}/task/review`,
 
-  //admin
+  //admin task
 
   createTask: `${baseURL}/task/create`,
   edit: `${baseURL}/task/edit`,
-
   delete: `${baseURL}/task/delete`,
-
+  uploadImage: `${baseURL}/task/uploadImage`,
+//admin package
+  
   addPacakage: `${baseURL}/pacakage/add`,
   editPacakage: `${baseURL}/pacakage/edit`,
   deletePacakage: `${baseURL}/pacakage/delete`,
   allPacakage: `${baseURL}/pacakage/all`,
+
+  dashboard: `${baseURL}/dashboard`,
+
+  //admin assets
+  addAssets: `${baseURL}/assets/add`,
+  editAssets: `${baseURL}/assets/edit`,
+  deleteAssets: `${baseURL}/assets/delete`,
+  listAssets: `${baseURL}/assets/list`,
+  assetsById: `${baseURL}/assets`,
+
+  walletUpdate: `${baseURL}/wallet/update`,
+
+
+  // user wallet
+
+  walletdetail: `${baseURL}/wallet/detail`,
+  balance: `${baseURL}/wallet/balance`,
+  balances: `${baseURL}/wallet/balances`,
+
+
+  // user transaction
+  deposit: `${baseURL}/transaction/deposit`,
+  confirmed: `${baseURL}/transaction/deposit/confirmed`,
+  withdraw: `${baseURL}/transaction/withdraw`,
+  allHistory: `${baseURL}/transaction/all`,
+  transactionById: `${baseURL}/transaction`,
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+  
 
 
 

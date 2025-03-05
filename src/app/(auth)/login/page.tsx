@@ -16,7 +16,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { serialize } from 'cookie';
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { CheckBox, CheckOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const router = useRouter();
@@ -115,9 +115,9 @@ export default function Login() {
           toast.success(res.data.message)
           window.localStorage.setItem("token",res.data.token)
           const cookie = serialize('auth_token', res.data.token, {
-            httpOnly: false, // Protect against XSS
-            maxAge: 60 * 60 * 24, // Expiry (1 day)
-            path: '/', // Apply to all paths
+            httpOnly: false, 
+            maxAge: 60 * 60 * 24, 
+            path: '/', 
           });
           document.cookie = cookie;
         
@@ -174,6 +174,7 @@ export default function Login() {
             {activeTab === "email" ? (
               <div>
                 <input
+                 disabled={isLoading}
                   type="email"
                   name="email"
                   value={formData.email}
@@ -216,6 +217,7 @@ export default function Login() {
 
             <div className="w-full  ">
               <input
+               disabled={isLoading}
                    type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
@@ -250,10 +252,11 @@ export default function Login() {
               rememberMe ? "bg-blue-500" : ""
             }`}
           />
-          <h3 className="text-[#DCDCEB] text-[13px] font-[400]">Remember me</h3>
+          <h3 className="text-gray-600 text-[13px] font-[400]">Remember me</h3>
         </div>
         <div className="flex justify-center items-center pt-8">
           <button
+           disabled={isLoading}
             onClick={() => handleSubmit()}
             type="submit"
             className="bg-[#0071CE] w-[150px] h-[50px] rounded-[50px]"
@@ -274,7 +277,7 @@ export default function Login() {
           </Link>
         </p>
         <p className="text-gray-500 text-xs">
-          Agree with our{" "}
+        <CheckBox  />  Agree with our{" "}
           <Link href="/terms" className="text-blue-600 hover:underline">
             User Agreement and privacy policy
           </Link>

@@ -1,5 +1,5 @@
 "use client"
-import { Box, Container, Grid2, Typography } from "@mui/material";
+import { Box, Button, Container, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
 import logo from "../../../public/profile/logo.svg";
 import AddressCopy from "../shared/addressCopy";
@@ -18,6 +18,10 @@ import l10 from "../../../public/profile/l10.svg";
 import rArrow from "../../../public/profile/rArrow.svg";
 import useProfileData from "@/app/customHooks/profiledata";
 import { useEffect, useState } from "react";
+import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 
 const Top___list = [
   {
@@ -81,12 +85,12 @@ const Listleft = [
     Name: "Invest",
     href: "/dashboard/invest",
   },
-  {
-    id: 2,
-    Image: l2,
-    Name: "Official Website",
-    href: "",
-  },
+  // {
+  //   id: 2,
+  //   Image: l2,
+  //   Name: "Official Website",
+  //   href: "",
+  // },
   {
     id: 3,
     Image: l3,
@@ -98,7 +102,8 @@ const Listleft = [
     id: 5,
     Image: l5,
     Name: "Record",
-    href: "",
+    href: "/dashboard/invest-record",
+    
   },
 ];
 
@@ -123,10 +128,14 @@ const Listright = [
     href: "",
   },
  
+ 
 ];
 
 const Procmp = () => {
     const { profileData, loading } = useProfileData();
+    const { walletAssetsList, loading:dataLoading } = useAssetsDetail();
+
+    const router = useRouter()
  const [url,setUrl]=useState("")
     useEffect(() => {
       
@@ -134,7 +143,16 @@ const Procmp = () => {
        if (typeof window !== "undefined" && profileData) {
          setUrl(`${window?.location?.host}/signup?ref=${profileData?.referralCode}`);
        }
+     
      }, [profileData]);
+
+     const handleLogout = () => {
+    
+      document.cookie = 'auth_token=; max-age=0; path=/;'; 
+      router.push('/login');
+    };
+
+   
     
   return (
     <Box>
@@ -168,9 +186,9 @@ const Procmp = () => {
                 <Image src={logo} alt={""} width={60} height={60} />
               </Box>
               <Box>
-                <Typography variant="h5" fontWeight={500} color="#fff">
-                 {profileData?.email}
-                </Typography>
+                <h2  className="text-white font-[500] text-[16px] sm:text-[25px] " >
+                 {profileData?.email || profileData?.mobileNumber}
+                </h2>
                 <Box
                   sx={{
                     display: "flex",
@@ -369,6 +387,12 @@ const Procmp = () => {
             </Box>
           </Grid2>
         </Grid2>
+       
+
+        <Button onClick={()=>handleLogout()} fullWidth startIcon={<LogOut />} style={{marginBottom:"10px",marginTop:"10px"}}  >
+          Logout
+        </Button>
+        
       </Box>
     </Box>
   );

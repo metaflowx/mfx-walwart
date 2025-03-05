@@ -1,137 +1,109 @@
+"use client"
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CloseIcon from '@mui/icons-material/Close';
-import { Typography, styled } from '@mui/material';
+import { IconButton, Typography, styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
-import Image from 'next/image';
-
- 
-import { makeStyles } from '@mui/styles';
-import Navbar from './navbar';
 import Sidebardb from '../adminui/sidebardb';
- 
-
-const useStyles = makeStyles({
-
-    social: {
-        color: '#3DC1F2',
-        transition: '0.5s',
-        '&:hover': {
-            color: '#fff'
-        }
-    },
-
-    mob: {
-        display: 'none',
-        position: 'relative',
-        '@media(max-width : 1200px)': {
-            display: 'block'
-        }
-    },
-    logoutbtn: {
-        backgroundColor: '#f8c71f',
-        color: '#000',
-        padding: '1rem 2rem',
-        borderRadius: '30px',
-        margin: '0rem 1rem',
-        textDecoration: 'none',
-        position: 'absolute',
-        top: '30rem'
-    }
-
-
-});
-
+import { Logout } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 const StyledMenu = styled(Link)(({ theme }) => ({
-    backgroundColor: '#f8c71f !important',
-    color: '#000 !important',
+    backgroundColor: '#f8c71f',
+    color: '#000',
     padding: '8px',
     display: 'inline-flex',
     textDecoration: 'none',
-    fontWeight: '700 !important',
+    fontWeight: '700',
     borderRadius: '5rem',
     transition: '0.5s',
-    ':hover': {
-        backgroundColor: '#f8c71f !important',
-        color: "#000"
+    '&:hover': {
+        backgroundColor: '#f8c71f',
+        color: '#000'
     }
 }));
 
-const styles = {
-    color: '#000 !important',
-   
-}
+const StyledIcon = styled(MenuIcon)({
+    color: '#000'
+});
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
+const MobileBox = styled(Box)(({ theme }) => ({
+    display: 'none',
+    position: 'relative',
+    '@media(max-width:1200px)': {
+        display: 'block'
+    }
+}));
+
+
 
 export default function DashboardSidebar() {
-    const classes = useStyles();
-    const [state, setState] = React.useState({
-        left: false,
-    });
+    const [state, setState] = React.useState({ left: false });
+    const router=useRouter()
+    const handleLogout = () => {
+    
+        document.cookie = 'auth_token=; max-age=0; path=/;'; 
+        router.replace('/login');
+      };
+    const toggleDrawer = (anchor:any, open:any) => (event:any) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        setState({ ...state, [anchor]: open });
+    };
 
-    const toggleDrawer =
-        (anchor: Anchor, open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
-
-                setState({ ...state, [anchor]: open });
-            };
-
-    const list = (anchor: Anchor) => (
-        <>
-            <Box>
-                <Box
-                    sx={{
-                        width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300, textAlign: 'end', margin: '15px',
-                        '& .MuiDrawer-paper': {
-                            backgroundColor: 'red', // Your desired background color
-                        },
-                    }}
-                    role="presentation"
-                    onClick={toggleDrawer(anchor, false)}
-                    onKeyDown={toggleDrawer(anchor, false)}
-                >
-                    <Link href={'#'} > <CloseIcon sx={{ color: '#f8c71f' }} /> </Link>
-
-
-
-
-                </Box>
-
-                <Box className={classes.mob}>
-                    <Sidebardb />
-                    {/* <Link className={classes.logoutbtn} href={''}>Logout</Link> */}
-                </Box>
-
+    const list = (anchor:any) => (
+        <Box>
+            <Box
+                sx={{
+                    width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300,
+                    textAlign: 'end',
+                    margin: '15px'
+                }}
+                role="presentation"
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+            >
+                <Link href={'#'}><CloseIcon sx={{ color: '#f8c71f' }} /></Link>
             </Box>
-        </>
+            <MobileBox>
+                <Sidebardb />
+            </MobileBox>
+        </Box>
     );
 
     return (
-        <Box>
+        <Box sx={{display:"flex",alignItems:"center"}}>
+           
+
+            <IconButton onClick={()=>handleLogout()} sx={{ backgroundColor: '#f8c71f',
+    color: '#000',
+    padding: '8px',
+    display: 'inline-flex',
+    textDecoration: 'none',
+    fontWeight: '700',
+    borderRadius: '5rem',
+    transition: '0.5s',
+    '&:hover': {
+        backgroundColor: '#f8c71f',
+        color: '#000'
+    }}}>
+            <Logout  />
+            </IconButton>&nbsp;
+            
             {(['left'] as const).map((anchor) => (
                 <React.Fragment key={anchor}>
-
-                    <StyledMenu
-                        onClick={toggleDrawer(anchor, true)}
-                        href={""}>
-                        <MenuIcon style={styles} />
+                    <StyledMenu onClick={toggleDrawer(anchor, true)} href={""}>
+                     
+                        <StyledIcon />
                     </StyledMenu>
                     <Drawer
                         sx={{
                             '& .MuiDrawer-paper': {
-                                backgroundColor: '#0071CE', // Your desired background color
-                            },
+                                backgroundColor: '#0071CE'
+                            }
                         }}
                         anchor={anchor}
                         open={state[anchor]}

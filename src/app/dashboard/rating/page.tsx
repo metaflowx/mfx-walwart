@@ -13,7 +13,7 @@ import { CircularProgress, Rating } from "@mui/material";
 import { toast } from "react-toastify";
 import taskListData from "@/app/customHooks/taskList";
 export default function page() {
-  const {taskList}=taskListData()
+  const {taskList,loading}=taskListData()
   const search =useSearchParams()
   const [taskDetails,setTaskDetails]=useState<any>("")
   const[isLoading,setIsLoading]=useState(false)
@@ -136,14 +136,16 @@ export default function page() {
         </p>
 
         <Rating 
+        disabled={isLoading}
+        value={ratingStar}
         onChange={(event, newValue:any) => {
           setRatingStar(newValue);
         }}
          />
 
         <div>
-        <button onClick={()=>reviewHandler()} className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
-       {isLoading ? <CircularProgress size={24} style={{color:"#fff"}} />:"Rating immediately" }   
+        <button disabled={isLoading} onClick={()=>reviewHandler()} className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
+       {isLoading ? <CircularProgress size={24} style={{color:"#000"}} />:"Rating immediately" }   
         </button>
         </div>
 
@@ -155,7 +157,7 @@ export default function page() {
         Related Recommendations
       </h3>
 
-      <MovieCard products={filterData} />
+      <MovieCard products={filterData} loading={loading} />
     </div>
   );
 }

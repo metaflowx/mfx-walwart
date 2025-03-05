@@ -7,7 +7,11 @@ const ConfirmationDialog = ({ open, onClose, onConfirm,title,des,isLoading }:{op
   return (
     <Dialog 
       open={open} 
-      onClose={onClose} 
+      onClose={()=>{
+        if(!isLoading){
+          onClose()
+        }
+      }} 
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -19,7 +23,11 @@ const ConfirmationDialog = ({ open, onClose, onConfirm,title,des,isLoading }:{op
         <IconButton 
           edge="end" 
           color="inherit" 
-          onClick={onClose} 
+          onClick={()=>{
+            if(!isLoading){
+              onClose()
+            }
+          }} 
           
         >
           <Cross color='#000' style={{transform:"rotate(45deg)"}} />
@@ -29,10 +37,11 @@ const ConfirmationDialog = ({ open, onClose, onConfirm,title,des,isLoading }:{op
       {des || "Are you sure you want to buy this plan?"}  
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'center' }}>
-        <Button onClick={onClose} color="primary">
+        <Button  disabled={isLoading} onClick={onClose} color="primary">
           Cancel
         </Button>
         <Button 
+        disabled={isLoading}
           onClick={() => {
             onConfirm();
            

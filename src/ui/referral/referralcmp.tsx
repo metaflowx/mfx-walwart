@@ -71,8 +71,8 @@ export default function Referralcmp() {
             <Box
               sx={{
                 backgroundColor: "#FFFFFF",
-                display: "flex",
-                justifyContent: "space-between",
+                display: {xs:"block", md:"flex"} ,
+                justifyContent:  "space-between",
                 alignItems: "center",
                 padding: "2rem",
                 borderRadius: "12px",
@@ -84,7 +84,7 @@ export default function Referralcmp() {
                   SCAN <Typography variant="h5"> QR Code</Typography>
                 </Typography>
               </Box>
-              <Box>
+              <Box sx={{display:{xs:"flex",md:"block"},justifyContent:"center"}} >
                 {url && (
 
                 <Canvas
@@ -163,17 +163,13 @@ export default function Referralcmp() {
               <Typography mt={1}>
                 <Typography component={"span"} fontWeight={700}>
                   {" "}
-                  Level 1 (Direct Referrals) –
+                  Level 1 –
                 </Typography>{" "}
-                Earn a{" "}
+                Earn {" "}
                 <Typography component={"span"} fontWeight={700}>
-                  12% commission
+                12% commission on direct referrals. 
                 </Typography>{" "}
-                on referrals.Example: If your referral spends $100, you earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  $12
-                </Typography>{" "}
-                instantly.
+               
               </Typography>
 
               <Typography mt={1}>
@@ -183,30 +179,22 @@ export default function Referralcmp() {
                 </Typography>{" "}
                 Earn{" "}
                 <Typography component={"span"} fontWeight={700}>
-                  5% commission
+                3% commission from second-level referrals. 
                 </Typography>{" "}
-                from second-level referrals.Example: A second-level referral
-                spends $100, and you earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  $5
-                </Typography>{" "}
+               
                 .
               </Typography>
 
               <Typography mt={1}>
                 <Typography component={"span"} fontWeight={700}>
                   {" "}
-                  Level 3 (Direct Referrals) –
+                  Level 3 –
                 </Typography>{" "}
-                Earn a{" "}
+                Earn {" "}
                 <Typography component={"span"} fontWeight={700}>
-                  12% commission
+                2% commission from third-level referrals.﻿
                 </Typography>{" "}
-                on referrals.Example: If your referral spends $100, you earn{" "}
-                <Typography component={"span"} fontWeight={700}>
-                  $12
-                </Typography>{" "}
-                instantly.
+               
               </Typography>
 
              

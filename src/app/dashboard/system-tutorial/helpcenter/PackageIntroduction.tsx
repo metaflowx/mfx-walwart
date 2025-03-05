@@ -1,145 +1,94 @@
+import usePackageList from "@/app/customHooks/usePackageList";
 import { Box, Grid2 } from "@mui/material";
 import React from "react";
 
 export default function PackageIntroduction() {
-    const dataList =[
-        {
-         title:   "💼 VIP1",
-value:" Investment: 9 USDT",
-value1:"Daily Income: 1.88 USDT",
-value2:"Total Income: 225.6 USDT"
-        },
-        {
-            title:   "💼 VIP2",
-   value:" Investment: 9 USDT",
-   value1:"Daily Income: 1.88 USDT",
-   value2:"Total Income: 225.6 USDT"
-           },
-           {
-            title:   "💼 VIP3",
-   value:" Investment: 9 USDT",
-   value1:"Daily Income: 1.88 USDT",
-   value2:"Total Income: 225.6 USDT"
-           },
-           {
-            title:   "💼 VIP4",
-   value:" Investment: 9 USDT",
-   value1:"Daily Income: 1.88 USDT",
-   value2:"Total Income: 225.6 USDT"
-           },
-           {
-            title:   "💼 VIP1",
-   value:" Investment: 9 USDT",
-   value1:"Daily Income: 1.88 USDT",
-   value2:"Total Income: 225.6 USDT"
-           },
-           {
-               title:   "💼 VIP2",
-      value:" Investment: 9 USDT",
-      value1:"Daily Income: 1.88 USDT",
-      value2:"Total Income: 225.6 USDT"
-              },
-              {
-               title:   "💼 VIP3",
-      value:" Investment: 9 USDT",
-      value1:"Daily Income: 1.88 USDT",
-      value2:"Total Income: 225.6 USDT"
-              },
-              {
-               title:   "💼 VIP4",
-      value:" Investment: 9 USDT",
-      value1:"Daily Income: 1.88 USDT",
-      value2:"Total Income: 225.6 USDT"
-              },
-              {
-                title:   "💼 VIP3",
-       value:" Investment: 9 USDT",
-       value1:"Daily Income: 1.88 USDT",
-       value2:"Total Income: 225.6 USDT"
-               },
-               {
-                title:   "💼 VIP4",
-       value:" Investment: 9 USDT",
-       value1:"Daily Income: 1.88 USDT",
-       value2:"Total Income: 225.6 USDT"
-               },
-    ]
+  const { packageList, loading } = usePackageList();
   return (
     <Box>
-      <h3 className="text-[#110229] font-[500] text-[24px] ">VIP package</h3>
-      <p className="text-[#110229] font-[400] text-[18px] pt-2">
-        WALMART VIP Membership Plans – Unlock Exclusive Rewards! 💎🚀 At WALMART
-        (Assaulted Caramel Productions, Inc.), we offer a range of VIP
-        Membership Plans designed to suit every investor's needs. Whether you're
-        starting small or aiming for high returns, our VIP packages provide
-        stable, guaranteed income and unlock the path to financial growth.
-      </p>
-      <p className="text-[#110229] font-[400] text-[18px] ">
-        What Are WALMART VIP Plans? Our VIP Levels are structured investment
-        packages that allow you to earn daily passive income with guaranteed
-        returns. From as little as 9 USDT, you can start earning and scale your
-        income as you upgrade to higher VIP levels. VIP Levels and Benefits
-      </p>
+       <section className="text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-12 rounded-lg">
+          <h1 className="text-2xl sm:text-4xl font-semibold mb-4">Welcome to Walmart Inc. – Maximize Your Earnings with Our Exclusive Packages! 💼🚀</h1>
+          <p className="text-lg mb-8">
+            At Walmart Inc., we are thrilled to offer you the opportunity to increase your wealth with our 9 specially designed membership packages! Whether you’re a beginner or a seasoned investor, our packages are crafted to meet your needs. With each package, you’ll earn daily returns by engaging with Walmart’s ads, promotions, and referral rewards. Start your financial journey with Walmart today and watch your income grow! 💰✨
+          </p>
+          {/* <button className="bg-yellow-500 text-black py-2 px-6 rounded-lg text-xl font-semibold hover:bg-yellow-400 transition duration-300">
+            Start Earning Now!
+          </button> */}
+        </section>
+     
 
-      <Grid2 container spacing={3} py={3} >
+      <Grid2 container spacing={3} py={3}>
+        {packageList &&
+          packageList.map((item: any, index) => {
+            return (
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  md: 3,
+                }}
+              >
+                <Box
+                  sx={{
+                    border: "1.5px solid #DCDCEB",
+                    borderRadius: "11px",
+                    padding: "10px",
+                  }}
+                >
+                  <h3 className="text-[18px] font-[700] ">{item?.name}</h3>
+                  <h3>Investment : {item?.amount}USDT</h3>
+                  <h3>Daily Earnings : {item?.dailyEarnings}USDT</h3>
 
-        {dataList.map((item,index)=>{
-            return(
-                <Grid2 size={{
-                    xs:12,sm:6,md:3
-                }} >
-
-                    <Box sx={{
-                        border: "1.5px solid #DCDCEB",
-                        borderRadius:"11px",
-                        padding:"10px"
-                    }} >
-
-                        <h3>{item.title}</h3>
-                        <h3>{item.value}</h3>
-
-                        <h3>{item.value1}</h3>
-
-                        <h3>{item.value2}</h3>
+                  <h3>Total Earnings : {item.totalReturns}USDT</h3>
+                  <h3>Bonus : {item.bonus}USDT</h3>
+                  <h4> {item?.description}</h4>
 
 
-                    </Box>
-
-                </Grid2>
-            )
-        })}
-
+                </Box>
+              </Grid2>
+            );
+          })}
       </Grid2>
 
-      <h3 className="text-[#110229] font-[500] text-[24px] ">
-        Why Choose WALMART VIP Membership?
-      </h3>
-      <p className="text-[#110229] font-[400] text-[18px] pt-2">
-        🌟 Daily Passive Income <br />
-        Earn guaranteed income every day based on your chosen VIP level. <br />
-        🔓 Unlock Higher Rewards <br />
-        As you upgrade to higher VIP levels, your daily income and total returns
-        grow significantly. <br />
-        💵 Flexible Entry Points <br />
-        With packages starting at just 9 USDT, our VIP plans are accessible to
-        everyone. <br />
-        💸 Fast Withdrawals <br />
-        Withdraw your earnings quickly and securely through USDT (TRC20/BEP20)
-        or other supported cryptocurrencies. <br />
-        How to Get Started? <br />
-        1️. Choose Your VIP Level: Choose the plan that best suits your
-        investment goals. <br />
-        2️. nvest: Deposit the required amount and start earning immediately.{" "}
-        <br />
-        3️. Upgrade Anytime: Scale up to higher VIP levels as you grow your
-        wealth. Maximize Your Earnings with WALMART! <br />
-        WALMART’s VIP Membership Plans are designed to provide stable, reliable
-        income while offering the flexibility to grow at your own pace. Whether
-        you're a beginner or a seasoned investor, there's a VIP level for you!{" "}
-        <br />
-        💼 Join WALMART today and start earning with our VIP Membership Plans!
-        🚀
-      </p>
+      <section className="bg-white py-12 mt-16 rounded-lg shadow-lg px-2">
+          <h2 className="text-3xl font-semibold text-center mb-6">Why Choose Walmart Inc.? 💡</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex items-start mb-6">
+              <span className="text-4xl text-yellow-500 mr-4">💰</span>
+              <p className="text-lg">**Guaranteed Daily Earnings**: Enjoy steady, reliable daily returns as you engage with Walmart’s ads and promotions.</p>
+            </div>
+            <div className="flex items-start mb-6">
+              <span className="text-4xl text-yellow-500 mr-4">🎁</span>
+              <p className="text-lg">**Amazing Bonuses**: Unlock significant bonuses based on your investment package and stay engaged with the platform.</p>
+            </div>
+            <div className="flex items-start mb-6">
+              <span className="text-4xl text-yellow-500 mr-4">🔒</span>
+              <p className="text-lg">**Simple & Secure**: Fast and secure withdrawals with a minimum of just 1.88 USDT!</p>
+            </div>
+            <div className="flex items-start mb-6">
+              <span className="text-4xl text-yellow-500 mr-4">🌐</span>
+              <p className="text-lg">**Referral Program**: Earn even more by referring others. Invite your friends and watch your earnings grow across 3 levels of referrals! 👥🎉</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="text-center mt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-12 rounded-lg">
+          <h2 className="text-3xl font-semibold mb-6">Ready to Start Your Journey with Walmart Inc.? 🌟💼</h2>
+          <p className="text-lg mb-8">
+            Whether you’re just getting started or you’re ready to go big, our membership packages are designed to help you grow. Start now and discover how Walmart can help you achieve your financial dreams! 🚀💵
+          </p>
+          {/* <button className="bg-yellow-500 text-black py-2 px-6 rounded-lg text-xl font-semibold hover:bg-yellow-400 transition duration-300">
+            Start Today!
+          </button> */}
+        </section>
+
+        {/* Note */}
+        <section className="mt-8 text-center text-lg text-gray-600">
+          <p>
+            **Note**: Fast withdrawals, daily earnings, and exclusive access to Walmart’s global promotions—What are you waiting for? Start today! 💡🎉
+          </p>
+        </section>
+
     </Box>
   );
 }

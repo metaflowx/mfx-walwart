@@ -6,7 +6,9 @@ import Wrapper from "@/components/global/wrapper";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/constants";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import useProfileData from "@/app/customHooks/profiledata";
+import CommonButton from "@/components/ui/CommonButton";
 
 declare global {
   interface Window {
@@ -22,8 +24,9 @@ declare global {
 
 const Topheader = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const router=useRouter()
   const pathname = usePathname();
-
+  const {profileData}=useProfileData()
   useEffect(() => {
     const addGoogleTranslate = () => {
       if (typeof window !== "undefined" && !window.googleTranslateLoaded) {
@@ -62,10 +65,19 @@ const Topheader = () => {
     }, 1000); // Delay ensures dropdown is ready
   };
 
+ 
+
+  useEffect(() => {
+    if (profileData && profileData?.role === "ADMIN") {
+      router.push("/admin/dashboard");
+    }
+  }, [profileData]);
+
   return (
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">
         <MarqueHeader />
+        <div id="google_translate_element" style={{ display: "none" }}></div>
         <Wrapper className="h-full p-2">
           <div className="flex items-center justify-between h-full">
             <div className="flex items-center gap-2 sm:mt-1 mt-0">
@@ -94,16 +106,29 @@ const Topheader = () => {
                 ))}
               </ul>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Link href={"/dashboard/notification"}>
                 <img
-                  src="/images/home/notification.png"
+                  src="/images/home/notification.svg"
                   className="w-[40px] h-[40px]"
                 />
+                </Link>
 
-                <img
-                  src="/images/auth/help.png"
-                  className="w-[40px] h-[40px]"
-                />
+
+<Link href={"/dashboard/contact-customer-service"} >
+<img
+               
+               src="/images/auth/help.svg"
+               className="w-[40px] h-[40px] cursor-pointer"
+             />
+</Link>
+               
+
+                {profileData && profileData?.role==="ADMIN" && (
+                 <button onClick={()=>router.push("/admin/dashboard")} className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-2 pr-2">
+                  Dashboard
+                 </button>
+                )}
 
                 <div className="relative">
                 <select

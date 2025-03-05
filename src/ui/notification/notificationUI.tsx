@@ -1,12 +1,13 @@
 import { Typography } from "@mui/material"
 import RoundTab from "./roundTab"
+import CommonBackButton from "@/components/ui/CommonBackButton"
 
 
 
 const NotificationUI = () => {
     return (
         <>
-            <Typography color="#0071CE" variant="h4" fontWeight={700}>Notification</Typography>
+            <CommonBackButton title="Notification" />
             <RoundTab/>
         </>
     )

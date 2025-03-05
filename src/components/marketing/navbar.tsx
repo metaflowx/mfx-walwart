@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 w-full  bg-transparent backdrop-blur-[10px] z-50">
        <MarqueHeader />
-       <div id="google_translate_element"></div>
+       <div id="google_translate_element" style={{ display: "none" }}></div>
       <Wrapper className="h-full pt-2">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center sm:mt-1 mt-0">
@@ -75,7 +75,7 @@ const Navbar = () => {
           </div>
           <div className="flex items-center">
         
-           <img src="/images/auth/help.png" className="w-[49px] h-[49px]" />
+           {/* <img src="/images/auth/help.svg" className="w-[49px] h-[49px]" /> */}
 
          
 

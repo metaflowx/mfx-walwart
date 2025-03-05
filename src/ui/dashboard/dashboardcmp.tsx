@@ -13,11 +13,12 @@ const Dashboardcmp = () => {
   return (
     <>
       <Box >
+      <MemberList />
      <Hero />
      <QuickActions />
      {/* <Trending /> */}
      <Products />
-     <MemberList />
+   
     
       </Box>
     </>

@@ -1,23 +1,29 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useProfileData from "@/app/customHooks/profiledata";
+import useWalletBalance from "@/app/customHooks/useWalletBalance";
+import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import { Box, Button, Grid2, Skeleton, Typography } from "@mui/material";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
+import { formatUnits } from "viem";
 
 const SpecialPackage = () => {
+  const router =useRouter()
+  const { walletBalances } = useWalletBalnces();
+
   const [packageList, setPackageList] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
   const { profileData } = useProfileData();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [isConfirm, setIsConfirm] = useState(false);
+  const [isConfirm, setIsConfirm] = useState<any>("");
+
 
   const fetchPackage = async () => {
     try {
-    
       const res: any = await apiRouterCall({
         method: "GET",
         endPoint: "all",
@@ -54,14 +60,22 @@ const SpecialPackage = () => {
     }
   }, [profileData]);
 
-  const buyPackageHandler = async (id: string) => {
+  const buyPackageHandler = async () => {
+    const avlBalance=walletBalances && formatUnits(walletBalances?.totalBalanceInWeiUsd,18)
+    
+    
+    if(avlBalance < isConfirm?.amount   ){
+      router.push("/dashboard/volunteable-assets")
+      toast.warn("Insuffiecient balance")
+      return
+    }
     try {
       setIsLoading(true);
       const res = await apiRouterCall({
         method: "POST",
         endPoint: "buyPacakgePlan",
         data: {
-          packageId: isConfirm,
+          packageId: isConfirm?._id,
         },
       });
       if (res?.status === 200) {
@@ -69,7 +83,7 @@ const SpecialPackage = () => {
           getActivePackage(profileData?._id);
         }
         setIsLoading(false);
-        setIsConfirm(false);
+        setIsConfirm("");
         fetchPackage();
       }
       setIsLoading(false);
@@ -82,9 +96,9 @@ const SpecialPackage = () => {
     <>
       <Box>
         <Box mt={4}>
-          <Typography variant="h4" fontWeight={700} color="#0071CE">
+          <h4 className="font-[700] text-[#0071CE] text-[20px] sm:text-[30px] ">
             Special Package
-          </Typography>
+          </h4>
         </Box>
 
         <Box
@@ -108,13 +122,17 @@ const SpecialPackage = () => {
                   />
                 ))}
           </Grid2>
-          {!loading && packageList && packageList.length===0 && (
-
-<Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}} >
-  <Typography color="#fff" >Data not found</Typography>
-</Box>
-
-)}
+          {!loading && packageList && packageList.length === 0 && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography color="#fff">Data not found</Typography>
+            </Box>
+          )}
         </Box>
       </Box>
       {isConfirm && (
@@ -151,7 +169,7 @@ const SpecialCard = ({
   }, [item, activePlan]);
 
   return (
-    <Grid2 size={{ lg: 4, md: 4, sm: 6, xs: 12 }}>
+    <Grid2 size={{ lg: 4, md: 6, sm: 6, xs: 12 }}>
       <Box position={"relative"} mt={5}>
         <Box
           sx={{
@@ -193,6 +211,10 @@ const SpecialCard = ({
                   </Typography>
                   <Typography color="#000">Expire date</Typography>
                 </Box>
+                <Box textAlign={"center"}>
+                  <Typography fontWeight={700}>{item?.bonus}USDT</Typography>
+                  <Typography color="#000">Bonus</Typography>
+                </Box>
                 <Box textAlign={"right"}>
                   <Typography fontWeight={700}>
                     {item?.dailyEarnings} USDT
@@ -206,7 +228,7 @@ const SpecialCard = ({
                   if (checkIsBuy?.packageId === item?._id) {
                     router.push("/dashboard/score-center");
                   } else {
-                    setIsConfirm(item?._id);
+                    setIsConfirm(item);
                   }
                 }}
                 sx={{

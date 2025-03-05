@@ -80,7 +80,7 @@ body{
  
   background-position: top;
   background-size: cover;
-  background-color: #FFFFFF;
+  background-color: #FFFFFF !important;
  
  
 }
@@ -280,4 +280,14 @@ img {
 
 .rotate-image {
   animation: rotate360 5s linear infinite; /* Adjust the duration (5s) as needed */
+}
+
+.remove-number-spinner input[type="number"]::-webkit-inner-spin-button,
+.remove-number-spinner input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.remove-number-spinner input[type="number"] {
+  -moz-appearance: textfield;
 }

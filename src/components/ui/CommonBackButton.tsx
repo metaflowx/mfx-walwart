@@ -12,20 +12,20 @@ export default function CommonBackButton({title,isIcon}:{title:string,isIcon?:an
 
         <Box onClick={()=>router.back()} style={{cursor:"pointer"}} >
 
-        <img src="/images/coin/backbutton.png"   />
+        <img src="/images/coin/backbutton.svg"   />
         </Box>
 
         <Typography sx={{
             paddingLeft:"5px",
             color:"#0071CE",
             fontWeight:700,
-            fontSize:"40px"
+            fontSize:{xs:"20px", sm:"40px"}
         }} >{title}</Typography>
       
     </div>
     {isIcon && (
 
-    <img src="/images/withdraw/calender.png" style={{width:"40px",objectFit:"contain"}} />
+    <img onClick={()=>router.push("/dashboard/transaction-history")} src="/images/withdraw/calender.svg" style={{width:"40px",objectFit:"contain",cursor:"pointer",pointerEvents:"all"}} />
     )}
     </div>
   )
