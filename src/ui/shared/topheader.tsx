@@ -107,7 +107,7 @@ const Topheader = () => {
               </ul>
 
               <div className="flex items-center gap-1">
-                <Link href={"/dashboard/contact-customer-service"}>
+                <Link href={"/dashboard/notification"}>
                 <img
                   src="/images/home/notification.svg"
                   className="w-[40px] h-[40px]"
