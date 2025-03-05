@@ -25,6 +25,8 @@ const apiConfig = {
 
   ReferralListHistory: `${baseURL}/referral/ReferralListHistory`,
   disableReferral: `${baseURL}/referral/disableReferral`,
+  Referralstats: `${baseURL}/referral/stats`,
+
   // pacakage
   all: `${baseURL}/pacakage/all`,
   buyPacakgePlan: `${baseURL}/pacakage/buyPacakgePlan`,

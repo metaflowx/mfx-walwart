@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PieChartComp from "./piechart";
 import { Box, Grid2, Typography } from "@mui/material";
 import TaskCard from "./piechart/TaskCard";
 import TaskDashboard from "./piechart/TaskDashboard";
 import LevelCard from "./piechart/LevelCard";
+import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 
 export default function page() {
+  const[referralStats,setReferralStats]=useState<any>("")
+  const[isLoading,setIsLoading]=useState(true)
   const dataList = [
     {
       title: "Scoring Income",
@@ -34,6 +37,33 @@ export default function page() {
       6: { totalHeadcount: 0.00, numberOfActive: 0.00, teamTopUp: 0.00, totalReturn: 0.00, todaysEarnings: 0.00 },
     },
   };
+  const ReferralstatsList =async()=>{
+    try {
+      const res=await apiRouterCall({
+        method:"GET",
+        endPoint:"Referralstats"
+      })
+      if(res?.status===200){
+        setReferralStats(res?.data.data)
+        setIsLoading(false)
+        console.log(">>>>>>>>>>>.res44",res);
+      }else{
+        setIsLoading(false)
+      }
+     
+      
+    } catch (error) {
+      setIsLoading(false)
+    }
+  }
+  useEffect(() => {
+    
+    ReferralstatsList()
+  }, [])
+
+ 
+  
+  
   return (
     <div  >
       <Box sx={{
@@ -71,11 +101,17 @@ export default function page() {
       </h5>
 
       <Grid2 container spacing={3}>
-        {Object.entries(mockData.levels).map(([level, data]) => (
-          <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={level}>
-            <LevelCard level={parseInt(level)} data={data} />
+       
+          <Grid2 size={{ xs: 12, sm: 6, md: 4 }} >
+            <LevelCard  data={referralStats?.levelStats?.level1} level="1" />
           </Grid2>
-        ))}
+          <Grid2 size={{ xs: 12, sm: 6, md: 4 }} >
+            <LevelCard  data={referralStats?.levelStats?.level2} level="2" />
+          </Grid2>
+          <Grid2 size={{ xs: 12, sm: 6, md: 4 }} >
+            <LevelCard  data={referralStats?.levelStats?.level3} level="3" />
+          </Grid2>
+        
       </Grid2>
     </div>
   );
