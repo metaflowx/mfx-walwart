@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Head>
-        <title>Privacy Policy - MyApp</title>
+        <title>Privacy Policy - Walmart</title>
         <meta name="description" content="Read our privacy policy to learn how we handle your data." />
       </Head>
       <main className="px-6 py-12 w-full text-gray-200 bg-gray-900  shadow-lg min-h-screen">
