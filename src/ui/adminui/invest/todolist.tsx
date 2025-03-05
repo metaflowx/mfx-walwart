@@ -128,7 +128,7 @@ export default function Todolist() {
     if (!newTask.amount || isNaN(Number(newTask.amount)))
       tempErrors.amount = "Valid amount is required";
     if (!newTask.requiredTask || isNaN(Number(newTask.requiredTask)))
-      tempErrors.amount = "Number of Task is required";
+      tempErrors.requiredTask = "Number of Task is required";
     if (!newTask.dailyBonus || isNaN(Number(newTask.dailyBonus)))
       tempErrors.dailyBonus = "Valid daily bonus is required";
     if (!newTask.totalBonus || isNaN(Number(newTask.totalBonus)))
