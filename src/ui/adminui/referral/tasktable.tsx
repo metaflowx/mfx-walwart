@@ -40,7 +40,7 @@ const StyledTableContainer = styled(TableContainer)({
 const Tasktable = () => {
   const { referralList, loading, refetch } = useReferralList();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChange = async (id: string, status: boolean) => {
     try {
@@ -104,6 +104,9 @@ const Tasktable = () => {
                 Level3
               </TableCell>
               <TableCell sx={{ fontSize: 16, color: "#0071CE" }}>
+              Total Investment
+              </TableCell>
+              <TableCell sx={{ fontSize: 16, color: "#0071CE" }}>
                 Earning
               </TableCell>
               <TableCell sx={{ fontSize: 16, color: "#0071CE" }} align="right">
@@ -113,10 +116,16 @@ const Tasktable = () => {
           </TableHead>
           <TableBody>
             {loading ? (
-              Array.from(new Array(5)).map((_, index) => (
+              Array.from(new Array(6)).map((_, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Skeleton variant="text" width={120} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
                   </TableCell>
                   <TableCell>
                     <Skeleton variant="text" width={80} />
@@ -174,6 +183,7 @@ const Tasktable = () => {
                       <Typography color="#000">
                         Count:{item.referralStats?.levels?.level2?.count}
                       </Typography>
+                     
                       <Typography color="#999">
                         Earning:$
                         {item.referralStats?.levels?.level2?.earnings}
@@ -188,6 +198,9 @@ const Tasktable = () => {
                         {item.referralStats?.levels?.level3?.earnings}
                       </Typography>
                     </TableCell>
+                    <TableCell>
+                  <Typography color="#000">${item?.totalPacakge}</Typography>
+                </TableCell>
                     <TableCell>
                       <Typography color="#000">
                         {item?.totalEarnings}

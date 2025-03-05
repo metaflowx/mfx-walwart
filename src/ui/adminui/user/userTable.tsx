@@ -53,13 +53,14 @@ interface User {
   status: string;
   createdAt: string;
   totalEarnings: number;
+  totalPacakge:number
 }
 
 const Tasktable = () => {
   const { allUserList,loading, refetch } = useUserList();
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [open, setOpen] = useState(false);
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -117,7 +118,7 @@ const Tasktable = () => {
         <Table sx={{ minWidth: 650, backgroundColor: "#fff", border: "1px solid #DCDCEB", borderRadius: "8px" }}>
           <TableHead sx={{ backgroundColor: "#E8F7FF" }}>
             <TableRow>
-              {["Wallet Add.", "Email/Phone", "Status", "Joining Date", "Earning", "Action"].map((header) => (
+              {["Wallet Add.", "Email/Phone", "Status", "Joining Date", "Total Investment", "Earning", "Action"].map((header) => (
                 <TableCell
                   key={header}
                   sx={{ borderBottom: "1px solid #DCDCEB", fontSize: 16, color: "#0071CE" }}
@@ -134,6 +135,9 @@ const Tasktable = () => {
                 <TableRow key={index}>
                   <TableCell>
                     <Skeleton variant="text" width={120} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={80} />
                   </TableCell>
                   <TableCell>
                     <Skeleton variant="text" width={80} />
@@ -173,6 +177,9 @@ const Tasktable = () => {
                 </TableCell>
                 <TableCell style={{whiteSpace:"pre"}}>
                   <Typography color="#000">{moment(item.createdAt).format("lll")}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="#000">${item?.totalPacakge}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography color="#000">${item.totalEarnings}</Typography>
