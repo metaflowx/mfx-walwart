@@ -75,7 +75,7 @@ const Navbar = () => {
           </div>
           <div className="flex items-center">
         
-           <img src="/images/auth/help.png" className="w-[49px] h-[49px]" />
+           {/* <img src="/images/auth/help.svg" className="w-[49px] h-[49px]" /> */}
 
          
 

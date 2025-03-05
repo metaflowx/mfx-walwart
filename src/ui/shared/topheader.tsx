@@ -98,16 +98,23 @@ const Topheader = () => {
                 ))}
               </ul>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Link href={"/dashboard/contact-customer-service"}>
                 <img
-                  src="/images/home/notification.png"
+                  src="/images/home/notification.svg"
                   className="w-[40px] h-[40px]"
                 />
+                </Link>
 
-                <img
-                  src="/images/auth/help.png"
-                  className="w-[40px] h-[40px]"
-                />
+
+<Link href={"/dashboard/contact-customer-service"} >
+<img
+               
+               src="/images/auth/help.svg"
+               className="w-[40px] h-[40px] cursor-pointer"
+             />
+</Link>
+               
 
                 {profileData && profileData?.role==="ADMIN" && (
                  <button onClick={()=>router.push("/admin/dashboard")} className="bg-[#0071CE] flex justify-center items-center text-white text-[16px] font-[600] border-none rounded-[12px] max-w-fit h-[49px] cursor-pointer appearance-none pl-2 pr-2">
