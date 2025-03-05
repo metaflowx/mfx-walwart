@@ -217,6 +217,7 @@ export default function Todolist() {
             }}
           >
             <TextField
+              disabled={isLoading}
               label="Package Name"
               name="name"
               fullWidth
@@ -226,6 +227,7 @@ export default function Todolist() {
               helperText={errors.name}
             />
             <TextField
+              disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
@@ -240,6 +242,7 @@ export default function Todolist() {
               helperText={errors.amount}
             />
             <TextField
+              disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
@@ -254,6 +257,7 @@ export default function Todolist() {
               helperText={errors.dailyEarnings}
             />
             <TextField
+              disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
@@ -268,6 +272,7 @@ export default function Todolist() {
               helperText={errors.durationInDays}
             />
             <TextField
+              disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
@@ -282,6 +287,7 @@ export default function Todolist() {
               helperText={errors.totalReturns}
             />
             <TextField
+              disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
               }}
@@ -296,6 +302,7 @@ export default function Todolist() {
               helperText={errors.bonus}
             />
             <TextField
+              disabled={isLoading}
               label="Description"
               name="description"
               fullWidth
@@ -308,14 +315,24 @@ export default function Todolist() {
             <Button
               variant="contained"
               color="primary"
+              disabled={isLoading}
               onClick={createPackage}
               sx={{ mt: 2 }}
             >
               {isLoading ? (
                 <CircularProgress size={24} style={{ color: "#fff" }} />
               ) : (
-                <>{editTaskId !== null ? "Update Task" : "Add Task"}</>
+                <>{editTaskId !== null ? "Update Package" : "Add Package"}</>
               )}
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={isLoading}
+              onClick={()=>handleClose()}
+             
+            >
+             Close
             </Button>
           </Box>
         </Modal>

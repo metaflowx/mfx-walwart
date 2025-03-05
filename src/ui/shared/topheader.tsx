@@ -65,6 +65,14 @@ const Topheader = () => {
     }, 1000); // Delay ensures dropdown is ready
   };
 
+ 
+
+  useEffect(() => {
+    if (profileData && profileData?.role === "ADMIN") {
+      router.push("/admin/dashboard");
+    }
+  }, [profileData]);
+
   return (
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">

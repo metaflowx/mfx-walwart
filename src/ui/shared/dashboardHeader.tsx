@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useEffect } from "react";
 import useProfileData from "@/app/customHooks/profiledata";
 import { useRouter } from "next/navigation";
+import { Logout } from "@mui/icons-material";
 
 const StyledLogoLink = styled(Link)({
   borderBottom: "1px solid #1d1d2000",
@@ -34,6 +35,12 @@ const DashboardHeader = () => {
       router.push("/dashboard");
     }
   }, [profileData]);
+
+  const handleLogout = () => {
+    
+    document.cookie = 'auth_token=; max-age=0; path=/;'; 
+    router.replace('/login');
+  };
 
   return (
     <Box
@@ -62,7 +69,7 @@ const DashboardHeader = () => {
         <DashboardSidebar />
       </Box>
       <Box>
-        <StyledLogoLink href={"/"}>
+        <StyledLogoLink href={"/admin/dashboard"}>
           <Image src={logo} alt={""} />
         </StyledLogoLink>
       </Box>
@@ -72,6 +79,20 @@ const DashboardHeader = () => {
         </Typography>
       </StyledTextHeaderBox>
       <Box sx={{ "@media(max-width:900px)": { display: "none" } }}>
+         <IconButton onClick={()=>handleLogout()} sx={{ backgroundColor: '#f8c71f',
+            color: '#000',
+            padding: '8px',
+            display: 'inline-flex',
+            textDecoration: 'none',
+            fontWeight: '700',
+            borderRadius: '5rem',
+            transition: '0.5s',
+            '&:hover': {
+                backgroundColor: '#f8c71f',
+                color: '#000'
+            }}}>
+                    <Logout  />
+                    </IconButton>&nbsp;
         <Link href={"/admin/profile"}>
           <IconButton>
             <PersonIcon sx={{ color: "#fff" }} />

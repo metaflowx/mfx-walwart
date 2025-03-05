@@ -54,6 +54,9 @@ const apiConfig = {
   listAssets: `${baseURL}/assets/list`,
   assetsById: `${baseURL}/assets`,
 
+  walletUpdate: `${baseURL}/wallet/update`,
+
+
   // user wallet
 
   walletdetail: `${baseURL}/wallet/detail`,

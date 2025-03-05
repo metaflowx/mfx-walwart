@@ -59,8 +59,8 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit =async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit =async () => {
+  
     if (validateForm()) {
       setIsLoading(true)
     
@@ -150,7 +150,7 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
         setOpen(false)}} fullWidth maxWidth="sm">
         <DialogTitle>Add New Asset</DialogTitle>
         <DialogContent>
-          <form onSubmit={handleSubmit} noValidate>
+          <form  noValidate>
             <TextField
               name="chainId"
               label="Chain ID"
@@ -300,8 +300,13 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
 
 
 
-            <DialogActions>
-              <Button onClick={() => {
+          
+          </form>
+        </DialogContent>
+        <DialogActions>
+              <Button
+              disabled={isLoading}
+              onClick={() => {
                 setFormData({
                   chainId: "",
                   assetAddress: "",
@@ -315,8 +320,9 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
                   maxWithdrawalAmount:"",
                   coinGeckoId:""
                 });
+                
                 setOpen(false)}}>Cancel</Button>
-              <Button disabled={isLoading} type="submit" variant="contained">
+              <Button onClick={()=>handleSubmit()} disabled={isLoading} type="submit" variant="contained">
                {isLoading ? (
                               <CircularProgress size={24} style={{ color: "#fff" }} />
                             ) : (
@@ -324,8 +330,6 @@ const AddAssetDialog = ({setOpen,open,editTaskId,refetch}:{open:boolean,setOpen:
                             )}  
               </Button>
             </DialogActions>
-          </form>
-        </DialogContent>
       </Dialog>
     </>
   );

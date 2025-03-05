@@ -193,6 +193,7 @@ export default function Todolist() {
           }}
         >
           <TextField
+           disabled={isLoading}
             label="Title"
             name="title"
             variant="outlined"
@@ -201,6 +202,7 @@ export default function Todolist() {
             onChange={handleInputChange}
           />
           <TextField
+           disabled={isLoading}
             label="Type"
             name="type"
             variant="outlined"
@@ -209,6 +211,7 @@ export default function Todolist() {
             onChange={handleInputChange}
           />
           <TextField
+           disabled={isLoading}
             label="Description"
             name="description"
             variant="outlined"
@@ -218,7 +221,7 @@ export default function Todolist() {
             value={newTask.description}
             onChange={handleInputChange}
           />
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          <input  disabled={isLoading} type="file" accept="image/*" onChange={handleImageUpload} />
           {imagePreview && (
             <img
               src={imagePreview}
@@ -234,6 +237,7 @@ export default function Todolist() {
           <Button
             variant="contained"
             color="primary"
+            disabled={isLoading}
             onClick={() => {
               createTask();
             }}
@@ -244,6 +248,15 @@ export default function Todolist() {
               <>{editTaskId !== null ? "Update Task" : "Add Task"}</>
             )}
           </Button>
+          <Button
+              variant="contained"
+              color="primary"
+              disabled={isLoading}
+              onClick={()=>handleClose()}
+             
+            >
+             Close
+            </Button>
         </Box>
       </Modal>
       {openDelete && (

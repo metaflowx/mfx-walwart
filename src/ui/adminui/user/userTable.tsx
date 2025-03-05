@@ -15,6 +15,7 @@ import {
   Snackbar,
   TablePagination,
   Skeleton,
+  Button,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
@@ -24,6 +25,7 @@ import { sortAddress } from "@/utils/fun";
 import { Copy } from "lucide-react";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { toast, ToastContainer } from "react-toastify";
+import UpdateBalanceDialog from "./UpdateBalanceDialog";
 
 const StyledTableContainer = styled(TableContainer)({
   "&::-webkit-scrollbar": {
@@ -58,7 +60,7 @@ const Tasktable = () => {
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-
+  const [open, setOpen] = useState(false);
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -100,6 +102,9 @@ const Tasktable = () => {
 
   return (
     <Box>
+      {open && (
+          <UpdateBalanceDialog open={open} onClose={() => setOpen(false)}  />
+      )}
       <ToastContainer />
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -166,18 +171,19 @@ const Tasktable = () => {
                 <TableCell>
                   <Typography color="#000">{item.status}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{whiteSpace:"pre"}}>
                   <Typography color="#000">{moment(item.createdAt).format("lll")}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography color="#000">${item.totalEarnings}</Typography>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="right" style={{whiteSpace:"pre"}} >
                   <FormControlLabel
                     control={<Switch checked={item.status === "BLOCK"} onChange={() => handleChange(item._id,item.status === "BLOCK"? "ACTIVE":"BLOCK")} />}
                     label={item.status === "BLOCK" ? "Unblocked" : "Blocked"}
                     sx={{ color: "#000" }}
                   />
+                  <Button onClick={()=>setOpen(true)} >Update Wallet</Button>
                 </TableCell>
               </TableRow>
             ))}
