@@ -1,6 +1,7 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useProfileData from "@/app/customHooks/profiledata";
+import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useWalletBalance from "@/app/customHooks/useWalletBalance";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
@@ -20,7 +21,7 @@ const SpecialPackage = () => {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirm, setIsConfirm] = useState<any>("");
-
+  const { walletAssetsList } = useAssetsDetail();
 
   const fetchPackage = async () => {
     try {
@@ -61,7 +62,7 @@ const SpecialPackage = () => {
   }, [profileData]);
 
   const buyPackageHandler = async () => {
-    const avlBalance=walletBalances && formatUnits(walletBalances?.totalBalanceInWeiUsd,18)
+    const avlBalance=walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18))
     
     
     if(avlBalance < isConfirm?.amount   ){

@@ -10,17 +10,19 @@ export default function TaskCard() {
       title: "Promotion",
       des: "total user revenue",
       val: "0.00USDT",
+      href:""
     },
     {
       title: "Promotion QR Code",
       des: "Added income today",
       val: "0.00USDT",
+      href:"/dashboard/referral"
     },
-    {
-      title: "funds to be released",
-      des: "total user revenue",
-      val: "0.00USDT",
-    },
+    // {
+    //   title: "funds to be released",
+    //   des: "total user revenue",
+    //   val: "0.00USDT",
+    // },
   ];
   return (
     <div>
@@ -29,7 +31,7 @@ export default function TaskCard() {
           return (
             <Grid2
               key={index}
-              size={{ xs: 12, sm: 12, md: 4 }}
+              size={{ xs: 12, sm: 6 }}
               sx={{
                 border: "1px solid #1DAEFF",
                 boxShadow: "0px 17px 50px 0px #8F90A652",
@@ -87,28 +89,12 @@ export default function TaskCard() {
                       {item.val}
                     </Typography>
                     {index === 1 && (
-                      <Box sx={{background:"#0071CE",borderRadius:"8px",padding:"5px"}} >
+                      <Box onClick={()=>router.push(item?.href)} sx={{background:"#0071CE",borderRadius:"8px",padding:"5px",cursor:"pointer"}} >
                         <img src="/images/task/qrcode.png" />
                       </Box>
                     )}
 
-                    {index === 2 && (
-                      <Box>
-                       <Button 
-                       onClick={()=>router.push("/dashboard/task-details")}
-                       sx={{
-                        background:"#0071CE",
-                        borderRadius:"52px",
-                        padding:'8px 16px',
-                        color:"#fff",
-                        fontSize:"16px",
-                        fontWeight:400,
-                        textTransform:'capitalize'
-                       }} >
-                        View details
-                       </Button>
-                      </Box>
-                    )}
+                    
                   </Box>
                 </Box>
               </Box>

@@ -46,7 +46,7 @@ const Top___list = [
     id: 4,
     Name: "Investment freeze",
     data: "0",
-    href: "",
+    href: "/dashboard/invest-record",
   },
 ];
 
@@ -98,13 +98,13 @@ const Listleft = [
     href: "/dashboard/update-password",
   },
  
-  {
-    id: 5,
-    Image: l5,
-    Name: "Record",
-    href: "/dashboard/invest-record",
+  // {
+  //   id: 5,
+  //   Image: l5,
+  //   Name: "Record",
+  //   href: "/dashboard/invest-record",
     
-  },
+  // },
 ];
 
 const Listright = [
@@ -121,12 +121,12 @@ const Listright = [
     href: "/dashboard/contact-customer-service",
   },
  
-  {
-    id: 4,
-    Image: l9,
-    Name: "Notification",
-    href: "",
-  },
+  // {
+  //   id: 4,
+  //   Image: l9,
+  //   Name: "Notification",
+  //   href: "",
+  // },
  
  
 ];

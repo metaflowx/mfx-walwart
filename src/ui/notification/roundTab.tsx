@@ -74,8 +74,8 @@ export default function roundTab() {
                         border: '1px solid #DCDCEB',
                        
                     }}>
-                        <Typography variant='h6'>ACPINC Team Announcement</Typography>
-                        <Typography>2024/10/09 21:30:00</Typography>
+                        <Typography variant='h6'>Walmart Team Announcement</Typography>
+                        <Typography>2025/03/04 21:30:00</Typography>
                     </Box>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>

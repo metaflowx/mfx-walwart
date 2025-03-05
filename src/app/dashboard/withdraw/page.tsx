@@ -1,5 +1,6 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useAssetsList from "@/app/customHooks/useAssetsList";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import CommonBackButton from "@/components/ui/CommonBackButton";
@@ -30,6 +31,7 @@ export default function Page() {
   const { assetsList, loading, refetch } = useAssetsList();
   const [activeTab, setActiveTab] = useState<any>("");
   const { walletBalances } = useWalletBalnces();
+  const { walletAssetsList } = useAssetsDetail();
 const[transactionId,setTransactionId]=useState<any>("")
 const[isLaoding,setIsLoading]=useState(false)
   const [formData, setFormData] = useState({
@@ -81,6 +83,7 @@ const[isLaoding,setIsLoading]=useState(false)
     const amountError = validateAmount(formData.withdrawalAmount);
     const addressError = validateAddress(formData.withdrawalAddress);
     const passwordError = validatePassword(formData.password);
+    const accountBal=walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18))
 
     if (amountError) {
       setError(amountError);
@@ -95,6 +98,10 @@ const[isLaoding,setIsLoading]=useState(false)
     if (passwordError) {
       setError(passwordError);
       return;
+    }
+    if(parseFloat(accountBal)< Number(formData?.withdrawalAmount )){
+      toast.warn("Insufficient balance")
+      return 
     }
 
     try {
@@ -179,7 +186,7 @@ const[isLaoding,setIsLoading]=useState(false)
                   fontWeight: 700,
                 }}
               >
-              {walletBalances && Number(formatUnits(walletBalances?.totalBalanceInWeiUsd,18)).toFixed(6)}
+              {walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6)}
               </Typography>
               <Typography
                 sx={{

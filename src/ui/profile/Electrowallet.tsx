@@ -26,7 +26,7 @@ const Electrowallet = () => {
                 }}>
                     <Box mb={1}>
                         <Typography color="#000">Total Assets(USDT)</Typography>
-                        {loading ? <Skeleton width={80} height={32} /> : <Typography color="#000" fontWeight={700} variant="h6">{walletBalances && Number(formatUnits(walletBalances?.totalBalanceInWeiUsd,18)).toFixed(6)}</Typography>}
+                        {loading ? <Skeleton width={80} height={32} /> : <Typography color="#000" fontWeight={700} variant="h6">  {walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6)}</Typography>}
                     </Box>
                     <Box sx={{
                         display: 'flex',
@@ -72,12 +72,9 @@ const Electrowallet = () => {
                             <Box key={index}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Typography>Balance</Typography>
-                                    <Typography>{formatUnits(data?.balance, 18)}</Typography>
+                                    <Typography>{formatUnits(data?.balance, 18) } {data?.assetId?.symbol} </Typography>
                                 </Box>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <Typography>Lock</Typography>
-                                    <Typography>{formatUnits(data?.lock, 18)}</Typography>
-                                </Box>
+                               
                             </Box>
                         ))}
                     </Box>
