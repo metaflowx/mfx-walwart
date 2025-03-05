@@ -16,7 +16,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { serialize } from 'cookie';
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { CheckBox, CheckOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const router = useRouter();
@@ -252,7 +252,7 @@ export default function Login() {
               rememberMe ? "bg-blue-500" : ""
             }`}
           />
-          <h3 className="text-[#DCDCEB] text-[13px] font-[400]">Remember me</h3>
+          <h3 className="text-gray-600 text-[13px] font-[400]">Remember me</h3>
         </div>
         <div className="flex justify-center items-center pt-8">
           <button
@@ -277,7 +277,7 @@ export default function Login() {
           </Link>
         </p>
         <p className="text-gray-500 text-xs">
-          Agree with our{" "}
+        <CheckBox  />  Agree with our{" "}
           <Link href="/terms" className="text-blue-600 hover:underline">
             User Agreement and privacy policy
           </Link>
