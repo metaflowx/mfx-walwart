@@ -18,6 +18,10 @@ import {
   CircularProgress,
   Typography,
   Skeleton,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Grid2,
 } from "@mui/material";
 import {
   Delete,
@@ -42,7 +46,8 @@ export default function Todolist() {
     bonus: "",
     description: "",
     dailyBonus:"",
-    totalBonus:""
+    totalBonus:"",
+    requiredTask:""
   });
 
   const [errors, setErrors] = useState({
@@ -54,7 +59,8 @@ export default function Todolist() {
     bonus: "",
     description: "",
      dailyBonus:"",
-    totalBonus:""
+    totalBonus:"",
+    requiredTask:""
   });
   const [editTaskId, setEditTaskId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -73,7 +79,8 @@ export default function Todolist() {
       bonus: "",
       description: "",
        dailyBonus:"",
-    totalBonus:""
+    totalBonus:"",
+    requiredTask:"",
     });
   };
 
@@ -120,6 +127,8 @@ export default function Todolist() {
 
     if (!newTask.amount || isNaN(Number(newTask.amount)))
       tempErrors.amount = "Valid amount is required";
+    if (!newTask.requiredTask || isNaN(Number(newTask.requiredTask)))
+      tempErrors.amount = "Number of Task is required";
     if (!newTask.dailyBonus || isNaN(Number(newTask.dailyBonus)))
       tempErrors.dailyBonus = "Valid daily bonus is required";
     if (!newTask.totalBonus || isNaN(Number(newTask.totalBonus)))
@@ -170,7 +179,8 @@ export default function Todolist() {
         bonus: data.bonus,
         description: data?.description,
          dailyBonus: data?.dailyBonus,
-    totalBonus: data?.totalBonus
+    totalBonus: data?.totalBonus,
+    requiredTask:data?.requiredTask
       });
       setEditTaskId(data?._id);
       handleOpen();
@@ -212,26 +222,18 @@ export default function Todolist() {
           </Button>
         </Box>
 
-        <Modal open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: { xs: "100%", sm: 500 },
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-            }}
+       
+        <Dialog open={open} onClose={handleClose} maxWidth="sm" >
+          <DialogContent>
+          <Grid2 container spacing={1}
+          
+            
           >
             <TextField
               disabled={isLoading}
               label="Package Name"
               name="name"
+             
               fullWidth
               value={newTask.name}
               onChange={handleInputChange}
@@ -252,6 +254,21 @@ export default function Todolist() {
               onChange={handleInputChange}
               error={!!errors.amount}
               helperText={errors.amount}
+            />
+            <TextField
+              disabled={isLoading}
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="No. Of Task"
+              name="requiredTask"
+              fullWidth
+              value={newTask.requiredTask}
+               className="remove-number-spinner"
+              onChange={handleInputChange}
+              error={!!errors.requiredTask}
+              helperText={errors.requiredTask}
             />
              <TextField
               disabled={isLoading}
@@ -354,12 +371,16 @@ export default function Todolist() {
               helperText={errors.description}
             />
 
-            <Button
+            
+          </Grid2>
+          </DialogContent>
+          <DialogActions>
+          <Button
               variant="contained"
               color="primary"
               disabled={isLoading}
               onClick={createPackage}
-              sx={{ mt: 2 }}
+              
             >
               {isLoading ? (
                 <CircularProgress size={24} style={{ color: "#fff" }} />
@@ -376,8 +397,8 @@ export default function Todolist() {
             >
              Close
             </Button>
-          </Box>
-        </Modal>
+          </DialogActions>
+        </Dialog>
 
         <TableContainer sx={{ marginTop: 2 }}>
           <Table sx={{ border: "1px solid #DCDCEB" }}>
@@ -385,6 +406,8 @@ export default function Todolist() {
               <TableRow sx={{ backgroundColor: "#E8F7FF" }}>
                 <TableCell>Package Name</TableCell>
                 <TableCell>Amount</TableCell>
+                <TableCell>No. of Task</TableCell>
+
                 <TableCell>Daily Earnings</TableCell>
                 <TableCell align="center">Duration In Days</TableCell>
                 <TableCell align="center">Total Returns</TableCell>
@@ -403,6 +426,9 @@ export default function Todolist() {
                     <TableRow key={index}>
                       <TableCell>
                         <Skeleton variant="text" width={120} />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" width={80} />
                       </TableCell>
                       <TableCell>
                         <Skeleton variant="text" width={80} />
@@ -444,6 +470,8 @@ export default function Todolist() {
                         {task.name}
                       </TableCell>
                       <TableCell>${task.amount}</TableCell>
+                      <TableCell>{task?.requiredTask || 0}</TableCell>
+
                       <TableCell>${task.dailyEarnings}</TableCell>
                       <TableCell align="center">
                         {task.durationInDays}
