@@ -4,6 +4,7 @@ import {  Typography, Button, Box } from '@mui/material';
 import MovieCard from './MovieCard';
 import taskListData from '@/app/customHooks/taskList';
 import { useRouter } from 'next/navigation';
+import NoData from '../profile/noData';
 
 
 
@@ -13,7 +14,7 @@ const Products = () => {
   const {taskList,loading}=taskListData()
   return (
     <Box mt={2} >
-      {taskList && taskList.length>0 && (
+      {taskList && taskList.length>0 ? (
 
      <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",pb:4}}  >
      <Typography variant="h4" sx={{ fontWeight: 700, color: "#0071CE", fontSize: "24px", mt: 2 }}>
@@ -33,6 +34,8 @@ const Products = () => {
       </Button>
     
      </Box>
+      ):(
+        <NoData />
       )}
 
       {/* Swiper component for auto sliding */}
