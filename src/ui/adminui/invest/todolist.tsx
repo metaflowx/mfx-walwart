@@ -41,6 +41,8 @@ export default function Todolist() {
     totalReturns: "",
     bonus: "",
     description: "",
+    dailyBonus:"",
+    totalBonus:""
   });
 
   const [errors, setErrors] = useState({
@@ -51,6 +53,8 @@ export default function Todolist() {
     totalReturns: "",
     bonus: "",
     description: "",
+     dailyBonus:"",
+    totalBonus:""
   });
   const [editTaskId, setEditTaskId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -68,6 +72,8 @@ export default function Todolist() {
       totalReturns: "",
       bonus: "",
       description: "",
+       dailyBonus:"",
+    totalBonus:""
     });
   };
 
@@ -114,6 +120,10 @@ export default function Todolist() {
 
     if (!newTask.amount || isNaN(Number(newTask.amount)))
       tempErrors.amount = "Valid amount is required";
+    if (!newTask.dailyBonus || isNaN(Number(newTask.dailyBonus)))
+      tempErrors.dailyBonus = "Valid daily bonus is required";
+    if (!newTask.totalBonus || isNaN(Number(newTask.totalBonus)))
+      tempErrors.totalBonus = "Valid total bonus is required";
     if (!newTask.dailyEarnings || isNaN(Number(newTask.dailyEarnings)))
       tempErrors.dailyEarnings = "Valid daily earnings required";
     if (!newTask.durationInDays || isNaN(Number(newTask.durationInDays)))
@@ -159,6 +169,8 @@ export default function Todolist() {
         totalReturns: data.totalReturns,
         bonus: data.bonus,
         description: data?.description,
+         dailyBonus: data?.dailyBonus,
+    totalBonus: data?.totalBonus
       });
       setEditTaskId(data?._id);
       handleOpen();
@@ -240,6 +252,36 @@ export default function Todolist() {
               onChange={handleInputChange}
               error={!!errors.amount}
               helperText={errors.amount}
+            />
+             <TextField
+              disabled={isLoading}
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Daily Bonus"
+              name="dailyBonus"
+              fullWidth
+              value={newTask.dailyBonus}
+               className="remove-number-spinner"
+              onChange={handleInputChange}
+              error={!!errors.dailyBonus}
+              helperText={errors.dailyBonus}
+            />
+             <TextField
+              disabled={isLoading}
+              onKeyDown={(e) => {
+                handleNegativeValue(e);
+              }}
+              type="number"
+              label="Total Bonus"
+              name="totalBonus"
+              fullWidth
+              value={newTask.totalBonus}
+               className="remove-number-spinner"
+              onChange={handleInputChange}
+              error={!!errors.totalBonus}
+              helperText={errors.totalBonus}
             />
             <TextField
               disabled={isLoading}
@@ -347,6 +389,10 @@ export default function Todolist() {
                 <TableCell align="center">Duration In Days</TableCell>
                 <TableCell align="center">Total Returns</TableCell>
                 <TableCell align="center">Bonus</TableCell>
+                <TableCell align="center">Total Bonus</TableCell>
+                <TableCell align="center">Daily Bonus</TableCell>
+
+
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -362,6 +408,12 @@ export default function Todolist() {
                         <Skeleton variant="text" width={80} />
                       </TableCell>
                       <TableCell>
+                        <Skeleton variant="text" width={80} />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Skeleton variant="text" width={60} />
+                      </TableCell>
+                      <TableCell align="center">
                         <Skeleton variant="text" width={80} />
                       </TableCell>
                       <TableCell align="center">
@@ -397,7 +449,11 @@ export default function Todolist() {
                         {task.durationInDays}
                       </TableCell>
                       <TableCell align="center">${task.totalReturns}</TableCell>
-                      <TableCell align="center">${task.bonus}</TableCell>
+                      <TableCell align="center">${task.bonus || 0}</TableCell>
+                      <TableCell align="center">${task.totalBonus || 0}</TableCell>
+
+                      <TableCell align="center">${task.dailyBonus || 0}</TableCell>
+
                       <TableCell align="right">
                         <Box
                           sx={{
