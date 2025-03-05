@@ -136,14 +136,16 @@ export default function page() {
         </p>
 
         <Rating 
+        disabled={isLoading}
+        value={ratingStar}
         onChange={(event, newValue:any) => {
           setRatingStar(newValue);
         }}
          />
 
         <div>
-        <button onClick={()=>reviewHandler()} className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
-       {isLoading ? <CircularProgress size={24} style={{color:"#fff"}} />:"Rating immediately" }   
+        <button disabled={isLoading} onClick={()=>reviewHandler()} className="border border-[#0071CE] text-[#0071CE] text-[16px] font-[600] rounded-[12px] h-[50px] w-[322px] ">
+       {isLoading ? <CircularProgress size={24} style={{color:"#000"}} />:"Rating immediately" }   
         </button>
         </div>
 
