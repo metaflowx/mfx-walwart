@@ -69,6 +69,7 @@ const Topheader = () => {
     <>
       <header className="sticky top-0 w-full bg-transparent backdrop-blur-[10px] z-50">
         <MarqueHeader />
+        <div id="google_translate_element" style={{ display: "none" }}></div>
         <Wrapper className="h-full p-2">
           <div className="flex items-center justify-between h-full">
             <div className="flex items-center gap-2 sm:mt-1 mt-0">

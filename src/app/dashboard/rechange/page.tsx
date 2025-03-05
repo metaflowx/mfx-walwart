@@ -135,7 +135,7 @@ useEffect(() => {
         >
           <Box
             sx={{
-              display: "flex",
+              display:{xs:"block", md:"flex"},
               justifyContent: "space-between",
               alignItems: "self-end",
               height: "100%",
@@ -145,7 +145,7 @@ useEffect(() => {
               <Typography
                 sx={{
                   color: "#110229",
-                  fontSize: "30px",
+                  fontSize: {xs:"20px",md:"30px"},
                   fontWeight: 700,
                   pb: 2,
                 }}
@@ -157,7 +157,7 @@ useEffect(() => {
               {loader ? (
                 <Skeleton width="100px" height="24px" />
               ) : (
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center",pb:1 }}>
                   <img src={`/images/coin/${assetsDetails?.symbol}.png`} alt="coin" />
                   <Typography
                     sx={{
@@ -178,19 +178,22 @@ useEffect(() => {
               <Skeleton variant="rectangular" width={200} height={200} />
             ) : (
               walletAddress && (
-                <Canvas
+               <Box sx={{display:"flex",justifyContent:"center"}} >
+                 <Canvas
                   text={walletAddress || ""}
                   options={{
                     errorCorrectionLevel: "M",
                     margin: 3,
                     scale: 4,
                     width: 200,
+                    
                     color: {
                       dark: "#010599FF",
                       light: "#FFBF60FF",
                     },
                   }}
                 />
+               </Box>
               )
             )}
           </Box>
@@ -268,7 +271,7 @@ useEffect(() => {
         {isLoading ? <CircularProgress size={24} style={{color:"#fff"}} /> :"Recharge Complete" }  
         </Button>
         <Box sx={{ display: "flex", alignItems: "center", pt: 2 }}>
-          <img src="/images/coin/info.png" alt="info" />
+          <img src="/images/coin/info.svg" alt="info" />
           <Typography sx={{ color: "#000000", fontWeight: 400, fontSize: "18px", pl: 1 }}>
             Warm reminder
           </Typography>
