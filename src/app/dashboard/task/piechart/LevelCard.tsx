@@ -4,13 +4,16 @@ import { Card, Typography, Button, Box, Grid2 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { LevelData } from "@/types";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface LevelCardProps {
   level: number;
   data: LevelData;
+  id?:string
 }
 
-export default function LevelCard({ level, data }: LevelCardProps) {
+export default function LevelCard({ level, data,id }: LevelCardProps) {
+  const router = useRouter()
   return (
     <Box
       sx={{
@@ -45,6 +48,8 @@ export default function LevelCard({ level, data }: LevelCardProps) {
           Level {level} Data
         </Typography>
         <Button variant="text"
+
+        onClick={()=>router.push(`/dashboard/member-list?id=${id}`)}
 
         sx={{
             color:"#110229",

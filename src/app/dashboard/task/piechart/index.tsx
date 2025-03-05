@@ -27,7 +27,7 @@ const PieChartComp: FC = () => {
         overflow: 'hidden',
         position: 'relative',
         '@media(max-width : 600px)':{
-          height: '200px',
+          height: '250px',
         }
       }}
     >

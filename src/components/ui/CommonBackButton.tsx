@@ -19,7 +19,7 @@ export default function CommonBackButton({title,isIcon}:{title:string,isIcon?:an
             paddingLeft:"5px",
             color:"#0071CE",
             fontWeight:700,
-            fontSize:{xs:"20px", sm:"40px"}
+            fontSize:{xs:"18px", sm:"40px"}
         }} >{title}</Typography>
       
     </div>

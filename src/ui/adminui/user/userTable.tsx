@@ -190,7 +190,7 @@ const Tasktable = () => {
                     label={item.status === "BLOCK" ? "Unblocked" : "Blocked"}
                     sx={{ color: "#000" }}
                   />
-                  <Button onClick={()=>setOpen(true)} >Update Wallet</Button>
+                  {/* <Button onClick={()=>setOpen(true)} >Update Wallet</Button> */}
                 </TableCell>
               </TableRow>
             ))}
