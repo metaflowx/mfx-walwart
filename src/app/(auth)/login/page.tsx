@@ -115,9 +115,9 @@ export default function Login() {
           toast.success(res.data.message)
           window.localStorage.setItem("token",res.data.token)
           const cookie = serialize('auth_token', res.data.token, {
-            httpOnly: false, // Protect against XSS
-            maxAge: 60 * 60 * 24, // Expiry (1 day)
-            path: '/', // Apply to all paths
+            httpOnly: false, 
+            maxAge: 60 * 60 * 24, 
+            path: '/', 
           });
           document.cookie = cookie;
         
@@ -174,6 +174,7 @@ export default function Login() {
             {activeTab === "email" ? (
               <div>
                 <input
+                 disabled={isLoading}
                   type="email"
                   name="email"
                   value={formData.email}
@@ -216,6 +217,7 @@ export default function Login() {
 
             <div className="w-full  ">
               <input
+               disabled={isLoading}
                    type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
@@ -254,6 +256,7 @@ export default function Login() {
         </div>
         <div className="flex justify-center items-center pt-8">
           <button
+           disabled={isLoading}
             onClick={() => handleSubmit()}
             type="submit"
             className="bg-[#0071CE] w-[150px] h-[50px] rounded-[50px]"
