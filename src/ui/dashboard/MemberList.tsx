@@ -71,7 +71,7 @@ export default function MemberList() {
           fontWeight: 700,
           color: "#0071CE",
           fontSize: "24px",
-          mt: 5,
+          mt: {xs:0,md:5},
          
         }}
       >

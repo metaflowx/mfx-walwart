@@ -47,7 +47,7 @@ export default function LevelCard({ data,level }: {data:any,level:string}) {
         </Typography>
         <Button variant="text"
 
-        // onClick={()=>router.push(`/dashboard/member-list?id=${data?._id}`)}
+        onClick={()=>router.push(`/dashboard/member-list?id=${level}`)}
 
         sx={{
             color:"#110229",

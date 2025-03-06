@@ -6,9 +6,10 @@ import TaskCard from "./piechart/TaskCard";
 import TaskDashboard from "./piechart/TaskDashboard";
 import LevelCard from "./piechart/LevelCard";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useRefferalStats from "@/app/customHooks/useRefferalStats";
 
 export default function page() {
-  const[referralStats,setReferralStats]=useState<any>("")
+  const {referralStats} =useRefferalStats()
   const[isLoading,setIsLoading]=useState(true)
   const dataList = [
     {
@@ -37,29 +38,7 @@ export default function page() {
       6: { totalHeadcount: 0.00, numberOfActive: 0.00, teamTopUp: 0.00, totalReturn: 0.00, todaysEarnings: 0.00 },
     },
   };
-  const ReferralstatsList =async()=>{
-    try {
-      const res=await apiRouterCall({
-        method:"GET",
-        endPoint:"Referralstats"
-      })
-      if(res?.status===200){
-        setReferralStats(res?.data.data)
-        setIsLoading(false)
-        console.log(">>>>>>>>>>>.res44",res);
-      }else{
-        setIsLoading(false)
-      }
-     
-      
-    } catch (error) {
-      setIsLoading(false)
-    }
-  }
-  useEffect(() => {
-    
-    ReferralstatsList()
-  }, [])
+
 
  
   
@@ -93,11 +72,11 @@ export default function page() {
             );
           })}
         </Grid2>
-        <TaskCard />
+        <TaskCard referralData={referralStats} />
       </Box>
-      <TaskDashboard />
+      <TaskDashboard referralData={referralStats} />
       <h5 className="mb-3 text-[#0071CE] text-[18px] sm:text-[40px] font-[700] " >
-        Added today : {mockData.addedToday.toFixed(2)}
+        Added today : {referralStats?.totalTodayEarning || 0}
       </h5>
 
       <Grid2 container spacing={3}>

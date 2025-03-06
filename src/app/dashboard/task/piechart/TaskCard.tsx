@@ -3,19 +3,19 @@ import { Box, Button, Grid2, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function TaskCard() {
+export default function TaskCard({referralData}:{referralData?:any}) {
     const router = useRouter()
   const dataList = [
     {
       title: "Promotion",
-      des: "total user revenue",
-      val: "0.00USDT",
+      des: "Total user revenue",
+      val: `${referralData?.totalEarnings || 0}USDT`,
       href:""
     },
     {
       title: "Promotion QR Code",
       des: "Added income today",
-      val: "0.00USDT",
+      val: `${referralData?.totalTodayEarning || 0}USDT`,
       href:"/dashboard/referral"
     },
     // {
