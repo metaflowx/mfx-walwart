@@ -72,6 +72,7 @@ export default function MemberList() {
           color: "#0071CE",
           fontSize: "24px",
           mt: {xs:0,md:5},
+          pb:1
          
         }}
       >
@@ -82,7 +83,7 @@ export default function MemberList() {
         sx={{
           // border: "1px solid #DCDCEB",
           borderRadius: "30px",
-          padding: "15px",
+          padding: "12px",
           minHeight: "150px",
           display: "flex",
           justifyContent: "center",
@@ -97,7 +98,7 @@ export default function MemberList() {
             border: "1px solid #1DAEFF",
             boxShadow: "0px 17px 50px 0px #8F90A652",
             borderRadius: "15px",
-            padding: "15px",
+            padding: "12px",
             cursor: "pointer",
             opacity: isVisible ? 1 : 0,
             transition: "opacity 0.5s ease-in-out",
