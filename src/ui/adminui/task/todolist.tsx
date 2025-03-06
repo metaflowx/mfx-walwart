@@ -331,7 +331,7 @@ export default function Todolist() {
                           <IconButton
                             color="error"
                             onClick={() => {
-                              setEditTaskId(task.id);
+                              setEditTaskId(task?._id);
                               setOpenDelete(true);
                             }}
                           >
