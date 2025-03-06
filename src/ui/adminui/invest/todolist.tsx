@@ -139,8 +139,8 @@ export default function Todolist() {
       tempErrors.durationInDays = "Valid duration required";
     if (!newTask.totalReturns || isNaN(Number(newTask.totalReturns)))
       tempErrors.totalReturns = "Valid total returns required";
-    if (!newTask.bonus || isNaN(Number(newTask.bonus)))
-      tempErrors.bonus = "Valid bonus required";
+    // if (!newTask.bonus || isNaN(Number(newTask.bonus)))
+    //   tempErrors.bonus = "Valid bonus required";
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -345,7 +345,7 @@ export default function Todolist() {
               error={!!errors.totalReturns}
               helperText={errors.totalReturns}
             />
-            <TextField
+            {/* <TextField
               disabled={isLoading}
               onKeyDown={(e) => {
                 handleNegativeValue(e);
@@ -359,7 +359,7 @@ export default function Todolist() {
               onChange={handleInputChange}
               error={!!errors.bonus}
               helperText={errors.bonus}
-            />
+            /> */}
             <TextField
               disabled={isLoading}
               label="Description"
@@ -411,7 +411,7 @@ export default function Todolist() {
                 <TableCell>Daily Earnings</TableCell>
                 <TableCell align="center">Duration In Days</TableCell>
                 <TableCell align="center">Total Returns</TableCell>
-                <TableCell align="center">Bonus</TableCell>
+                {/* <TableCell align="center">Bonus</TableCell> */}
                 <TableCell align="center">Total Bonus</TableCell>
                 <TableCell align="center">Daily Bonus</TableCell>
 
@@ -442,9 +442,9 @@ export default function Todolist() {
                       <TableCell align="center">
                         <Skeleton variant="text" width={80} />
                       </TableCell>
-                      <TableCell align="center">
+                      {/* <TableCell align="center">
                         <Skeleton variant="text" width={60} />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell align="center">
                         <Skeleton variant="text" width={80} />
                       </TableCell>
@@ -477,7 +477,7 @@ export default function Todolist() {
                         {task.durationInDays}
                       </TableCell>
                       <TableCell align="center">${task.totalReturns}</TableCell>
-                      <TableCell align="center">${task.bonus || 0}</TableCell>
+                      {/* <TableCell align="center">${task.bonus || 0}</TableCell> */}
                       <TableCell align="center">${task.totalBonus || 0}</TableCell>
 
                       <TableCell align="center">${task.dailyBonus || 0}</TableCell>

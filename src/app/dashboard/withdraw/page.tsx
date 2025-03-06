@@ -4,6 +4,7 @@ import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useAssetsList from "@/app/customHooks/useAssetsList";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import CommonBackButton from "@/components/ui/CommonBackButton";
+import { handleNegativeValue } from "@/utils/fun";
 import { Box, Grid2, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -267,6 +268,9 @@ const[isLaoding,setIsLoading]=useState(false)
                 <input
                   disabled={isLaoding}
                   type="number"
+                   onKeyDown={(e) => {
+                                  handleNegativeValue(e);
+                                }}
                   value={formData.withdrawalAmount}
                   onChange={(e) =>
                     setFormData({
