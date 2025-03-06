@@ -39,6 +39,9 @@ const DashboardHeader = () => {
   const handleLogout = () => {
     
     document.cookie = 'auth_token=; max-age=0; path=/;'; 
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+    }
     router.replace('/login');
   };
 

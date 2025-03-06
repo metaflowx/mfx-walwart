@@ -2,7 +2,6 @@
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useProfileData from "@/app/customHooks/profiledata";
 import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
-import useWalletBalance from "@/app/customHooks/useWalletBalance";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import ConfirmationDialog from "@/components/ui/ConfirmationDialog";
 import { Box, Button, Grid2, Skeleton, Typography } from "@mui/material";
@@ -13,9 +12,7 @@ import { formatUnits } from "viem";
 import NoData from "../profile/noData";
 
 const SpecialPackage = () => {
-  const router =useRouter()
-  const { walletBalances } = useWalletBalnces();
-
+  const router = useRouter();
   const [packageList, setPackageList] = useState([]);
   const [activePlan, setActivePlan] = useState([]);
   const { profileData } = useProfileData();
@@ -63,13 +60,14 @@ const SpecialPackage = () => {
   }, [profileData]);
 
   const buyPackageHandler = async () => {
-    const avlBalance=walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18))
-    
-    
-    if(avlBalance < isConfirm?.amount   ){
-      router.push("/dashboard/volunteable-assets")
-      toast.warn("Insuffiecient balance")
-      return
+    const avlBalance =
+      walletAssetsList &&
+      Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd, 18));
+
+    if (avlBalance < isConfirm?.amount) {
+      router.push("/dashboard/volunteable-assets");
+      toast.warn("Insuffiecient balance");
+      return;
     }
     try {
       setIsLoading(true);
@@ -125,11 +123,9 @@ const SpecialPackage = () => {
                 ))}
           </Grid2>
           {!loading && packageList && packageList.length === 0 && (
-            <Box
-             
-            >
+            <Box>
               <NoData />
-              {/* <Typography color="#fff">Data not found</Typography> */}
+              
             </Box>
           )}
         </Box>
@@ -160,15 +156,16 @@ const SpecialCard = ({
   loading: boolean;
 }) => {
   const router = useRouter();
-  const[activeTask,setActiveTask]=useState<any>("")
+  const [activeTask, setActiveTask] = useState<any>("");
   const checkIsBuy = useMemo(() => {
-   
     if (activePlan?.length > 0 && item) {
-      return activePlan.find((active: any) => active?.packageId?._id === item?._id);
+      return activePlan.filter(
+        (active: any) => active?.packageId?._id === item?._id
+      );
     }
+    return [];
   }, [item, activePlan]);
-
-
+  
   const getPrgressData = async (id: string) => {
     try {
       const res = await apiRouterCall({
@@ -177,21 +174,21 @@ const SpecialCard = ({
         id: id,
       });
       if (res?.status === 200) {
-        setActiveTask(res?.data)
-        // setActivePlan(res.data.package.buyPackagesDetails);
+        setActiveTask(res?.data);
       }
     } catch (error) {}
   };
-
-useEffect(() => {
-  if(checkIsBuy?.packageId?._id){
-    getPrgressData(checkIsBuy?.packageId?._id)
-  }
-
-}, [checkIsBuy?.packageId?._id])
-
-
-
+  
+  useEffect(() => {
+    if (checkIsBuy.length > 0) {
+      checkIsBuy.forEach((pkg:any) => {
+        if (pkg?.packageId?._id) {
+          getPrgressData(pkg?.packageId?._id);
+        }
+      });
+    }
+  }, [checkIsBuy]);
+  const isPurchased = checkIsBuy.length > 0;
 
   return (
     <Grid2 size={{ lg: 4, md: 6, sm: 6, xs: 12 }}>
@@ -218,69 +215,65 @@ useEffect(() => {
             </>
           ) : (
             <>
-            <Grid2 container spacing={1} sx={{ marginTop: "1rem" }}>
-  <Grid2 size={{xs:6,md:3}} >
-    <Box >
+              <Grid2 container spacing={1} sx={{ marginTop: "1rem" }}>
+  <Grid2 size={{ xs: 6, md: 3 }}>
+    <Box>
       <Typography fontWeight={700}>1 Times</Typography>
       <Typography color="#000">Daily Earnings</Typography>
     </Box>
   </Grid2>
-  <Grid2 size={{xs:6,md:3}}>
-    <Box >
+  <Grid2 size={{ xs: 6, md: 3 }}>
+    <Box>
       <Typography fontWeight={700}>{item?.durationInDays} Days</Typography>
       <Typography color="#000">Expire date</Typography>
     </Box>
   </Grid2>
-  <Grid2 size={{xs:6,md:3}}>
-    <Box >
+  <Grid2 size={{ xs: 6, md: 3 }}>
+    <Box>
       <Typography fontWeight={700}>{item?.bonus} USDT</Typography>
       <Typography color="#000">Bonus</Typography>
     </Box>
   </Grid2>
-  <Grid2 size={{xs:6,md:3}}>
-    <Box >
+  <Grid2 size={{ xs: 6, md: 3 }}>
+    <Box>
       <Typography fontWeight={700}>{item?.dailyEarnings} USDT</Typography>
       <Typography color="#000">Daily income</Typography>
     </Box>
   </Grid2>
 </Grid2>
 
-
-              <Button
-                onClick={() => {
-                  if (checkIsBuy?.packageId?._id === item?._id) {
-                    router.push(`/dashboard/score-center?taskId=${item?._id}`);
-                  } else {
-                    setIsConfirm(item);
-                  }
-                }}
-                sx={{
-                  backgroundColor:
-                    checkIsBuy?.packageId?._id === item?._id
-                      ? "#0071CE"
-                      : "transparent",
-                  padding: "10px",
-                  borderRadius: "8px",
-                  marginTop: "1rem",
-                  border: "1px solid #0071CE",
-                  color: checkIsBuy?.packageId === item?._id ? "#fff" : "#000",
-                  boxShadow: "inherit",
-                  "&:hover": {
-                    backgroundColor: "#0071CE",
-                    border: "1px solid #0071CE",
-                    color: "#fff",
-                    boxShadow: "inherit",
-                  },
-                }}
-                fullWidth
-                variant="contained"
-              >
-                {checkIsBuy?.packageId?._id === item?._id ? (
-                  `Score to get income ${activeTask?.completed}/${activeTask?.requiredTask}`
-                ) : (
-                  <>{item?.amount} USDT Unlock Now</>
-                )}
-              </Button>
+<Button
+  onClick={() => {
+    if (isPurchased) {
+      router.push(`/dashboard/score-center?taskId=${item?._id}`);
+    } else {
+      setIsConfirm(item);
+    }
+  }}
+  sx={{
+    backgroundColor: isPurchased ? "#0071CE" : "transparent",
+    padding: "10px",
+    borderRadius: "8px",
+    marginTop: "1rem",
+    border: "1px solid #0071CE",
+    color: isPurchased ? "#fff" : "#000",
+    boxShadow: "inherit",
+    "&:hover": {
+      backgroundColor: "#0071CE",
+      border: "1px solid #0071CE",
+      color: "#fff",
+      boxShadow: "inherit",
+    },
+  }}
+  fullWidth
+  variant="contained"
+>
+  {isPurchased ? (
+    `Score to get income ${activeTask?.completed || 0}/${activeTask?.requiredTask ||0}`
+  ) : (
+    <>{item?.amount} USDT Unlock Now</>
+  )}
+</Button>
             </>
           )}
         </Box>
