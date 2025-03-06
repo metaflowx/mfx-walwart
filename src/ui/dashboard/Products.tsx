@@ -35,7 +35,13 @@ const Products = () => {
     
      </Box>
       ):(
-        <NoData />
+        <>
+        {loading ? (
+          <></>
+        ): <NoData />}
+        
+       
+        </>
       )}
 
       {/* Swiper component for auto sliding */}

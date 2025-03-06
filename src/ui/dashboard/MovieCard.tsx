@@ -1,15 +1,6 @@
 "use client";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grid2,
-  Rating,
-  Skeleton,
-  Typography,
-} from "@mui/material";
-import { useRouter } from "next/navigation";
+
+
 import React from "react";
 import { Autoplay } from "swiper/modules";
 
@@ -26,7 +17,7 @@ export default function MovieCard({
   products?: any;
   loading: boolean;
 }) {
-  const router = useRouter();
+  
   return (
     <Swiper
       spaceBetween={20}

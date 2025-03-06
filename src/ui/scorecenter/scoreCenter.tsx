@@ -1,6 +1,6 @@
 "use client"
 import { Box, Grid2 } from "@mui/material";
-import Cardcmp from "../dashboard/cardcmp";
+import RatingCard from "../dashboard/RatingCard";
 import Clicktoback from "../profile/clicktoback";
 import DropdownList from "./dropdownList";
 import taskListData from "@/app/customHooks/taskList";
@@ -29,7 +29,7 @@ const {taskList,loading}=taskListData()
           {taskList.map((product, index) => {
           return (
             <Grid2 key={index} size={{ xs: 12, sm: 6, md: 4 }}>
-              <Cardcmp product={product} />
+              <RatingCard product={product} />
             </Grid2>
           );
         })}
