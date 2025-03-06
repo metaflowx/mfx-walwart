@@ -154,7 +154,7 @@ export default function Todolist() {
         data: newTask,
         id: editTaskId || undefined,
       });
-      if (res?.status === 200) {
+      if (res?.status === 200 || res?.status === 201) {
         toast.success(res.data.message);
         handleClose();
         refetch();

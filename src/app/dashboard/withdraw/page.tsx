@@ -239,7 +239,7 @@ const[isLaoding,setIsLoading]=useState(false)
                       : "bg-[#FFFFFF] text-black border-[#DCDCEB]"
                   } h-[60px] w-full rounded-[12px] text-[15px]  md:text-[20px] font-[700] border px-[10px] transition-all duration-300 ease-in-out`}
                 >
-                  {tab?.assetType}
+                  {tab?.name}-{tab?.assetType}
                 </button>
                </Grid2>
               ))}
