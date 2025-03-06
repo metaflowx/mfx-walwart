@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { formatUnits } from "viem";
+import NoData from "../profile/noData";
 
 const SpecialPackage = () => {
   const router =useRouter()
@@ -125,13 +126,10 @@ const SpecialPackage = () => {
           </Grid2>
           {!loading && packageList && packageList.length === 0 && (
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+             
             >
-              <Typography color="#fff">Data not found</Typography>
+              <NoData />
+              {/* <Typography color="#fff">Data not found</Typography> */}
             </Box>
           )}
         </Box>

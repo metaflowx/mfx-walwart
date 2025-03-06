@@ -6,13 +6,11 @@ import { LevelData } from "@/types";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface LevelCardProps {
-  level: number;
-  data: LevelData;
-  id?:string
-}
 
-export default function LevelCard({ level, data,id }: LevelCardProps) {
+
+export default function LevelCard({ data,level }: {data:any,level:string}) {
+  console.log(">>>>>>>>>>>>data",data);
+  
   const router = useRouter()
   return (
     <Box
@@ -49,7 +47,7 @@ export default function LevelCard({ level, data,id }: LevelCardProps) {
         </Typography>
         <Button variant="text"
 
-        onClick={()=>router.push(`/dashboard/member-list?id=${id}`)}
+        // onClick={()=>router.push(`/dashboard/member-list?id=${data?._id}`)}
 
         sx={{
             color:"#110229",
@@ -75,34 +73,30 @@ export default function LevelCard({ level, data,id }: LevelCardProps) {
         <Grid2 container spacing={2}>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography fontSize="18px" fontWeight={400} color="#110229">Total headcount</Typography>
-              <Typography fontSize="18px" fontWeight={700} color="#110229" >{data.totalHeadcount.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Total Team TopUp</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229" >{data?.teamTopUp}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography fontSize="18px" fontWeight={400} color="#110229">Number of Active</Typography>
-              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.numberOfActive.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Total Head Count</Typography>
+              <Typography fontSize="18px" fontWeight={700} color="#110229">{data?.totalHeadcount}</Typography>
             </Box>
           </Grid2>
-          <Grid2 size={{ xs: 12 }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography fontSize="18px" fontWeight={400} color="#110229">Team Top Up</Typography>
-              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.teamTopUp.toFixed(2)}</Typography>
-            </Box>
-          </Grid2>
+          
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography fontSize="18px" fontWeight={400} color="#110229">Total Return</Typography>
-              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data.totalReturn.toFixed(2)}</Typography>
+              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data?.totalReturn}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography fontSize="18px" fontWeight={400} color="#110229">Today's Earnings</Typography>
-              <Typography fontSize="18px" fontWeight={700} color="#110229">{data.todaysEarnings.toFixed(2)}</Typography>
+              <Typography fontSize="18px" fontWeight={400} color="#110229">Todays Earnings</Typography>
+              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data?.todaysEarnings}</Typography>
             </Box>
           </Grid2>
+         
         </Grid2>
       </Box>
     </Box>
