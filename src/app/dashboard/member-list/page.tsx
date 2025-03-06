@@ -75,9 +75,14 @@ export default function Page() {
                <Image src="/profile/logo.svg" alt={""} width={30} height={30} />&nbsp;
                 
                 {maskEmail(member?.user?.email) ||maskPhoneNumber(member?.user?.mobileNumber)}</p>
-                <p>
-                Joined Date:{moment(member?.user?.createdAt).format("lll")}
+               <div>
+               <p>
+                Joined Date
                 </p>
+                <p>
+                {moment(member?.user?.createdAt).format("lll")}
+                </p>
+               </div>
                 </li>
              </>
             ))}
