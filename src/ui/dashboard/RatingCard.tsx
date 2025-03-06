@@ -8,11 +8,12 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const Cardcmp = ({ product }: { product: any }) => {
+const RatingCard = ({ product }: { product?: any }) => {
   const router = useRouter();
-
+ const search =useSearchParams()
+ const taskId =search.get("taskId")
   return (
     <Box
       sx={{
@@ -65,7 +66,7 @@ const Cardcmp = ({ product }: { product: any }) => {
           </Box>
 
           <Button
-            onClick={() => router.push(`/dashboard/invest`)}
+            onClick={() => router.push(`/dashboard/rating?id=${product?._id}&taskId=${taskId}`)}
             variant="contained"
             fullWidth
             sx={{
@@ -83,4 +84,4 @@ const Cardcmp = ({ product }: { product: any }) => {
   );
 };
 
-export default Cardcmp;
+export default RatingCard;

@@ -19,33 +19,8 @@ export default function page() {
   const[isLoading,setIsLoading]=useState(false)
   const[ratingStar,setRatingStar]=useState(0)
   const router = useRouter()
-  const products = [
-    {
-      title: "Róise & Frank",
-      views: "51,944 views",
-      image: "/images/home/mov1.png",
-    },
-    {
-      title: "Róise & Frank",
-      views: "51,944 views",
-      image: "/images/home/mov2.png",
-    },
-    {
-      title: "Róise & Frank",
-      views: "51,944 views",
-      image: "/images/home/mov3.png",
-    },
-    {
-      title: "Róise & Frank",
-      views: "51,944 views",
-      image: "/images/home/mov1.png",
-    }, // Added extra product for testing
-    {
-      title: "Róise & Frank",
-      views: "51,944 views",
-      image: "/images/home/mov2.png",
-    }, // Added extra product for testing
-  ];
+  
+ 
 
   const getTaskDetails = async(id:any)=>{
     try {
@@ -75,12 +50,16 @@ export default function page() {
     try {
       setIsLoading(true)
       const id:any=search?.get("id")
+      console.log(">>>>>>>>>>id",id);
+      
       const res = await apiRouterCall({
         method:"POST",
         endPoint:"review",
         id:id,
+       
         data:{
-          rating:ratingStar
+          rating:ratingStar,
+          packageId:search.get("taskId")
         }
       })
       if(res?.status===200){

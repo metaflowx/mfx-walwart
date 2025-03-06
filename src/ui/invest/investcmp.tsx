@@ -98,8 +98,8 @@ const Investcmp = () => {
                 }}
               >
                 <Typography color="#0071CE" variant="h6" fontWeight={700}>
-                  { activePlanData1 && activePlanData1?.todaysSumOfInvestmentEarnings > 0
-          ? activePlanData1?.todaysSumOfInvestmentEarnings
+                  { activePlanData1 && activePlanData1?.totalSumOfInvestmentBonus > 0
+          ? activePlanData1?.totalSumOfInvestmentBonus
           : "0"}
                 </Typography>
                 <Typography color="#0071CE">Bonus Earnings(USDT)</Typography>

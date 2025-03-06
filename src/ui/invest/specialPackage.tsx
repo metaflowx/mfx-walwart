@@ -160,12 +160,38 @@ const SpecialCard = ({
   loading: boolean;
 }) => {
   const router = useRouter();
-
+  const[activeTask,setActiveTask]=useState<any>("")
   const checkIsBuy = useMemo(() => {
+   
     if (activePlan?.length > 0 && item) {
-      return activePlan.find((active: any) => active?.packageId === item?._id);
+      return activePlan.find((active: any) => active?.packageId?._id === item?._id);
     }
   }, [item, activePlan]);
+
+
+  const getPrgressData = async (id: string) => {
+    try {
+      const res = await apiRouterCall({
+        method: "GET",
+        endPoint: "progress",
+        id: id,
+      });
+      if (res?.status === 200) {
+        setActiveTask(res?.data)
+        // setActivePlan(res.data.package.buyPackagesDetails);
+      }
+    } catch (error) {}
+  };
+
+useEffect(() => {
+  if(checkIsBuy?.packageId?._id){
+    getPrgressData(checkIsBuy?.packageId?._id)
+  }
+
+}, [checkIsBuy?.packageId?._id])
+
+
+
 
   return (
     <Grid2 size={{ lg: 4, md: 6, sm: 6, xs: 12 }}>
@@ -222,15 +248,15 @@ const SpecialCard = ({
 
               <Button
                 onClick={() => {
-                  if (checkIsBuy?.packageId === item?._id) {
-                    router.push("/dashboard/score-center");
+                  if (checkIsBuy?.packageId?._id === item?._id) {
+                    router.push(`/dashboard/score-center?taskId=${item?._id}`);
                   } else {
                     setIsConfirm(item);
                   }
                 }}
                 sx={{
                   backgroundColor:
-                    checkIsBuy?.packageId === item?._id
+                    checkIsBuy?.packageId?._id === item?._id
                       ? "#0071CE"
                       : "transparent",
                   padding: "10px",
@@ -249,8 +275,8 @@ const SpecialCard = ({
                 fullWidth
                 variant="contained"
               >
-                {checkIsBuy?.packageId === item?._id ? (
-                  "Score to get income（0/1）"
+                {checkIsBuy?.packageId?._id === item?._id ? (
+                  `Score to get income ${activeTask?.completed}/${activeTask?.requiredTask}`
                 ) : (
                   <>{item?.amount} USDT Unlock Now</>
                 )}
