@@ -45,6 +45,9 @@ export default function DashboardSidebar() {
     const handleLogout = () => {
     
         document.cookie = 'auth_token=; max-age=0; path=/;'; 
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("token");
+          }
         router.replace('/login');
       };
     const toggleDrawer = (anchor:any, open:any) => (event:any) => {
