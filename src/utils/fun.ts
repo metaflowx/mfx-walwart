@@ -32,3 +32,15 @@ export function sortAddress(add:string) {
       event.preventDefault();
     }
   };
+
+  export const maskEmail = (email: string): string => {
+    const [name, domain] = email.split("@");
+    if (!domain) return email; // Return as is if invalid
+    const maskedName = name.length > 2 ? name[0] + "*".repeat(name.length - 2) + name.slice(-1) : name;
+    return `${maskedName}@${domain}`;
+  };
+  
+  export const maskPhoneNumber = (phone: string): string => {
+    return phone.replace(/\d(?=\d{4})/g, "*");
+  };
+  

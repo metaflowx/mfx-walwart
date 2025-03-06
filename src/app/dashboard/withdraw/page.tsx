@@ -4,6 +4,7 @@ import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useAssetsList from "@/app/customHooks/useAssetsList";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
 import CommonBackButton from "@/components/ui/CommonBackButton";
+import { handleNegativeValue } from "@/utils/fun";
 import { Box, Grid2, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -238,7 +239,7 @@ const[isLaoding,setIsLoading]=useState(false)
                       : "bg-[#FFFFFF] text-black border-[#DCDCEB]"
                   } h-[60px] w-full rounded-[12px] text-[15px]  md:text-[20px] font-[700] border px-[10px] transition-all duration-300 ease-in-out`}
                 >
-                  {tab?.assetType}
+                  {tab?.name}-{tab?.assetType}
                 </button>
                </Grid2>
               ))}
@@ -267,6 +268,9 @@ const[isLaoding,setIsLoading]=useState(false)
                 <input
                   disabled={isLaoding}
                   type="number"
+                   onKeyDown={(e) => {
+                                  handleNegativeValue(e);
+                                }}
                   value={formData.withdrawalAmount}
                   onChange={(e) =>
                     setFormData({

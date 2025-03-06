@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
+import { maskEmail, maskPhoneNumber } from '@/utils/fun'
 export default function Page() {
   const [memberList, setMemberList] = useState([])
   const search = useSearchParams()
@@ -73,10 +74,15 @@ export default function Page() {
 
                <Image src="/profile/logo.svg" alt={""} width={30} height={30} />&nbsp;
                 
-                {member?.user?.email ||member?.user?.mobileNumber}</p>
-                <p>
-                Joined Date:{moment(member?.user?.createdAt).format("lll")}
+                {maskEmail(member?.user?.email) ||maskPhoneNumber(member?.user?.mobileNumber)}</p>
+               <div>
+               <p>
+                Joined Date
                 </p>
+                <p>
+                {moment(member?.user?.createdAt).format("lll")}
+                </p>
+               </div>
                 </li>
              </>
             ))}
