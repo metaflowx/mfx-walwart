@@ -30,7 +30,7 @@ export default async function RootLayout({
         <div className="dsboard w-full">
           <Container
             maxWidth="xl"
-            className="flex-1  py-8 pt-[50px]  overflow-y-auto min-h-screen  "
+            className="flex-1  py-8 pt-[30px] md:pt-[50px]  overflow-y-auto min-h-screen  "
           >
             {children}
           </Container>

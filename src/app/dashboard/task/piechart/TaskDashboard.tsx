@@ -12,7 +12,7 @@ interface HeaderProps {
   teamTotalTopUp: number;
 }
 
-export default function TaskDashboard() {
+export default function TaskDashboard({referralData}:{referralData:any}) {
   const [openCalender,setOpenCalender]=useState(false)
   return (
     <>
@@ -40,11 +40,11 @@ export default function TaskDashboard() {
       
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
           <Typography color="#000000" fontSize="24px" fontWeight={400}>Total number of team members :</Typography>
-          <Typography color="#000000" fontSize="24px" fontWeight={700}>123</Typography>
+          <Typography color="#000000" fontSize="24px" fontWeight={700}>{referralData?.totalTeamCount || 0}</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography color="#000000" fontSize="24px" fontWeight={400}>Team total top up</Typography>
-          <Typography color="#000000" fontSize="24px" fontWeight={700}>230 USDT</Typography>
+          <Typography color="#000000" fontSize="24px" fontWeight={700}>{referralData?.totalTeamTopUp || 0} USDT</Typography>
         </Box>
       </Box>
       {openCalender && (

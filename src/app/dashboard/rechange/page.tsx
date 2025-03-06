@@ -158,7 +158,7 @@ useEffect(() => {
                 <Skeleton width="100px" height="24px" />
               ) : (
                 <Box sx={{ display: "flex", alignItems: "center",pb:1 }}>
-                  <img src={`/images/coin/${assetsDetails?.symbol}.png`} alt="coin" />
+                  <img src={`/images/coin/${assetsDetails?.symbol}.png`} alt="coin" style={{height:"60px",width:"60px",borderRadius:"100px"}} />
                   <Typography
                     sx={{
                       color: "#110229",
@@ -178,7 +178,7 @@ useEffect(() => {
               <Skeleton variant="rectangular" width={200} height={200} />
             ) : (
               walletAddress && (
-               <Box sx={{display:"flex",justifyContent:"center"}} >
+               <Box sx={{display:"flex"}} >
                  <Canvas
                   text={walletAddress || ""}
                   options={{
@@ -276,8 +276,8 @@ useEffect(() => {
             Warm reminder
           </Typography>
         </Box>
-        <Typography pt={2}>1. Copy the address above or scan the QR code and select Tron (TRC20) network to deposit USDT</Typography>
-        <Typography>2. Please do not recharge other non-Tron(TRC20)-USDT assets. The funds will arrive in your account in about 1 to 3 minutes</Typography>
+        <Typography pt={2}>1. Copy the address above or scan the QR code and select {transactionId?.asset?.name} {`(${transactionId?.asset?.assetType})`} network to deposit {transactionId?.asset?.symbol}</Typography>
+        <Typography>2. Please do not recharge other non-{transactionId?.asset?.name}{`(${transactionId?.asset?.assetType})`}-{transactionId?.asset?.symbol} assets. The funds will arrive in your account in about 1 to 3 minutes</Typography>
         <Typography>3. If it does not arrive for a long time, please refresh the page or contact customer service</Typography>
       </Box>
     </Box>

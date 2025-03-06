@@ -22,61 +22,12 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
+import useRefferalStats from "@/app/customHooks/useRefferalStats";
+import { formatUnits } from "viem";
 
-const Top___list = [
-  {
-    id: 1,
-    Name: "Electronic wallet",
-    data: "0.00",
-    href: "/dashboard/electronicwallet",
-  },
-  {
-    id: 2,
-    Name: "Flexible wallet",
-    data: "0.00",
-    href: "/dashboard/flexiblewallet",
-  },
-  {
-    id: 3,
-    Name: "Unlock Freeze",
-    data: "0",
-    href: "/dashboard/unlock-recored",
-  },
-  {
-    id: 4,
-    Name: "Investment freeze",
-    data: "0",
-    href: "/dashboard/invest-record",
-  },
-];
 
-const Middle = [
-  {
-    id: 1,
-    Name: "Total Income (USDT)",
-    data: "0.00",
-  },
-  {
-    id: 2,
-    Name: "Total commission income",
-    data: "0",
-  },
-  {
-    id: 3,
-    Name: "Cumulative recharge (USDT)",
-    data: "0",
-  },
-  {
-    id: 4,
-    Name: "Cumulative withdrawal (USDT)",
-    data: "0.00",
-  },
-  {
-    id: 5,
-    Name: "Total team size",
-    data: "0",
-  },
-];
+
+
 
 const Listleft = [
   {
@@ -85,26 +36,14 @@ const Listleft = [
     Name: "Invest",
     href: "/dashboard/invest",
   },
-  // {
-  //   id: 2,
-  //   Image: l2,
-  //   Name: "Official Website",
-  //   href: "",
-  // },
+ 
   {
     id: 3,
     Image: l3,
     Name: "Change Password",
     href: "/dashboard/update-password",
   },
- 
-  // {
-  //   id: 5,
-  //   Image: l5,
-  //   Name: "Record",
-  //   href: "/dashboard/invest-record",
-    
-  // },
+
 ];
 
 const Listright = [
@@ -121,20 +60,46 @@ const Listright = [
     href: "/dashboard/contact-customer-service",
   },
  
-  // {
-  //   id: 4,
-  //   Image: l9,
-  //   Name: "Notification",
-  //   href: "",
-  // },
  
  
 ];
 
 const Procmp = () => {
     const { profileData, loading } = useProfileData();
+    const {referralStats} =useRefferalStats()
     const { walletAssetsList, loading:dataLoading } = useAssetsDetail();
+    const[investmentFree,setInvestmentFree]=useState("")
+    const[activePlanData,setActivePlanData]=useState<any>("")
 
+    const [statsData, setStatsData] = useState<any>([
+     
+        {
+          id: 1,
+          Name: "Total Income (USDT)",
+          data: "0.00",
+        },
+        {
+          id: 2,
+          Name: "Total commission income",
+          data: "0",
+        },
+        {
+          id: 3,
+          Name: "Cumulative recharge (USDT)",
+          data: "0",
+        },
+        {
+          id: 4,
+          Name: "Cumulative withdrawal (USDT)",
+          data: "0.00",
+        },
+        {
+          id: 5,
+          Name: "Total team size",
+          data: "0",
+        },
+      
+    ]);
     const router = useRouter()
  const [url,setUrl]=useState("")
     useEffect(() => {
@@ -147,12 +112,118 @@ const Procmp = () => {
      }, [profileData]);
 
      const handleLogout = () => {
-    
       document.cookie = 'auth_token=; max-age=0; path=/;'; 
       router.push('/login');
     };
 
-   
+
+    const getActivePackage = async (id: string) => {
+      try {
+        const res = await apiRouterCall({
+          method: "GET",
+          endPoint: "getActivePlan",
+          id: id,
+          params:{
+            status:"ACTIVE"
+          }
+        });
+        if (res?.status === 200) {
+          setActivePlanData(res?.data?.stats)
+         
+        }
+      } catch (error) {}
+    };
+
+    const getCompletedPackage = async (id: string) => {
+      try {
+        const res = await apiRouterCall({
+          method: "GET",
+          endPoint: "getActivePlan",
+          id: id,
+          params:{
+            status:"COMPLETED"
+          }
+        });
+        if (res?.status === 200) {
+         setInvestmentFree(res?.data?.stats?.totalSumOfInvestment)
+         
+        }
+      } catch (error) {}
+    };
+
+    useEffect(() => {
+    
+      if (profileData?._id) {
+        getActivePackage(profileData?._id);
+        getCompletedPackage(profileData?._id)
+      }
+    }, [profileData]);
+
+
+    useEffect(() => {
+
+      setStatsData([
+        {
+          id: 1,
+          Name: "Total Income (USDT)",
+          data:activePlanData?.totalSumOfInvestment || 0,
+        },
+        {
+          id: 2,
+          Name: "Total commission income",
+          data: referralStats?.totalEarnings || 0,
+        },
+        {
+          id: 3,
+          Name: "Cumulative recharge (USDT)",
+          data: walletAssetsList?.totalDepositInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalDepositInWeiUsd,18)).toFixed(6):"0",
+        },
+        {
+          id: 4,
+          Name: "Cumulative withdrawal (USDT)",
+          data: walletAssetsList?.totalWithdrawInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalWithdrawInWeiUsd,18)).toFixed(6):"0",
+        },
+        {
+          id: 5,
+          Name: "Total team size",
+          data: referralStats?.totalTeamCount || 0,
+        },
+      ])
+      
+    }, [activePlanData,referralStats,walletAssetsList])
+    
+
+
+
+
+ 
+  
+  const Top___list = [
+    {
+      id: 1,
+      Name: "Electronic wallet",
+      data: walletAssetsList?.totalBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6):"0",
+      href: "/dashboard/electronicwallet",
+    },
+    {
+      id: 2,
+      Name: "Flexible wallet",
+      data: walletAssetsList?.totalBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6) :"0",
+      href: "/dashboard/flexiblewallet",
+    },
+    {
+      id: 3,
+      Name: "Unlock Freeze",
+      data:walletAssetsList?.freezBalanceWeiInUsd>0 ? Number(formatUnits(walletAssetsList?.freezBalanceWeiInUsd,18)).toFixed(6) : "0",
+      href: "/dashboard/unlock-recored",
+    },
+    {
+      id: 4,
+      Name: "Investment freeze",
+      data:investmentFree||0,
+      href: "/dashboard/invest-record",
+    },
+  ];
     
   return (
     <Box>
@@ -262,7 +333,7 @@ const Procmp = () => {
           },
         }}
       >
-        {Middle.map((item, index) => (
+        {statsData.map((item:any, index:number) => (
           <Box key={index}>
             <Typography color="#000" fontWeight={700}>
               {item.data}

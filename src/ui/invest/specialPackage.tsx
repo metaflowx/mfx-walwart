@@ -192,35 +192,33 @@ const SpecialCard = ({
             </>
           ) : (
             <>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "1rem",
-                }}
-              >
-                <Box textAlign={"left"}>
-                  <Typography fontWeight={700}> 1 Times</Typography>
-                  <Typography color="#000">Daily Earnings</Typography>
-                </Box>
-                <Box textAlign={"center"}>
-                  <Typography fontWeight={700}>
-                    {item?.durationInDays} Days
-                  </Typography>
-                  <Typography color="#000">Expire date</Typography>
-                </Box>
-                <Box textAlign={"center"}>
-                  <Typography fontWeight={700}>{item?.bonus}USDT</Typography>
-                  <Typography color="#000">Bonus</Typography>
-                </Box>
-                <Box textAlign={"right"}>
-                  <Typography fontWeight={700}>
-                    {item?.dailyEarnings} USDT
-                  </Typography>
-                  <Typography color="#000">Daily income</Typography>
-                </Box>
-              </Box>
+            <Grid2 container spacing={1} sx={{ marginTop: "1rem" }}>
+  <Grid2 size={{xs:6,md:3}} >
+    <Box >
+      <Typography fontWeight={700}>1 Times</Typography>
+      <Typography color="#000">Daily Earnings</Typography>
+    </Box>
+  </Grid2>
+  <Grid2 size={{xs:6,md:3}}>
+    <Box >
+      <Typography fontWeight={700}>{item?.durationInDays} Days</Typography>
+      <Typography color="#000">Expire date</Typography>
+    </Box>
+  </Grid2>
+  <Grid2 size={{xs:6,md:3}}>
+    <Box >
+      <Typography fontWeight={700}>{item?.bonus} USDT</Typography>
+      <Typography color="#000">Bonus</Typography>
+    </Box>
+  </Grid2>
+  <Grid2 size={{xs:6,md:3}}>
+    <Box >
+      <Typography fontWeight={700}>{item?.dailyEarnings} USDT</Typography>
+      <Typography color="#000">Daily income</Typography>
+    </Box>
+  </Grid2>
+</Grid2>
+
 
               <Button
                 onClick={() => {
