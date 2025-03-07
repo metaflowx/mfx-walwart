@@ -228,22 +228,27 @@ const[isLaoding,setIsLoading]=useState(false)
             </Typography>
             <Grid2 container spacing={1}>
             {assetsList &&
-              assetsList.map((tab: any, index) => (
-               <Grid2 size={{xs:4,sm:3,md:2}} >
-                 <button
-                   disabled={isLaoding}
-                  key={tab?._id}
-                  onClick={() => setActiveTab(tab)}
-                  className={` ${
-                    activeTab?._id === tab?._id
-                      ? "bg-[#0071CE] text-white border-[#0071CE]"
-                      : "bg-[#FFFFFF] text-black border-[#DCDCEB]"
-                  } h-[60px] w-full rounded-[12px] text-[15px]  md:text-[20px] font-[700] border px-[10px] transition-all duration-300 ease-in-out`}
-                >
-                  {tab?.name}-{tab?.assetType}
-                </button>
-               </Grid2>
-              ))}
+              assetsList.map((tab: any, index) => {
+                if(!tab?.withdrawalEnabled){
+                  return null
+                }
+                return(
+                  <Grid2 size={{xs:4,sm:3,md:3,lg:2}} >
+                  <button
+                    disabled={isLaoding}
+                   key={tab?._id}
+                   onClick={() => setActiveTab(tab)}
+                   className={` ${
+                     activeTab?._id === tab?._id
+                       ? "bg-[#0071CE] text-white border-[#0071CE]"
+                       : "bg-[#FFFFFF] text-black border-[#DCDCEB]"
+                   } h-[60px] w-full rounded-[12px] text-[15px]  md:text-[20px] font-[700] border px-[10px] transition-all duration-300 ease-in-out`}
+                 >
+                   {tab?.name}-{tab?.assetType}
+                 </button>
+                </Grid2>
+                )
+              })}
 
             </Grid2>
            

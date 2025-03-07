@@ -171,7 +171,7 @@ const Procmp = () => {
         {
           id: 1,
           Name: "Total Income (USDT)",
-          data:activePlanData?.totalSumOfInvestment || 0,
+          data:activePlanData?.totalSumOfInvestmentEarnings || 0,
         },
         {
           id: 2,

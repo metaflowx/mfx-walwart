@@ -244,9 +244,11 @@ const SpecialCard = ({
 
 <Button
   onClick={() => {
-    if (isPurchased) {
+    if (isPurchased && Number(activeTask?.completed)<Number(activeTask?.requiredTask) ) {
       router.push(`/dashboard/score-center?taskId=${item?._id}`);
-    } else {
+    } else if(Number(activeTask?.completed)>=Number(activeTask?.requiredTask)) {
+    toast.warn("All task is completed")
+    }else{
       setIsConfirm(item);
     }
   }}
