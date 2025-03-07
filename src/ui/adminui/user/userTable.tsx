@@ -179,10 +179,10 @@ const Tasktable = () => {
                   <Typography color="#000">{moment(item.createdAt).format("lll")}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item?.totalPacakge}</Typography>
+                  <Typography color="#000">${item?.totalPacakge || 0}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item.totalEarnings}</Typography>
+                  <Typography color="#000">${item.totalEarnings || 0}</Typography>
                 </TableCell>
                 <TableCell align="right" style={{whiteSpace:"pre"}} >
                   <FormControlLabel

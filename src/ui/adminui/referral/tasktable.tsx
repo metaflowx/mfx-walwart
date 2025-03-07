@@ -176,7 +176,7 @@ const Tasktable = () => {
                       </Typography>
                       <Typography color="#999">
                         Earning:$
-                        {item.referralStats?.levels?.level1?.earnings}
+                        {item.referralStats?.levels?.level1?.earnings || 0}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -199,11 +199,11 @@ const Tasktable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                  <Typography color="#000">${item?.totalPacakge}</Typography>
+                  <Typography color="#000">${item?.totalPacakge || 0}</Typography>
                 </TableCell>
                     <TableCell>
                       <Typography color="#000">
-                        {item?.totalEarnings}
+                        {item?.totalEarnings || 0}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
