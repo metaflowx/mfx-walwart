@@ -16,6 +16,7 @@ import {
   TablePagination,
   Skeleton,
   Button,
+  Pagination,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
@@ -53,11 +54,18 @@ interface User {
   status: string;
   createdAt: string;
   totalEarnings: number;
-  totalPacakge:number
+  totalPacakge:number;
+  stats?:any
 }
 
 const Tasktable = () => {
-  const { allUserList,loading, refetch } = useUserList();
+   const [filters, setFilters] = useState({
+      page: 1,
+      limit: 10,
+     
+     
+  });
+  const { allUserList,loading,totalPage, refetch } = useUserList(filters);
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -91,6 +99,10 @@ const Tasktable = () => {
       toast.error(error?.response?.data.message);
     }
   };
+
+  const handlePageChange = (event:any, value:any) => {
+    setFilters({ ...filters, page: value });
+};
 
   const handleCopy = (addresstext: string) => {
     copy(addresstext || "");
@@ -131,7 +143,7 @@ const Tasktable = () => {
           </TableHead>
           <TableBody>
             {loading ?(
-              Array.from(new Array(5)).map((_, index) => (
+              Array.from(new Array(10)).map((_, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Skeleton variant="text" width={120} />
@@ -161,33 +173,33 @@ const Tasktable = () => {
             ):(
 
               <>
-               {allUserList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item: User) => (
+               {allUserList?.map((item: User) => (
               <TableRow key={item._id}>
                 <TableCell>
-                  <Typography onClick={() => handleCopy(item.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
-                    {item?.walletAddress ? sortAddress(item.walletAddress):"null"}&nbsp;
+                  <Typography onClick={() => handleCopy(item?.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
+                    {item?.walletAddress ? sortAddress(item?.walletAddress):"null"}&nbsp;
                  {item?.walletAddress ?  <Copy color="#000" size={20} />:"" }  
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">{item.email || item.mobileNumber}</Typography>
+                  <Typography color="#000">{item?.email || item?.mobileNumber}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">{item.status}</Typography>
+                  <Typography color="#000">{item?.status}</Typography>
                 </TableCell>
                 <TableCell style={{whiteSpace:"pre"}}>
-                  <Typography color="#000">{moment(item.createdAt).format("lll")}</Typography>
+                  <Typography color="#000">{moment(item?.createdAt).format("lll")}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item?.totalPacakge || 0}</Typography>
+                  <Typography color="#000">${item?.stats?.totalSumOfInvestment || 0}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item.totalEarnings || 0}</Typography>
+                  <Typography color="#000">${item?.stats?.totalSumOfInvestmentEarnings || 0}</Typography>
                 </TableCell>
                 <TableCell align="right" style={{whiteSpace:"pre"}} >
                   <FormControlLabel
-                    control={<Switch checked={item.status === "BLOCK"} onChange={() => handleChange(item._id,item.status === "BLOCK"? "ACTIVE":"BLOCK")} />}
-                    label={item.status === "BLOCK" ? "Unblocked" : "Blocked"}
+                    control={<Switch checked={item?.status === "BLOCK"} onChange={() => handleChange(item?._id,item?.status === "BLOCK"? "ACTIVE":"BLOCK")} />}
+                    label={item?.status === "BLOCK" ? "Unblocked" : "Blocked"}
                     sx={{ color: "#000" }}
                   />
                   {/* <Button onClick={()=>setOpen(true)} >Update Wallet</Button> */}
@@ -201,7 +213,7 @@ const Tasktable = () => {
           </TableBody>
         </Table>
       </StyledTableContainer>
-      <TablePagination
+      {/* <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={allUserList?.length || 0}
@@ -209,7 +221,13 @@ const Tasktable = () => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      /> */}
+      <Pagination
+           count={totalPage} 
+           page={filters.page}
+           onChange={handlePageChange}
+           color="primary"
+       />
     </Box>
   );
 };

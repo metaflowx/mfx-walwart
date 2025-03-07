@@ -4,12 +4,19 @@ import { useState, useEffect } from "react";
 import { apiRouterCall } from "../ApiConfig/Services/Index";
 
 
+interface TransactionFilters {
+ 
+ 
+ 
+  page?: number;
+  limit?: number;
+  
+}
 
 
-
-const useUserList = () => {
+const useUserList = (filters: TransactionFilters) => {
     const [allUserList, setAllUserList] = useState([]);
-
+const[totalPage,setTotalPage]=useState(1)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -20,10 +27,12 @@ const useUserList = () => {
       const res: any = await apiRouterCall({
         method: "GET",
         endPoint: "userList",
+        params: filters
       });
 
       if (res?.status === 200) {
-        setAllUserList(res.data);
+        setAllUserList(res.data.data);
+        setTotalPage(res.data.totalPages)
       }
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Unknown error"));
@@ -34,9 +43,9 @@ const useUserList = () => {
 
   useEffect(() => {
     getUserList();
-  }, []);
+  }, [filters]);
 
-  return { allUserList, loading, error, refetch: getUserList };
+  return { allUserList, loading,totalPage, error, refetch: getUserList };
 };
 
 export default useUserList;
