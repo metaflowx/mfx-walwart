@@ -40,8 +40,12 @@ export default function page() {
                         ))
                 ) : (
                     // Render assets list when data is loaded
-                    assetsList.map((item: any, index) => (
-                        <Grid2
+                    assetsList.map((item: any, index) => {
+                        if(!item?.depositEnabled){
+                            return null
+                        }
+                        return(
+                            <Grid2
                             key={index}
                             size={{ xs: 12, sm: 6, md: 4 }}
                             onClick={() => router.push(`/dashboard/rechange?id=${item._id}`)} // Pass the ID in the URL
@@ -71,7 +75,8 @@ export default function page() {
                                 <ChevronRight />
                             </Box>
                         </Grid2>
-                    ))
+                        )
+                    })
                 )}
             </Grid2>
         </Box>
