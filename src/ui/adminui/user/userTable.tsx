@@ -166,7 +166,7 @@ const Tasktable = () => {
                 <TableCell>
                   <Typography onClick={() => handleCopy(item.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
                     {item?.walletAddress ? sortAddress(item.walletAddress):"null"}&nbsp;
-                    <Copy color="#000" size={20} />
+                 {item?.walletAddress ?  <Copy color="#000" size={20} />:"" }  
                   </Typography>
                 </TableCell>
                 <TableCell>
