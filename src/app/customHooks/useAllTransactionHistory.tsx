@@ -16,7 +16,7 @@ const useAllTransactionHistory = (filters: TransactionFilters) => {
     const [allTransactionHistory, setAllTransactionHistory] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
-
+    const[totalPage,setTotalPage]=useState(1)
     const getWalletBalance = async () => {
         try {
             setLoading(true);
@@ -29,6 +29,7 @@ const useAllTransactionHistory = (filters: TransactionFilters) => {
 
             if (res?.status === 200) {
                 setAllTransactionHistory(res.data.data);
+                setTotalPage(res.data.totalPages)
             }
         } catch (err) {
             setError(err instanceof Error ? err : new Error("Unknown error"));
@@ -41,7 +42,7 @@ const useAllTransactionHistory = (filters: TransactionFilters) => {
         getWalletBalance();
     }, [filters]);
 
-    return { allTransactionHistory, loading, error, refetch: getWalletBalance };
+    return { allTransactionHistory, loading,totalPage, error, refetch: getWalletBalance };
 };
 
 export default useAllTransactionHistory;

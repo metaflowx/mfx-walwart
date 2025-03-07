@@ -11,11 +11,11 @@ export default function Page() {
     txStatus: '',
     settlementStatus: '',
     page: 1,
-    limit: 10,
+    limit: 12,
    
    
 });
-    const { allTransactionHistory, loading,refetch } = useAllTransactionHistory(filters)
+    const { allTransactionHistory,totalPage, loading,refetch } = useAllTransactionHistory(filters)
     const handleFilterChange = (e:any) => {
       setFilters({ ...filters, [e.target.name]: e.target.value, page: 1 });
   };
@@ -61,7 +61,7 @@ export default function Page() {
                 <Grid2 container spacing={3}>
                     {loading ? (
                         // Skeleton Loader
-                        Array.from(new Array(6)).map((_, index) => (
+                        Array.from(new Array(12)).map((_, index) => (
                           <Grid2 size={{xs:12,sm:6,md:4}} >
                                 <Skeleton variant="rectangular" height={150} animation="wave" />
                                 <Skeleton variant="text" sx={{ mt: 1 }} />
@@ -80,7 +80,7 @@ export default function Page() {
             {allTransactionHistory && allTransactionHistory.length>0 && (
  <div className="mt-6 flex justify-center">
  <Pagination
-     count={10} // Update dynamically based on total pages
+     count={totalPage} 
      page={filters.page}
      onChange={handlePageChange}
      color="primary"
