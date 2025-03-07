@@ -336,7 +336,7 @@ const[isLaoding,setIsLoading]=useState(false)
             disabled={isLaoding}
               onClick={() =>{
                 if(profileData.status==="BLOCK"){
-toast.warn("Your account is blocked, please update your level to withdraw you amount")
+toast.warn("You Must Unlock a Higher Level Package to Withdraw Cash")
                 }else{
                   withdrawHandler()
                 }
@@ -345,7 +345,7 @@ toast.warn("Your account is blocked, please update your level to withdraw you am
               }
               className="w-full text-white text-[20px] font-[700] rounded-[11px] bg-[#0071CE] border border-[#0071CE] h-[58px]"
             >
-            {profileData.status==="BLOCK" ? "You account is blocked":"Confirm"}  
+            {profileData.status==="BLOCK" ? "Confirm":"Confirm"}  
             </button>
 
             {error && (
