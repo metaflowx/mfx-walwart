@@ -13,13 +13,13 @@ const Listleft = [
         id: 1,
         Image: telegram,
         Name: "WALMART Official Channel",
-        href: "",
+        href: "https://t.me/walmartcoins",
     },
     {
         id: 2,
         Image: support,
         Name: "WALMART Customer Service",
-        href: "",
+        href: "https://t.me/walmartcoins",
     },
 
 
@@ -45,7 +45,7 @@ const CustomerService = () => {
                                 padding: '1rem'
                             }}>
 
-                                <Link href={item.href} style={{ display: 'block', margin: '5px 0px', }}>
+                                <Link href={item.href} target="_blank" style={{ display: 'block', margin: '5px 0px', }}>
                                     <Box key={index} sx={{
                                         display: 'flex',
                                         justifyContent: 'space-between',
@@ -63,7 +63,7 @@ const CustomerService = () => {
 
                                         </Box>
                                         <Box>
-                                            <Link href={item.href}><Image src={rArrow} alt={""} /></Link>
+                                            <Link href={item.href} ><Image src={rArrow} alt={""} /></Link>
                                         </Box>
 
                                     </Box>

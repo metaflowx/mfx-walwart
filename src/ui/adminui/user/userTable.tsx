@@ -165,8 +165,8 @@ const Tasktable = () => {
               <TableRow key={item._id}>
                 <TableCell>
                   <Typography onClick={() => handleCopy(item.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
-                    {sortAddress(item.walletAddress)}&nbsp;
-                    <Copy color="#000" size={20} />
+                    {item?.walletAddress ? sortAddress(item.walletAddress):"null"}&nbsp;
+                 {item?.walletAddress ?  <Copy color="#000" size={20} />:"" }  
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -179,10 +179,10 @@ const Tasktable = () => {
                   <Typography color="#000">{moment(item.createdAt).format("lll")}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item?.totalPacakge}</Typography>
+                  <Typography color="#000">${item?.totalPacakge || 0}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item.totalEarnings}</Typography>
+                  <Typography color="#000">${item.totalEarnings || 0}</Typography>
                 </TableCell>
                 <TableCell align="right" style={{whiteSpace:"pre"}} >
                   <FormControlLabel

@@ -1,5 +1,6 @@
 "use client";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
+import useProfileData from "@/app/customHooks/profiledata";
 import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useAssetsList from "@/app/customHooks/useAssetsList";
 import useWalletBalnces from "@/app/customHooks/useWalletBalnces";
@@ -31,7 +32,7 @@ export default function Page() {
   const router =useRouter()
   const { assetsList, loading, refetch } = useAssetsList();
   const [activeTab, setActiveTab] = useState<any>("");
-  const { walletBalances } = useWalletBalnces();
+  const { profileData } = useProfileData();
   const { walletAssetsList } = useAssetsDetail();
 const[transactionId,setTransactionId]=useState<any>("")
 const[isLaoding,setIsLoading]=useState(false)
@@ -333,10 +334,18 @@ const[isLaoding,setIsLoading]=useState(false)
 
             <button
             disabled={isLaoding}
-              onClick={withdrawHandler}
+              onClick={() =>{
+                if(profileData.status==="BLOCK"){
+toast.warn("You Must Unlock a Higher Level Package to Withdraw Cash")
+                }else{
+                  withdrawHandler()
+                }
+              }
+               
+              }
               className="w-full text-white text-[20px] font-[700] rounded-[11px] bg-[#0071CE] border border-[#0071CE] h-[58px]"
             >
-              Confirm
+            {profileData.status==="BLOCK" ? "Confirm":"Confirm"}  
             </button>
 
             {error && (
