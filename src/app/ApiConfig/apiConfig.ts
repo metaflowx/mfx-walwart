@@ -1,5 +1,5 @@
 // export const baseURL = "http://192.168.1.17:8000/api/v1"; 
-export const baseURL = "https://walmartchain.com/api/v1"; 
+export const baseURL = "http://82.29.167.46:9000/api/v1"; 
 
 
 
