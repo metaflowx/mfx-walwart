@@ -1,7 +1,5 @@
 "use client"
-import DashboardHeader from "@/ui/shared/dashboardHeader";
-import { Box, Grid2, Typography } from "@mui/material";
-import Sidebardb from "../sidebardb";
+import { Box } from "@mui/material";
 import Referral from "./referral";
  
  

@@ -1,29 +1,21 @@
-"use client"
+
+
+"use client";
 import React from "react";
-import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
 
-const newsItems = [
-  "  🚀 Kickstart your earnings with just 11 USDT! Refer friends and earn daily rewards – Walmart’s platform launches 5 March 2025! 💰✨",
- 
-];
 
-const MarqueHeader: React.FC = () => {
+const MarqueeHeader: React.FC = () => {
   return (
     <div className="bg-[#0071CE] text-white py-2 overflow-hidden">
-      <motion.div
-        className="flex whitespace-nowrap"
-        initial={{ x: "100%" }}
-        animate={{ x: "-100%" }}
-        transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-      >
-        {newsItems.map((news, index) => (
-          <span key={index} className="mx-6 text-sm font-medium">
-            {news}
-          </span>
-        ))}
-      </motion.div>
+      <Marquee speed={100} >
+      🚀 Kickstart your earnings with just 11 USDT! Refer friends and earn daily rewards – Walmart’s platform launches 5 March 2025! 💰✨
+</Marquee>
+     
     </div>
   );
 };
 
-export default MarqueHeader;
+export default MarqueeHeader;
+
+
