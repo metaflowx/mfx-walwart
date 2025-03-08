@@ -21,7 +21,7 @@ export default function Login() {
 
   const [formData, setFormData] = useState({
     email: "",
-    referralCode: search.get("ref") || "Ex9NBdAI",
+    referralCode: search.get("ref") || "x0U0OAzp",
     password: "",
     confirmPassword: "",
     mobileNumber: "",
