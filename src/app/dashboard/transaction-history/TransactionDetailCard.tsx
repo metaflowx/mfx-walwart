@@ -1,6 +1,7 @@
 
 import moment from 'moment';
 import React from 'react';
+import { formatUnits } from 'viem';
 
 
 
@@ -13,7 +14,7 @@ const TransactionDetailCard = ({ transaction }:{transaction:any}) => {
     <div className="bg-white p-4 rounded-lg shadow-md my-4 w-full max-w-sm mx-auto sm:max-w-md md:max-w-lg">
       <div className="flex justify-between items-center border-b pb-2 mb-3">
         <h3 className="text-xl font-semibold text-gray-800">Amount</h3>
-        <span className="text-green-500 font-bold">${transaction?.amountInWei}</span>
+        <span className="text-green-500 font-bold">${transaction?.amountInWei>0 ? formatUnits(transaction?.amountInWei,18):"0"}</span>
       </div>
       <div className="flex justify-between items-center border-b pb-2 mb-3">
         <h3 className="text-xl font-semibold text-gray-800">Settlement Status</h3>
