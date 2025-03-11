@@ -156,6 +156,18 @@ export default function Login() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if(activeTab){
+      setFormData({
+        email: "",
+        password: "",
+        mobileNumber: "",
+      })
+    }
+    
+  }, [activeTab])
+  
   
 
   return (
@@ -190,7 +202,7 @@ export default function Login() {
             ) : (
               <div>
                 <PhoneInput
-                  country={"us"}
+                  country={"in"}
                   value={formData.mobileNumber}
                   onChange={handlePhoneChange}
                   inputClass="!w-full"
