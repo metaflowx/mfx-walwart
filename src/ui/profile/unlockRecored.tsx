@@ -1,5 +1,5 @@
 "use client"
-import { Box, Typography } from "@mui/material";
+import { Box, Menu, MenuItem, Select, Typography } from "@mui/material";
 import Clicktoback from "./clicktoback";
 import NoData from "./noData";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
@@ -11,36 +11,37 @@ const UnlockRecored = () => {
   const { profileData } = useProfileData();
   const [activePlanData, setActivePlanData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const[status,setStatus]=useState("PENDING")
 
-  const getActivePackage = async (id: string) => {
-    try {
-      const res = await apiRouterCall({
-        method: "GET",
-        endPoint: "getActivePlan",
-        id: id,
-        params: { status: "ACTIVE" },
-      });
-      if (res?.status === 200) {
-        setActivePlanData(res?.data?.package?.buyPackagesDetails);
-      }
-    } catch (error) {
-      console.error("Error fetching active package:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const getActivePackage = async (id: string) => {
+  //   try {
+  //     const res = await apiRouterCall({
+  //       method: "GET",
+  //       endPoint: "getActivePlan",
+  //       id: id,
+  //       params: { status: "ACTIVE" },
+  //     });
+  //     if (res?.status === 200) {
+  //       setActivePlanData(res?.data?.package?.buyPackagesDetails);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching active package:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   const getgetFreezeAmount = async () => {
     try {
       const res = await apiRouterCall({
         method: "GET",
         endPoint: "getFreezeAmount",
        
-        params: { status: "PENDING" },
+        params: { status: status },
       });
       if (res?.status === 200) {
         console.log(">>>>>>>>>>>>41",res.data);
         
-        // setActivePlanData(res?.data?.package?.buyPackagesDetails);
+        setActivePlanData(res?.data?.data?.lockerDetails);
       }
     } catch (error) {
       console.error("Error fetching active package:", error);
@@ -53,13 +54,25 @@ const UnlockRecored = () => {
   useEffect(() => {
     if (profileData?._id) {
       getgetFreezeAmount()
-      getActivePackage(profileData?._id);
+      // getActivePackage(profileData?._id);
     }
-  }, [profileData]);
+  }, [profileData,status]);
 
   return (
     <Box>
       <Clicktoback href="/dashboard/profile" title="Unlock Records" />
+
+      <div style={{justifyContent:"end"}} className="flex justify-end py-2 w-full">
+      <div>
+      <Select  value={status}
+                    onChange={(e)=>setStatus(e.target.value)}>
+                     <MenuItem value="PENDING">Pending</MenuItem>
+                     <MenuItem value="EXPIRE">Expired</MenuItem>
+                     <MenuItem value="COMPLETED">Completed</MenuItem>
+
+                   </Select>
+      </div>
+      </div>
 
       <Box className="border border-blue-500 rounded-lg p-4 mt-4 shadow-md">
         {isLoading ? (
@@ -87,8 +100,12 @@ const UnlockRecored = () => {
               </Box>
 
               <Box className="flex justify-between mt-1">
-                <Typography color="#000">Expiration In</Typography>
-                <Typography color="#000">{item?.packageId?.durationInDays} Days</Typography>
+                <Typography color="#000">Expire On</Typography>
+                <Typography color="#000">{moment(item?.expiredAt).format("lll")} </Typography>
+              </Box>
+              <Box className="flex justify-between mt-1">
+                <Typography color="#000">Status</Typography>
+                <Typography color="#000">{item?.status} </Typography>
               </Box>
             </Box>
           ))
