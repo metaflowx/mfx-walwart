@@ -85,7 +85,7 @@ const[isLaoding,setIsLoading]=useState(false)
     const amountError = validateAmount(formData.withdrawalAmount);
     const addressError = validateAddress(formData.withdrawalAddress);
     const passwordError = validatePassword(formData.password);
-    const accountBal=walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18))
+    const accountBal=walletAssetsList && Number(formatUnits(walletAssetsList?.totalFlexibleBalanceInWeiUsd,18))
 
     if (amountError) {
       setError(amountError);
@@ -188,7 +188,7 @@ const[isLaoding,setIsLoading]=useState(false)
                   fontWeight: 700,
                 }}
               >
-              {walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6)}
+              {walletAssetsList && Number(formatUnits(walletAssetsList?.totalFlexibleBalanceInWeiUsd,18)).toFixed(6)}
               </Typography>
               <Typography
                 sx={{
