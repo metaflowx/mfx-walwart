@@ -230,7 +230,7 @@ const SpecialCard = ({
   </Grid2>
   <Grid2 size={{ xs: 6, md: 3 }}>
     <Box>
-      <Typography fontWeight={700}>{item?.bonus} USDT</Typography>
+      <Typography fontWeight={700}>{item?.totalBonus} USDT</Typography>
       <Typography color="#000">Bonus</Typography>
     </Box>
   </Grid2>

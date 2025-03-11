@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useRefferalStats from "@/app/customHooks/useRefferalStats";
-import { formatUnits } from "viem";
+import { formatUnits, slice } from "viem";
 
 
 
@@ -166,6 +166,20 @@ const Procmp = () => {
 
 
     useEffect(() => {
+      const withdrawAmount=  Math.abs(walletAssetsList?.totalWithdrawInWeiUsd)
+      let formattedAmount
+      if(withdrawAmount>0){
+      
+        const withdrawAmount1: bigint = BigInt(withdrawAmount)
+      
+           formattedAmount = withdrawAmount1 > 0
+     ? Number(formatUnits(withdrawAmount1, 18)).toFixed(6) 
+     : "0";
+        
+      }
+   
+     
+      
 
       setStatsData([
         {
@@ -186,7 +200,7 @@ const Procmp = () => {
         {
           id: 4,
           Name: "Cumulative withdrawal (USDT)",
-          data: walletAssetsList?.totalWithdrawInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalWithdrawInWeiUsd,18)).toFixed(6):"0",
+          data: formattedAmount || "0",
         },
         {
           id: 5,
@@ -213,13 +227,13 @@ const Procmp = () => {
     {
       id: 2,
       Name: "Flexible wallet",
-      data: walletAssetsList?.totalBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6) :"0",
+      data: walletAssetsList?.totalFlexibleBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalFlexibleBalanceInWeiUsd,18)).toFixed(6) :"0",
       href: "/dashboard/flexiblewallet",
     },
     {
       id: 3,
       Name: "Unlock Freeze",
-      data:walletAssetsList?.freezBalanceWeiInUsd>0 ? Number(formatUnits(walletAssetsList?.freezBalanceWeiInUsd,18)).toFixed(6) : "0",
+      data:walletAssetsList?.totalLockInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalLockInWeiUsd,18)).toFixed(6) : "0",
       href: "/dashboard/unlock-recored",
     },
     {

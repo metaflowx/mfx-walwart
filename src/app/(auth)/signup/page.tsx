@@ -159,7 +159,7 @@ export default function Login() {
             <>
               <PhoneInput
                disabled={isLoading}
-                country={"us"}
+                country={"in"}
                 value={formData.mobileNumber}
                 onChange={handlePhoneChange}
                 inputClass="!w-full"

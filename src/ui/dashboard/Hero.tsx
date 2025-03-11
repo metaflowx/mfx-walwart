@@ -18,7 +18,7 @@ const Hero = () => {
         {[1, 2, 3].map((index) => (
           <SwiperSlide key={index}>
             <img 
-              src={`/images/home/${index}.jpeg`} 
+              src={`/images/home/${index}.jpg`} 
               alt={`Slide ${index}`} 
               style={{ width: '100%', height: '400px', objectFit: 'cover' }} 
             />

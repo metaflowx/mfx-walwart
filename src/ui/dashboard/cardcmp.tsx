@@ -49,6 +49,11 @@ const Cardcmp = ({ product }: { product: any }) => {
               color: "#110229",
               fontSize: "24px",
               fontWeight: 700,
+              width: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "417px",
+              whiteSpace: "pre"
             }}
           >
             {product.title}

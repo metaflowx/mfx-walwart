@@ -37,10 +37,10 @@ export default function PackageIntroduction() {
                 >
                   <h3 className="text-[18px] font-[700] ">{item?.name}</h3>
                   <h3>Investment : {item?.amount}USDT</h3>
-                  <h3>Daily Earnings : {item?.dailyEarnings}USDT</h3>
+                  <h3>Daily Earnings : {Number(item?.dailyEarnings)+Number(item?.dailyBonus)}USDT {`(${item?.dailyEarnings }+ ${item?.dailyBonus})`}  {`(${item?.durationInDays}Days)`} </h3>
 
                   <h3>Total Earnings : {item.totalReturns}USDT</h3>
-                  <h3>Bonus : {item.bonus}USDT</h3>
+                  <h3>Bonus : {item?.totalBonus}USDT</h3>
                   <h4> {item?.description}</h4>
 
 
