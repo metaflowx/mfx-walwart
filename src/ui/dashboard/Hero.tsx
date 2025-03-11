@@ -1,27 +1,27 @@
 import { Box } from '@mui/material';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation,Pagination,Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-
 
 const Hero = () => {
   return (
     <Box sx={{ width: '100%', borderRadius: '16px', overflow: 'hidden', mt: 2 }}>
       <Swiper
-        modules={[Pagination, Autoplay,Navigation]}
-        slidesPerView={1}
+        modules={[Pagination, Autoplay, Navigation]}
         loop={true} 
+        slidesPerView={1}
+
         pagination={{ clickable: true }}
-        autoplay={{ delay: 3000, disableOnInteraction: false }} // Auto slide with infinite loop
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
       >
         {[1, 2, 3].map((index) => (
           <SwiperSlide key={index}>
             <img 
-              src={`/images/home/${index}.jpg`} 
-              alt={`Slide ${index}`} 
-              style={{ width: '100%', height: '400px', objectFit: 'cover' }} 
-            />
+                src={`/images/home/${index}.jpg`} 
+                alt={`Slide ${index}`} 
+                style={{ width: '100%', height: '400px', objectFit: 'contain',borderRadius:"10px" }} 
+              />
           </SwiperSlide>
         ))}
       </Swiper>

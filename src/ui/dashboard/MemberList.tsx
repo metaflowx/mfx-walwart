@@ -46,6 +46,30 @@ export default function MemberList() {
       title: "Gold",
       des: "Kudos to +91****61 for achieving a new milestone and inviting 10 people.",
     },
+
+
+
+
+    {
+      title: "Platinum",
+      des: "Kudos to +70****71 for achieving a new milestone and inviting 40 people.",
+    },
+    {
+      title: "Gold",
+      des: "Congratulations to +76****24 for unlocking and directly inviting 28 people.",
+    },
+    {
+      title: "Sliver",
+      des: "Kudos to +77****25 for achieving a new milestone and inviting 20 people.",
+    },
+    {
+      title: "Platinum",
+      des: "Congratulations to +98****44 for unlocking and directly inviting 14 people.",
+    },
+    {
+      title: "Gold",
+      des: "Kudos to +91****91 for achieving a new milestone and inviting 10 people.",
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
