@@ -29,9 +29,30 @@ const UnlockRecored = () => {
       setIsLoading(false);
     }
   };
+  const getgetFreezeAmount = async () => {
+    try {
+      const res = await apiRouterCall({
+        method: "GET",
+        endPoint: "getFreezeAmount",
+       
+        params: { status: "PENDING" },
+      });
+      if (res?.status === 200) {
+        console.log(">>>>>>>>>>>>41",res.data);
+        
+        // setActivePlanData(res?.data?.package?.buyPackagesDetails);
+      }
+    } catch (error) {
+      console.error("Error fetching active package:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
 
   useEffect(() => {
     if (profileData?._id) {
+      getgetFreezeAmount()
       getActivePackage(profileData?._id);
     }
   }, [profileData]);
