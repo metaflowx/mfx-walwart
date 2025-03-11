@@ -213,7 +213,7 @@ const Procmp = () => {
     {
       id: 2,
       Name: "Flexible wallet",
-      data: walletAssetsList?.totalBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6) :"0",
+      data: walletAssetsList?.totalFlexibleBalanceInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalFlexibleBalanceInWeiUsd,18)).toFixed(6) :"0",
       href: "/dashboard/flexiblewallet",
     },
     {
