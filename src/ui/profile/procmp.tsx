@@ -146,7 +146,7 @@ const Procmp = () => {
           endPoint: "getActivePlan",
           id: id,
           params:{
-            status:"COMPLETED"
+            status:"ACTIVE"
           }
         });
         if (res?.status === 200) {
@@ -173,7 +173,7 @@ const Procmp = () => {
         const withdrawAmount1: bigint = BigInt(withdrawAmount)
       
            formattedAmount = withdrawAmount1 > 0
-     ? Number(formatUnits(withdrawAmount1, 18)).toFixed(6) 
+     ? Number(formatUnits(withdrawAmount1, 18)).toFixed(2) 
      : "0";
         
       }
@@ -195,7 +195,7 @@ const Procmp = () => {
         {
           id: 3,
           Name: "Cumulative recharge (USDT)",
-          data: walletAssetsList?.totalDepositInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalDepositInWeiUsd,18)).toFixed(6):"0",
+          data: walletAssetsList?.totalDepositInWeiUsd>0 ? Number(formatUnits(walletAssetsList?.totalDepositInWeiUsd,18)).toFixed(2):"0",
         },
         {
           id: 4,

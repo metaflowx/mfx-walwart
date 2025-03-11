@@ -191,6 +191,13 @@ export default function page() {
                   <p>Daily Earnings</p>
                   <p>{member?.packageId?.dailyEarnings}USDT</p>
                 </li>
+                <li
+                  key={index}
+                  className="border-b border-gray-200 py-2 flex justify-between"
+                >
+                  <p>Daily Bonus</p>
+                  <p>{member?.packageId?.dailyBonus}USDT</p>
+                </li>
 
                 <li
                   key={index}
@@ -208,13 +215,7 @@ export default function page() {
                   <p>Duration InDays</p>
                   <p>{member?.packageId?.durationInDays}Days</p>
                 </li>
-                <li
-                  key={index}
-                  className="border-b border-gray-200 py-2 flex justify-between"
-                >
-                  <p>Bonus</p>
-                  <p>{member?.packageId?.dailyBonus}USDT</p>
-                </li>
+               
                
               </>
             ))}
