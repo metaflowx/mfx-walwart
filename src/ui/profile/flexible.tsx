@@ -28,7 +28,7 @@ const Flexible = () => {
           <Box mb={1}>
             <Typography color="#000">Total Assets(USDT)</Typography>
             <Typography color="#000" fontWeight={700} variant="h6">
-             {walletAssetsList && Number(formatUnits(walletAssetsList?.totalBalanceInWeiUsd,18)).toFixed(6)}
+             {walletAssetsList && Number(formatUnits(walletAssetsList?.totalFlexibleBalanceInWeiUsd,18)).toFixed(6)}
             </Typography>
           </Box>
           <Box
