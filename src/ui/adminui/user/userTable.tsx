@@ -55,7 +55,8 @@ interface User {
   createdAt: string;
   totalEarnings: number;
   totalPacakge:number;
-  stats?:any
+  stats?:any;
+  wallets?:any
 }
 
 const Tasktable = () => {
@@ -173,12 +174,12 @@ const Tasktable = () => {
             ):(
 
               <>
-               {allUserList?.map((item: User) => (
+               {allUserList?.map((item: any) => (
               <TableRow key={item._id}>
                 <TableCell>
-                  <Typography onClick={() => handleCopy(item?.walletAddress)} style={{ display: "flex", cursor: "pointer" }} color="#000">
-                    {item?.walletAddress ? sortAddress(item?.walletAddress):"null"}&nbsp;
-                 {item?.walletAddress ?  <Copy color="#000" size={20} />:"" }  
+                  <Typography onClick={() => handleCopy(item?.wallets?.address)} style={{ display: "flex", cursor: "pointer" }} color="#000">
+                    {item?.wallets?.address ? sortAddress(item?.wallets?.address):"null"}&nbsp;
+                 {item?.wallets?.address ?  <Copy color="#000" size={20} />:"" }  
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -222,12 +223,14 @@ const Tasktable = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
+      <div style={{justifyContent:'end'}} className="w-full flex justify-end pt-2">
       <Pagination
            count={totalPage} 
            page={filters.page}
            onChange={handlePageChange}
            color="primary"
        />
+      </div>
     </Box>
   );
 };
