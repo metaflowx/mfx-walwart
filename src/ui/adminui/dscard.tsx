@@ -23,7 +23,7 @@ export default function Dscard() {
           },
           {
             title: "Total Earning",
-            description: res?.data?.platefromTotalEarnig || 0,
+            description: `${res?.data?.platefromTotalEarnig } USDT`|| 0,
           },
           {
             title: "Total Blocked User",
@@ -32,6 +32,15 @@ export default function Dscard() {
           {
             title: "Total Subscription",
             description: res?.data?.totalSubscriptionCount || 0,
+          },
+
+          {
+            title: "Total User Earning",
+            description: `${res?.data?.totalUserEarning} USDT` || 0,
+          },
+          {
+            title: "Total User Investment",
+            description:`${ res?.data?.totalUserInvestment} USDT` || 0,
           },
         ]);
         setLoading(false);
@@ -48,8 +57,8 @@ export default function Dscard() {
   return (
     <Box mb={2}>
       <Grid2 container spacing={2} justifyContent="center">
-        {Array.from(new Array(4)).map((_, index) => (
-          <Grid2 key={index} size={{xs:12 ,sm:6 ,md:3}}>
+        {Array.from(new Array(6)).map((_, index) => (
+          <Grid2 key={index} size={{xs:12 ,sm:6 ,md:4}}>
             <Card sx={{ border: '1px solid #0071CE', boxShadow: 'none', height: '100%' }}>
               <CardContent>
                 {loading ? (

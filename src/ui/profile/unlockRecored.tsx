@@ -31,6 +31,7 @@ const UnlockRecored = () => {
   //   }
   // };
   const getgetFreezeAmount = async () => {
+    setActivePlanData([])
     try {
       const res = await apiRouterCall({
         method: "GET",
@@ -39,11 +40,12 @@ const UnlockRecored = () => {
         params: { status: status },
       });
       if (res?.status === 200) {
-        console.log(">>>>>>>>>>>>41",res.data);
+       
         
         setActivePlanData(res?.data?.data?.lockerDetails);
       }
     } catch (error) {
+      setActivePlanData([])
       console.error("Error fetching active package:", error);
     } finally {
       setIsLoading(false);
@@ -91,7 +93,7 @@ const UnlockRecored = () => {
               <Typography color="#119F3E">Efficient</Typography>
               <Box className="flex justify-between">
                 <Typography color="#000">{item?.packageId?.name}</Typography>
-                <Typography color="#FF0000">{item?.packageId?.amount} USDT</Typography>
+                <Typography color="#FF0000">{item?.amount} USDT</Typography>
               </Box>
 
               <Box className="flex justify-between mt-1">
