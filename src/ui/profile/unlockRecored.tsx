@@ -40,7 +40,7 @@ const UnlockRecored = () => {
         params: { status: status },
       });
       if (res?.status === 200) {
-        console.log(">>>>>>>>>>>>41",res.data);
+       
         
         setActivePlanData(res?.data?.data?.lockerDetails);
       }

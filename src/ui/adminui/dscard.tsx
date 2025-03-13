@@ -23,7 +23,7 @@ export default function Dscard() {
           },
           {
             title: "Total Earning",
-            description: res?.data?.platefromTotalEarnig || 0,
+            description: `${res?.data?.platefromTotalEarnig } USDT`|| 0,
           },
           {
             title: "Total Blocked User",
@@ -35,12 +35,12 @@ export default function Dscard() {
           },
 
           {
-            title: "Total Active Task Count",
-            description: res?.data?.activeTaskCount || 0,
+            title: "Total User Earning",
+            description: `${res?.data?.totalUserEarning} USDT` || 0,
           },
           {
-            title: "Total Active Package Count",
-            description: res?.data?.activePackageCount || 0,
+            title: "Total User Investment",
+            description:`${ res?.data?.totalUserInvestment} USDT` || 0,
           },
         ]);
         setLoading(false);
