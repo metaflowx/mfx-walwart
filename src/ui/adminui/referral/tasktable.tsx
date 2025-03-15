@@ -199,7 +199,7 @@ const Tasktable = () => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                  <Typography color="#000">${item?.stats?.totalSumOfInvestmentEarnings || 0}</Typography>
+                  <Typography color="#000">${item?.stats?.totalSumOfInvestment || 0}</Typography>
                 </TableCell>
                     <TableCell>
                       <Typography color="#000">
