@@ -1,9 +1,9 @@
 "use client"
-import { Box, Menu, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Divider, Menu, MenuItem, Select, Typography } from "@mui/material";
 import Clicktoback from "./clicktoback";
 import NoData from "./noData";
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useProfileData from "@/app/customHooks/profiledata";
 import moment from "moment";
 
@@ -13,23 +13,7 @@ const UnlockRecored = () => {
   const [isLoading, setIsLoading] = useState(true);
   const[status,setStatus]=useState("PENDING")
 
-  // const getActivePackage = async (id: string) => {
-  //   try {
-  //     const res = await apiRouterCall({
-  //       method: "GET",
-  //       endPoint: "getActivePlan",
-  //       id: id,
-  //       params: { status: "ACTIVE" },
-  //     });
-  //     if (res?.status === 200) {
-  //       setActivePlanData(res?.data?.package?.buyPackagesDetails);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching active package:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+ 
   const getgetFreezeAmount = async () => {
     setActivePlanData([])
     try {
@@ -37,7 +21,7 @@ const UnlockRecored = () => {
         method: "GET",
         endPoint: "getFreezeAmount",
        
-        params: { status: status },
+        // params: { status: status },
       });
       if (res?.status === 200) {
        
@@ -58,7 +42,15 @@ const UnlockRecored = () => {
       getgetFreezeAmount()
       // getActivePackage(profileData?._id);
     }
-  }, [profileData,status]);
+  }, [profileData]);
+
+  const filterData = useMemo(()=>{
+    const filData=activePlanData?.filter((item:any)=>{
+      return item?.status===status
+    })
+    return filData
+
+  },[activePlanData,status])
 
   return (
     <Box>
@@ -74,6 +66,14 @@ const UnlockRecored = () => {
 
                    </Select>
       </div>
+     
+      </div>
+      <div>
+        {status==="PENDING" && (
+          <h4 className="text-yellow-500">
+            *Please upgrade your Relevant package to unlock your Freeze usdt for withdrawal
+          </h4>
+        )}
       </div>
 
       <Box className="border border-blue-500 rounded-lg p-4 mt-4 shadow-md">
@@ -87,33 +87,39 @@ const UnlockRecored = () => {
               </div>
             ))}
           </>
-        ) : activePlanData?.length > 0 ? (
-          activePlanData.map((item: any, index: number) => (
-            <Box key={index} mb={1}>
-              <Typography color="#119F3E">Efficient</Typography>
-              <Box className="flex justify-between">
-                <Typography color="#000">{item?.packageId?.name}</Typography>
-                <Typography color="#FF0000">{item?.amount} USDT</Typography>
+        ) : filterData?.length>0 &&
+        filterData?.map((item: any, index: number) => {
+              return(
+                <Box key={index} mb={1}>
+                <Typography color="#119F3E">Efficient</Typography>
+                <Box className="flex justify-between">
+                  <Typography color="#000">{item?.packageId?.name}</Typography>
+                  <Typography color="#FF0000">{item?.amount} USDT</Typography>
+                </Box>
+  
+                <Box className="flex justify-between mt-1">
+                  <Typography color="#000">Unlock Time</Typography>
+                  <Typography color="#000">within 48 hours  </Typography>
+                </Box>
+  
+                <Box className="flex justify-between mt-1">
+                  <Typography color="#000">Expire On</Typography>
+                  <Typography color="#000">{moment(item?.expiredAt).format("lll")} </Typography>
+                </Box>
+                <Box className="flex justify-between mt-1">
+                  <Typography color="#000">Status</Typography>
+                  <Typography color="#000">{item?.status} </Typography>
+                </Box>
+                <Box py={2} >
+                <Divider style={{backgroundColor:"gray"}} />
+                </Box>
               </Box>
-
-              <Box className="flex justify-between mt-1">
-                <Typography color="#000">Unlock Time</Typography>
-                <Typography color="#000">{moment(item?.packageId?.createdAt).format("lll")}</Typography>
-              </Box>
-
-              <Box className="flex justify-between mt-1">
-                <Typography color="#000">Expire On</Typography>
-                <Typography color="#000">{moment(item?.expiredAt).format("lll")} </Typography>
-              </Box>
-              <Box className="flex justify-between mt-1">
-                <Typography color="#000">Status</Typography>
-                <Typography color="#000">{item?.status} </Typography>
-              </Box>
-            </Box>
-          ))
-        ) : (
-          <NoData />
-        )}
+              )
+            
+           
+          })
+        }
+        {!isLoading && filterData?.length===0 && <NoData />}
       </Box>
     </Box>
   );
