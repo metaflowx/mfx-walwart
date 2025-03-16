@@ -19,7 +19,7 @@ const Listleft = [
         id: 2,
         Image: support,
         Name: "WALMART Customer Service",
-        href: "https://t.me/walmartcoins",
+        href: "https://t.me/+15343563740",
     },
 
 

@@ -1,5 +1,5 @@
 "use client"
-import { Box, Button, Container, Grid2, Typography } from "@mui/material";
+import { Box, Button, Container, Grid2, IconButton, Tooltip, Typography } from "@mui/material";
 import Image from "next/image";
 import logo from "../../../public/profile/logo.svg";
 import AddressCopy from "../shared/addressCopy";
@@ -24,6 +24,7 @@ import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import useAssetsDetail from "@/app/customHooks/useAssetsDetail";
 import useRefferalStats from "@/app/customHooks/useRefferalStats";
 import { formatUnits, slice } from "viem";
+import { Info } from "@mui/icons-material";
 
 
 
@@ -327,6 +328,19 @@ const Procmp = () => {
                         <Link href={item.href}>
                           <Image src={arrow} alt={""} />
                         </Link>
+                        {item?.Name==="Unlock Freeze" && (
+
+                        <Tooltip 
+                        arrow
+                        enterTouchDelay={0} // Show immediately on touch devices
+                        leaveTouchDelay={3000} // Keeps it visible for 3s after touch
+                        title="
+Please upgrade your Relevant package to unlock your Freeze usdt for withdrawal">
+                         <IconButton>
+                          <Info />
+                         </IconButton>
+                        </Tooltip>
+                        )}
                       </Box>
                     </Box>
                   </Grid2>

@@ -87,13 +87,13 @@ export default function LevelCard({ data,level }: {data:any,level:string}) {
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography fontSize="18px" fontWeight={400} color="#110229">Total Return</Typography>
-              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data?.totalReturn}</Typography>
+              <Typography fontSize="18px"  fontWeight={700}color="#110229">{Number(data?.totalReturn).toFixed(4)}</Typography>
             </Box>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography fontSize="18px" fontWeight={400} color="#110229">Todays Earnings</Typography>
-              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data?.todaysEarnings}</Typography>
+              <Typography fontSize="18px"  fontWeight={700}color="#110229">{data?.todaysEarnings>0? Number(data?.todaysEarnings).toFixed(4):"0"}</Typography>
             </Box>
           </Grid2>
          
