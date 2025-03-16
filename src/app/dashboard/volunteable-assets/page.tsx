@@ -69,7 +69,7 @@ export default function page() {
                                         fontWeight: 400,
                                         paddingLeft: "10px"
                                     }}>
-                                        {item?.name}
+                                        {`${item?.assetType}-${item?.symbol}`}
                                     </Typography>
                                 </Box>
                                 <ChevronRight />
