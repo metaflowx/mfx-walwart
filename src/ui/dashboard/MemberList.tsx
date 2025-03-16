@@ -8,43 +8,43 @@ export default function MemberList() {
   const listData = [
     {
       title: "Sliver",
-      des: "Congratulations to +96****55 for unlocking and directly inviting 24 people.",
+      des: "Congratulations to ahme*****1@gmail.com for unlocking and directly inviting 24 people.",
     },
     {
       title: "Gold",
-      des: "Kudos to +97****99 for achieving a new milestone and inviting 30 people.",
+      des: "Congratulation to +97****99 for achieving a new milestone and inviting 30 people.",
     },
     {
       title: "Platinum",
-      des: "Congratulations to +95****32 for unlocking and directly inviting 50 people.",
+      des: "Congratulations to +ravikapoor758@gmail.com for unlocking and directly inviting 50 people.",
     },
     {
       title: "Sliver",
-      des: "Kudos to +99****89 for achieving a new milestone and inviting 3 people.",
+      des: "robbinmart5684@hotmail.com for achieving a new milestone and inviting 3 people.",
     },
     {
-      title: "Gold",
-      des: "Congratulations to +80****43 for unlocking and directly inviting 4 people.",
-    },
-    {
-      title: "Platinum",
-      des: "Kudos to +70****81 for achieving a new milestone and inviting 40 people.",
-    },
-    {
-      title: "Gold",
-      des: "Congratulations to +76****34 for unlocking and directly inviting 28 people.",
-    },
-    {
-      title: "Sliver",
-      des: "Kudos to +77****23 for achieving a new milestone and inviting 20 people.",
+      title: "Legend",
+      des: "Congratulations to +80****45 for unlocking and directly inviting 4 people.",
     },
     {
       title: "Platinum",
-      des: "Congratulations to +98****24 for unlocking and directly inviting 14 people.",
+      des: " +9198****84 for achieving a new milestone and inviting 40 people.",
     },
     {
       title: "Gold",
-      des: "Kudos to +91****61 for achieving a new milestone and inviting 10 people.",
+      des: "Congratulations to +76****35 for unlocking and directly inviting 28 people.",
+    },
+    {
+      title: "Emperor",
+      des: "Kudos to +9177****13 for achieving a new milestone and inviting 20 people.",
+    },
+    {
+      title: "Platinum",
+      des: "Congratulations to +97****24 for unlocking and directly inviting 14 people.",
+    },
+    {
+      title: "Daimond",
+      des: "Kudos to sandeep**@yahoo.com for achieving a new milestone and inviting 10 people.",
     },
 
 
@@ -52,22 +52,22 @@ export default function MemberList() {
 
     {
       title: "Platinum",
-      des: "Kudos to +70****71 for achieving a new milestone and inviting 40 people.",
+      des: "Kudos to +9770****71 for achieving a new milestone and inviting 40 people.",
     },
     {
-      title: "Gold",
-      des: "Congratulations to +76****24 for unlocking and directly inviting 28 people.",
+      title: "Elite",
+      des: "Congratulations to arna*****2@hotmail.com for unlocking and directly inviting 28 people.",
     },
     {
-      title: "Sliver",
+      title: "Icon",
       des: "Kudos to +77****25 for achieving a new milestone and inviting 20 people.",
     },
     {
-      title: "Platinum",
+      title: "Legend",
       des: "Congratulations to +98****44 for unlocking and directly inviting 14 people.",
     },
     {
-      title: "Gold",
+      title: "Emperor",
       des: "Kudos to +91****91 for achieving a new milestone and inviting 10 people.",
     },
   ];
