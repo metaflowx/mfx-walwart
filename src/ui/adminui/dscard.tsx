@@ -2,6 +2,7 @@
 import { apiRouterCall } from "@/app/ApiConfig/Services/Index";
 import { Card, CardContent, Typography, Box, Skeleton, Grid2 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { formatUnits } from "viem";
 
 export default function Dscard() {
   const [cardData, setCardData] = useState<any>([]);
@@ -22,8 +23,8 @@ export default function Dscard() {
             description: res?.data?.userCount || 0,
           },
           {
-            title: "Total Earning",
-            description: `${res?.data?.platefromTotalEarnig } USDT`|| 0,
+            title: "Total User Flexible Balance",
+            description: `${res?.data?.totalFlexibleBalanceSum ? Number(formatUnits(res?.data?.totalFlexibleBalanceSum,18)).toFixed(4):"" } USDT`|| 0,
           },
           {
             title: "Total Blocked User",
@@ -36,11 +37,11 @@ export default function Dscard() {
 
           {
             title: "Total User Earning",
-            description: `${res?.data?.totalUserEarning} USDT` || 0,
+            description: `${Number(res?.data?.totalUserEarning).toFixed(4)} USDT` || 0,
           },
           {
             title: "Total User Investment",
-            description:`${ res?.data?.totalUserInvestment} USDT` || 0,
+            description:`${Number( res?.data?.totalUserInvestment).toFixed(4)} USDT` || 0,
           },
         ]);
         setLoading(false);

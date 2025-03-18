@@ -192,10 +192,10 @@ const Tasktable = () => {
                   <Typography color="#000">{moment(item?.createdAt).format("lll")}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item?.stats?.totalSumOfInvestment || 0}</Typography>
+                  <Typography color="#000">${item?.stats?.totalSumOfInvestment >0 ? Number(item?.stats?.totalSumOfInvestment).toFixed(4) : 0}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="#000">${item?.stats?.totalSumOfInvestmentEarnings || 0}</Typography>
+                  <Typography color="#000">${item?.stats?.totalSumOfInvestmentEarnings >0? Number(Number(item?.stats?.totalSumOfInvestmentEarnings)+Number(item?.totalCommissionEarning)).toFixed(4) : 0}</Typography>
                 </TableCell>
                 <TableCell align="right" style={{whiteSpace:"pre"}} >
                   <FormControlLabel
